@@ -3,6 +3,7 @@ class ToursController < ApplicationController
   Faraday.default_adapter = :net_http
   include Wicked::Wizard
   steps :step1, :step2, :step3, :step4
+
   def index
     # conn = Faraday.new do |f|
     #   f.request :json # encode req bodies as JSON
@@ -14,8 +15,8 @@ class ToursController < ApplicationController
     # https://www.cotala.com/printjobs/86588/data.txt
     # https://www.cotala.com/printjobs/86697/data.txt
     # https://www.cotala.com/printjobs/86688/data.txt
-
-    @response = Faraday.get('https://www.cotala.com/printjobs/86688/data.txt')
+    random_array = [86_588, 86_697, 86_688]
+    @response = Faraday.get("https://www.cotala.com/printjobs/#{random_array.sample}/data.txt")
     @header_elements = []
     @body_elemets = []
     array = @response.body.split("\t")
