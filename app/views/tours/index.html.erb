@@ -1,16 +1,13 @@
-<table>
+<table class="table table-striped">
   <thead>
-    <tr>
-      <% @header_elements.each do |element| %>
-      <th><%= element %></th>
-      <% end %>
-    </tr>
   </thead>
   <tbody>
-    <tr>
-      <% @body_elemets.each do |element| %>
-      <td><%= element %></td>
-      <% end %>
-    </tr>
+    <% @header_elements.each_with_index do |element, index|%>
+      <tr>
+        <td><%= element %></td>
+        <td><%= @body_elemets[index] %></td>
+      </tr>
+    <% end %>
   </tbody>
+  <%# <%= link_to 'step1', next_wizard_path %> %>
 </table>

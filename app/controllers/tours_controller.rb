@@ -1,6 +1,8 @@
 class ToursController < ApplicationController
   require 'faraday/net_http'
   Faraday.default_adapter = :net_http
+  include Wicked::Wizard
+  steps :step1, :step2, :step3, :step4
   def index
     # conn = Faraday.new do |f|
     #   f.request :json # encode req bodies as JSON
@@ -25,5 +27,9 @@ class ToursController < ApplicationController
       end
     end
     [@header_elements, @body_elemets]
+  end
+
+  def show
+    render_wizard
   end
 end
