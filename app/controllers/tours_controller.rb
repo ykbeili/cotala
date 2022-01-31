@@ -11,15 +11,15 @@ class ToursController < ApplicationController
     #   f.adapter :net_http # Use the Net::HTTP adapter
     # end
     # @response = conn.get('https://www.cotala.com/printjobs/86588/data.txt')
-    @response = Faraday.get('https://www.cotala.com/printjobs/86588/data.txt')
+    # https://www.cotala.com/printjobs/86588/data.txt
+    # https://www.cotala.com/printjobs/86697/data.txt
+    # https://www.cotala.com/printjobs/86688/data.txt
+
+    @response = Faraday.get('https://www.cotala.com/printjobs/86688/data.txt')
     @header_elements = []
     @body_elemets = []
     array = @response.body.split("\t")
-    p array.count / 2
-    p 'array'
     array.each_with_index do |e, index|
-      p index
-      p 'index'
       if index < array.count / 2
         @header_elements.push(e)
       else
@@ -27,6 +27,10 @@ class ToursController < ApplicationController
       end
     end
     [@header_elements, @body_elemets]
+  end
+
+  def step1
+    # render_wizard
   end
 
   def show

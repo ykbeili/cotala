@@ -1,13 +1,15 @@
+<%= render 'layouts/navigation'%>
+<h2>We will help you easily customize a brochure</h2>
+<h3>Response:</h3>
 <table class="table table-striped">
   <thead>
   </thead>
   <tbody>
-    <% @header_elements.each_with_index do |element, index|%>
+    <% @header_elements.each_with_index do |element, index| %>
       <tr>
         <td><%= element %></td>
         <td><%= @body_elemets[index] %></td>
       </tr>
     <% end %>
   </tbody>
-  <%# <%= link_to 'step1', next_wizard_path %> %>
 </table>
