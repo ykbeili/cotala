@@ -27,7 +27,9 @@ class ToursController < ApplicationController
         @body_elemets.push(e)
       end
     end
-    [@header_elements, @body_elemets]
+    @tour_id = get_tour_id(@header_elements)
+    @images = get_images(@header_elements, @body_elemets)
+    [@header_elements, @body_elemets, @tour_id, @images]
   end
 
   def step1
@@ -36,5 +38,26 @@ class ToursController < ApplicationController
 
   def show
     render_wizard
+  end
+
+  private
+
+  def get_tour_id(elements)
+    tour_id = ''
+    elements.each_with_index do |element, index|
+      if element.include?('TourID')
+        tour_id = @body_elemets[index]
+        next
+      end
+    end
+    tour_id
+  end
+
+  def get_images(elements, body_elements)
+    images = []
+    elements.each_with_index do |element, index|
+      images.push(body_elements[index]) if element.include?('@mlsPick')
+    end
+    images
   end
 end

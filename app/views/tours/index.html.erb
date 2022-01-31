@@ -6,15 +6,26 @@
   </thead>
   <tbody>
     <% @header_elements.each_with_index do |element, index| %>
-      <tr>
-        <td><%= element %></td>
-        <td><%= @body_elemets[index] %>
-        <% if element === 'BrokerLogo' %>
-          <%= image_tag @body_elemets[index] %>
-        <% else %>
-        <% end %>
-        </td>
-      </tr>
+    <% if !element.include?('@mlsPick') %>
+        <tr>
+          <td><%= element %></td>
+          <td><%= @body_elemets[index] %>
+          <% if element === 'BrokerLogo' %>
+            <%= image_tag @body_elemets[index] %>
+          <% else %>
+          <% end %>
+          </td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
+<div class="container">
+  <div class="row no-gutters">
+    <% @images.each_with_index do |image, index|%>
+      <div class="col-4">
+        <%= image_tag "https://www.cotala.com/tours/#{@tour_id}/#{@tour_id}_#{image}", class:'w-100'%>
+      </div>
+    <% end %>
+  </div>
+</div>
