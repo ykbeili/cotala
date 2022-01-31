@@ -8,7 +8,12 @@
     <% @header_elements.each_with_index do |element, index| %>
       <tr>
         <td><%= element %></td>
-        <td><%= @body_elemets[index] %></td>
+        <td><%= @body_elemets[index] %>
+        <% if element === 'BrokerLogo' %>
+          <%= image_tag @body_elemets[index] %>
+        <% else %>
+        <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
