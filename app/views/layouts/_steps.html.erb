@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-2">
+      <%= link_to 'step one', wizard_path(:step1), class:"btn #{step == :step1 ? 'btn-primary': 'btn-light'}"  %>
+    </div>
+    <div class="col-2">
+      <%= link_to 'step two', wizard_path(:step2), class:"btn #{step == :step2 ? 'btn-primary': 'btn-light'}"  %>
+    </div>
+    <div class="col-2">
+      <%= link_to 'step three', wizard_path(:step3), class:"btn #{step == :step3 ? 'btn-primary': 'btn-light'}"  %>
+    </div>
+    <div class="col-2">
+      <%= link_to 'step four', wizard_path(:step4), class:"btn #{step == :step4 ? 'btn-primary': 'btn-light'}"  %>
+    </div>
+    <div class="col-2">
+      <%= link_to 'step five', wizard_path(:step5), class:"btn #{step == :step5 ? 'btn-primary': 'btn-light'}"  %>
+    </div>
+    <div class="col-2">
+      <%= link_to 'step six', wizard_path(:step6), class:"btn #{step == :step6 ? 'btn-primary': 'btn-light'}"  %>
+    </div>
+  </div>
+</div>

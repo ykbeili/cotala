@@ -1,1 +1,28 @@
-<%= link_to 'skip', next_wizard_path %>
+<div class="container mt-5">
+  <div class="row no-gutters">
+    <div class="col-12">
+      <h1>Cotala Brochure</h1>
+      <p>We will help you customize your brochure</p>
+    </div>
+  </div>
+  <div class="row no-gutters text-left mt-5">
+    <div class="col-12">
+      <%= render '/layouts/steps'%>
+    </div>
+  </div>
+  <div class="row no-gutters mt-5">
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="..." alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">4-Page Brochure</h5>
+        <ul>
+          <li>4 page</li>
+          <li>Property Images</li>
+          <li>Easy To Print</li>
+        </ul>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <%= link_to "Download Sample'", download_path, class:'btn btn-primary', target: "_blank"%>
+      </div>
+    </div>
+  </div>
+</div>

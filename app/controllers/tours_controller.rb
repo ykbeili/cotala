@@ -2,7 +2,7 @@ class ToursController < ApplicationController
   require 'faraday/net_http'
   Faraday.default_adapter = :net_http
   include Wicked::Wizard
-  steps :step1, :step2, :step3, :step4
+  steps :step1, :step2, :step3, :step4, :step5, :step6
 
   def index
     # conn = Faraday.new do |f|
@@ -32,12 +32,16 @@ class ToursController < ApplicationController
     [@header_elements, @body_elemets, @tour_id, @images]
   end
 
-  def step1
-    # render_wizard
+  def show
+    case step
+    when :step2
+      @images = 
+    end
+    render_wizard
   end
 
-  def show
-    render_wizard
+  def download_ofs
+    send_file("#{Rails.root}/public/OFS.pdf")
   end
 
   private

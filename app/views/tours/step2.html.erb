@@ -1,0 +1,15 @@
+<div class="container mt-5">
+  <div class="row no-gutters text-left mt-5">
+    <div class="col-12">
+      <%= render '/layouts/steps'%>
+      <h2>Pich 15 Photos</h2>
+    </div>
+  </div>
+  <div class="row no-gutters mt-5">
+    <% @images.each do |image| %>
+      <div class="col-2">
+        <%= image_tag "https://www.cotala.com/tours/#{@tour_id}/#{@tour_id}_#{image}", class:'w-100'%>
+      </div>
+    <% end %>
+  </div>
+</div>
