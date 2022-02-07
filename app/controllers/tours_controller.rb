@@ -5,37 +5,26 @@ class ToursController < ApplicationController
   steps :step1, :step2, :step3, :step4, :step5, :step6
 
   def index
-    # conn = Faraday.new do |f|
-    #   f.request :json # encode req bodies as JSON
-    #   # f.request :retry # retry transient failures
-    #   f.response :json # decode response bodies as JSON
-    #   f.adapter :net_http # Use the Net::HTTP adapter
-    # end
-    # @response = conn.get('https://www.cotala.com/printjobs/86588/data.txt')
-    # https://www.cotala.com/printjobs/86588/data.txt
-    # https://www.cotala.com/printjobs/86697/data.txt
-    # https://www.cotala.com/printjobs/86688/data.txt
-    random_array = [86_588, 86_697, 86_688]
-    @response = Faraday.get("https://www.cotala.com/printjobs/#{random_array.sample}/data.txt")
-    @header_elements = []
-    @body_elemets = []
-    array = @response.body.split("\t")
-    array.each_with_index do |e, index|
-      if index < array.count / 2
-        @header_elements.push(e)
-      else
-        @body_elemets.push(e)
-      end
-    end
-    @tour_id = get_tour_id(@header_elements)
-    @images = get_images(@header_elements, @body_elemets)
-    [@header_elements, @body_elemets, @tour_id, @images]
   end
 
   def show
     case step
     when :step2
-      @images = 
+      random_array = [86_588, 86_697, 86_688]
+      @response = Faraday.get("https://www.cotala.com/printjobs/#{random_array.sample}/data.txt")
+      @header_elements = []
+      @body_elemets = []
+      array = @response.body.split("\t")
+      array.each_with_index do |e, index|
+        if index < array.count / 2
+          @header_elements.push(e)
+        else
+          @body_elemets.push(e)
+        end
+      end
+      @tour_id = get_tour_id(@header_elements)
+      @images = get_images(@header_elements, @body_elemets)
+      [@header_elements, @body_elemets, @tour_id, @images]
     end
     render_wizard
   end
