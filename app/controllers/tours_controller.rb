@@ -4,14 +4,15 @@ class ToursController < ApplicationController
   include Wicked::Wizard
   steps :step1, :step2, :step3, :step4, :step5, :step6
 
-  def index
-  end
+  def index; end
 
   def show
     case step
     when :step2
       random_array = [86_588, 86_697, 86_688]
       @response = Faraday.get("https://www.cotala.com/printjobs/#{random_array.sample}/data.txt")
+      p @response
+      p '@response'
       @header_elements = []
       @body_elemets = []
       array = @response.body.split("\t")
