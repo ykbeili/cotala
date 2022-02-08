@@ -4,7 +4,7 @@
     <div class="col-12">
       <h1>Cotala Brochure</h1>
       <p>We will help you customize your brochure</p>
-      <%= link_to 'Start', wizard_path(:step1), class: 'btn btn-primary'%>
+      <%= link_to 'Start', wizard_path(:step1, :tour_id => @tour.id), class: 'btn btn-primary'%>
     </div>
   </div>
 </div>
