@@ -13,6 +13,16 @@ class Tour < ApplicationRecord
     end
   end
 
+  def self.save_record(response)
+    @tour = Tour.new
+    @tour.agent_name = response["AgentName"]
+    if @tour.save
+      @tour
+    else
+      'error'
+    end
+  end
+
   private
 
   def self.parse_response(response)
