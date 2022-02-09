@@ -18,7 +18,6 @@ class ToursController < ApplicationController
   end
 
   def show
-    p @tour
     render_wizard
   end
 
