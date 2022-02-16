@@ -7,7 +7,7 @@ class ToursController < ApplicationController
     random_array = [86_588, 86_697, 86_688, 87416, 87417, 87418, 87419, 87420, 87421, 87422, 87423, 87424, 87425]
     @response = Tour.get_tour(87423)
     @tour = Tour.save_record(@response)
-    if @tour !== 'error'
+    if @tour != 'error'
       render :index
     else
       render json: { errors: @tour.errors }, status: :unprocessable_entity
