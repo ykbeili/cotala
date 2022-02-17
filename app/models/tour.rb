@@ -15,6 +15,8 @@ class Tour < ApplicationRecord
 
   def self.save_record(response)
     @tour = Tour.new
+    p response
+    p 'response'
     @tour.agent_name = response["AgentName"]
     # @tour.agent_phone = response["AgentPhone"]
     # @tour.agent_email = response["AgentEmail"]

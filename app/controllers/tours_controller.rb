@@ -4,8 +4,8 @@ class ToursController < ApplicationController
   before_action :find_tour, only: [:show]
 
   def index
-    random_array = [86_588, 86_697, 86_688, 87416, 87417, 87418, 87419, 87420, 87421, 87422, 87423, 87424, 87425]
-    @response = Tour.get_tour(87423)
+    random_array = [87416, 87417, 87418, 87419, 87420, 87421, 87422, 87423, 87424, 87425]
+    @response = Tour.get_tour(random_array)
     @tour = Tour.save_record(@response)
     if @tour != 'error'
       render :index
