@@ -2,6 +2,7 @@ class Tour < ApplicationRecord
   require 'faraday/net_http'
   Faraday.default_adapter = :net_http
   has_many :images, dependent: :destroy
+
   # get tour info from cotala
   def self.get_tour(tour_id)
     begin
@@ -14,9 +15,8 @@ class Tour < ApplicationRecord
   end
 
   def self.save_record(response)
+    images = get_images(response["NumPics"])
     @tour = Tour.new
-    p response
-    p 'response'
     @tour.agent_name = response["AgentName"]
     # @tour.agent_phone = response["AgentPhone"]
     # @tour.agent_email = response["AgentEmail"]
@@ -54,19 +54,32 @@ class Tour < ApplicationRecord
   def self.parse_response(response)
     parsed_response_hash = {}
     parsed_response = response.split("\t")
-    hash_keys = get_response_array(parsed_response)[:hash_keys]
-    hash_values = get_response_array(parsed_response)[:hash_values]
+    parsed_respons_hash = get_response_arrays(parsed_response)
+    hash_keys = parsed_respons_hash[:hash_keys]
+    hash_values = parsed_respons_hash[:hash_values]
     hash_keys.each_with_index do |key, index|
       parsed_response_hash[key] = hash_values[index]
     end
-    images = get_images(hash_keys, hash_values)
     parsed_response_hash
   end
-  # 
-  def self.get_response_array(response)
+
+  def self.get_response_arrays(response)
     hash_keys = []
     hash_values = []
     response.each_with_index do |e, index|
+      if e.include?("\"")
+        e = e.gsub!('"', '')
+      end
+      if e.include?("\n")
+        e = e.chomp("\n")
+      end
+      if e.include?('PrintjobID') 
+        print_job_id = e.slice(0..9)
+        agent_name = e.slice(12..e.length - 2)
+        hash_keys.push(print_job_id)
+        hash_values.push(agent_name)
+        next
+      end
       if index < response.count / 2
         hash_keys.push(e)
       else
@@ -76,21 +89,11 @@ class Tour < ApplicationRecord
     { hash_keys: hash_keys, hash_values: hash_values }
   end
 
-  def get_tour_id(elements)
-    tour_id = ''
-    elements.each_with_index do |element, index|
-      if element.include?('TourID')
-        tour_id = @body_elemets[index]
-        next
-      end
-    end
-    tour_id
-  end
-
-  def self.get_images(keys, values)
+  def self.get_images(num_of_pics)
     images = []
-    keys.each_with_index do |key, index|
-      images.push(values[index]) if key.include?('@mlsPick')
+    num_of_pics = num_of_pics.to_i
+    (1..num_of_pics).each do |key|
+      images.push(key.to_s + '.jpg')
     end
     images
   end

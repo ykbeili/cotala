@@ -5,9 +5,9 @@ class ToursController < ApplicationController
 
   def index
     random_array = [87416, 87417, 87418, 87419, 87420, 87421, 87422, 87423, 87424, 87425]
-    @response = Tour.get_tour(random_array)
-    @tour = Tour.save_record(@response)
-    if @tour != 'error'
+    @response = Tour.get_tour(random_array.shuffle.first)
+    @tour = Tour.save_record(@response) if @response
+    if @tour.present?
       render :index
     else
       render json: { errors: @tour.errors }, status: :unprocessable_entity
