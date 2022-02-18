@@ -1,5 +1,6 @@
 class ToursController < ApplicationController
   include Wicked::Wizard
+  require "prawn"
   steps :step1, :step2, :step3, :step4, :step5, :step6
   before_action :find_tour, only: [:show]
 
@@ -15,6 +16,12 @@ class ToursController < ApplicationController
   end
 
   def show
+    # case step
+    # when :step3
+    #   Prawn::Document.generate("hello.pdf") do
+    #   text "Hello World!"
+    # end
+    # end
     render_wizard
   end
 
