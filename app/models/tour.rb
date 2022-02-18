@@ -4,9 +4,9 @@ class Tour < ApplicationRecord
   has_many :images, dependent: :destroy
 
   # get tour info from cotala
-  def self.get_tour(tour_id)
+  def self.get_tour(print_job_id)
     begin
-      @response = Faraday.get("https://www.cotala.com/printjobs/#{tour_id}/data.txt")
+      @response = Faraday.get("https://www.cotala.com/printjobs/#{print_job_id}/data.txt")
       @parsed_response_hash = parse_response(@response.body)
       @parsed_response_hash
     rescue StandardError
@@ -22,7 +22,6 @@ class Tour < ApplicationRecord
       tour_image = Image.create(name: image)
       tour_images.push(tour_image)
     end
-
     @tour.images = tour_images
     @tour.agent_name = response["AgentName"]
     @tour.agent_phone = response["AgentPhone"]
