@@ -22,6 +22,7 @@ class Tour < ApplicationRecord
       tour_image = Image.create(name: image)
       tour_images.push(tour_image)
     end
+
     @tour.images = tour_images
     @tour.agent_name = response["AgentName"]
     @tour.agent_phone = response["AgentPhone"]
