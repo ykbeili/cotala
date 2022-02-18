@@ -9,7 +9,7 @@
   <div class="row no-gutters mt-5">
     <% @images.each do |image| %>
       <div class="col-2 my-2">
-        <%= image_tag "https://www.cotala.com/tours/#{@tour_id}/#{@tour_id}_#{image}", class:'w-100'%>
+        <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{image.name}", class:'w-100'%>
       </div>
     <% end %>
   </div>

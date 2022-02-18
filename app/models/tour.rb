@@ -17,31 +17,37 @@ class Tour < ApplicationRecord
   def self.save_record(response)
     images = get_images(response["NumPics"])
     @tour = Tour.new
+    tour_images = []
+    images.each do |image|
+      tour_image = Image.create(name: image)
+      tour_images.push(tour_image)
+    end
+    @tour.images = tour_images
     @tour.agent_name = response["AgentName"]
-    # @tour.agent_phone = response["AgentPhone"]
-    # @tour.agent_email = response["AgentEmail"]
-    # @tour.agent_url = response["AgentUrl"]
-    # @tour.brokerage_name = response["BrokerageName"]
-    # @tour.brokerage_address = response["BrokerageAddress"]
-    # @tour.brokerage_brand = response["BrokerageBrand"]
-    # @tour.broker_logo = response["BrokerLogo"]
-    # @tour.listing_address = response["ListingAddress"]
-    # @tour.show_price = response["ShowPrice"]
-    # @tour.price = response["Price"]
-    # @tour.mls = response["MLS"]
-    # @tour.tax = response["Tax"]
-    # @tour.built = response["Built"]
-    # @tour.no_of_bedrooms = response["Bedrooms"]
-    # @tour.no_of_barhrooms = response["Bathrooms"]
-    # @tour.size = response["Size"]
-    # @tour.lot_or_maint = response["Lot_or_Maint"]
-    # @tour.lot_maint = response["LotMaint"]
-    # @tour.description = response["Description"]
-    # @tour.style = response["Style"]
-    # @tour.type = response["Type"]
-    # @tour.tour_id = response["TourID"]
-    # @tour.num_of_pics = response["NumPics"]
-    # @tour.print_job_id = response["PrintjobID"]
+    @tour.agent_phone = response["AgentPhone"]
+    @tour.agent_email = response["AgentEmail"]
+    @tour.agent_url = response["AgentUrl"]
+    @tour.brokerage_name = response["BrokerageName"]
+    @tour.brokerage_address = response["BrokerageAddress"]
+    @tour.brokerage_brand = response["BrokerageBrand"]
+    @tour.broker_logo = response["BrokerLogo"]
+    @tour.listing_address = response["ListingAddress"]
+    @tour.show_price = response["ShowPrice"]
+    @tour.price = response["Price"]
+    @tour.mls = response["MLS"]
+    @tour.tax = response["Tax"]
+    @tour.built = response["Built"]
+    @tour.bedrooms = response["Bedrooms"]
+    @tour.bathrooms = response["Bathrooms"]
+    @tour.size = response["Size"]
+    @tour.lot_or_maint = response["Lot_or_Maint"] == "Lot" ? true : false
+    @tour.lot_maint = response["LotMaint"]
+    @tour.description = response["Description"]
+    @tour.style = response["Style"]
+    @tour.property_type = response["Type"]
+    @tour.cotala_tour_id = response["TourID"]
+    @tour.num_of_pics = response["NumPics"]
+    @tour.print_job_id = response["PrintjobID"]
     if @tour.save
       @tour
     else
