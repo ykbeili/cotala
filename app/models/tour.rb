@@ -79,9 +79,9 @@ class Tour < ApplicationRecord
       if e.include?("\n")
         e = e.chomp("\n")
       end
-      if e.include?('PrintjobID') 
+      if e.include?('PrintjobID')
         print_job_id = e.slice(0..9)
-        agent_name = e.slice(12..e.length - 2)
+        agent_name = e.slice(11..e.length - 1)
         hash_keys.push(print_job_id)
         hash_values.push(agent_name)
         next

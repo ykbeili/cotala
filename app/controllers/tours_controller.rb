@@ -15,10 +15,6 @@ class ToursController < ApplicationController
   end
 
   def show
-    case step
-    when :step2
-      @images = @tour.images
-    end
     render_wizard
   end
 
