@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_09_031120) do
+ActiveRecord::Schema.define(version: 2022_02_18_022549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,12 +19,37 @@ ActiveRecord::Schema.define(version: 2022_02_09_031120) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "tour_id", null: false
+    t.index ["tour_id"], name: "index_images_on_tour_id"
   end
 
   create_table "tours", force: :cascade do |t|
     t.string "agent_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "agent_phone"
+    t.string "agent_email"
+    t.string "agent_url"
+    t.string "brokerage_name"
+    t.string "brokerage_address"
+    t.string "listing_address"
+    t.boolean "show_price"
+    t.integer "price"
+    t.string "mls"
+    t.string "tax"
+    t.integer "built"
+    t.integer "bedrooms"
+    t.integer "bathrooms"
+    t.string "size"
+    t.boolean "lot_or_maint"
+    t.float "lot_maint"
+    t.text "description"
+    t.text "style"
+    t.integer "property_type"
+    t.integer "num_of_pics"
+    t.integer "print_job_id"
+    t.string "brokerage_brand"
   end
 
+  add_foreign_key "images", "tours"
 end
