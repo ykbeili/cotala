@@ -15,7 +15,7 @@
   </div>
   <div class="row no-gutters text-left">
     <div class="col-4 mt-4">
-      <%= link_to 'Next Step', wizard_path(:step3), class:'btn btn-primary' %><br/>
+      <%= link_to 'Next Step', wizard_path(:step3, :tour_id => @tour.id), class:'btn btn-primary' %><br/>
       <strong>You can always edit the images</strong>
     </div>
     <div class="col-4 mt-4">

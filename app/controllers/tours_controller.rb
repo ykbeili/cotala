@@ -16,17 +16,27 @@ class ToursController < ApplicationController
   end
 
   def show
-    # case step
-    # when :step3
-    #   Prawn::Document.generate("hello.pdf") do
-    #   text "Hello World!"
-    # end
     # end
     render_wizard
   end
 
   def download_ofs
     send_file("#{Rails.root}/public/OFS.pdf")
+  end
+
+  def create_pdf
+  #   respond_to do |format|
+  #     format.html
+  #     format.pdf do
+  #       pdf = OrderDocument.new
+  #       send_data pdf.render,
+  #                 filename: 'export.pdf'
+  #   end
+  # end
+  pdf = TourDocument.new
+  send_data pdf.render,
+  filename: 'export.pdf'
+    # redirect_to root_path
   end
 
   private
