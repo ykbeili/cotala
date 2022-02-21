@@ -25,18 +25,10 @@ class ToursController < ApplicationController
   end
 
   def create_pdf
-  #   respond_to do |format|
-  #     format.html
-  #     format.pdf do
-  #       pdf = OrderDocument.new
-  #       send_data pdf.render,
-  #                 filename: 'export.pdf'
-  #   end
-  # end
-  pdf = TourDocument.new
-  send_data pdf.render,
-  filename: 'export.pdf'
-    # redirect_to root_path
+    @tour = Tour.find_by_id(params[:tour_id])
+    pdf = TourDocument.new(@tour)
+    send_data pdf.render,
+    filename: 'export.pdf'
   end
 
   private
