@@ -1,91 +1,98 @@
 class TourDocument < Prawn::Document
   require "open-uri"
   def initialize(tour)
-    super(:page_size => 'A2')
+    super(:page_size => [1632, 1056])
     @tour = tour
     first_page
+    start_new_page
     second_page
   end
   
   def first_page
-    stroke_axis
+    # stroke_axis
     floor_plan = "https://images.squarespace-cdn.com/content/v1/5bdde6530dbda3230ba6bd5d/1542039146291-IY4AG1D0JN2D1400BZ1C/Matterport+-+Best+Practices+for+Schematic+Floor+Plans.jpg?format=1000w"
     main_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[0].name}"
     broker_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[1].name}"
     borker_log = @tour.broker_logo
-    image open(floor_plan), :width => 650, :height => 1600
+    # line_width(5) :at => [-40, 1000]
+    # line [50, 1000], [150, 1200]
+    stroke_line [-40, 980], [-10,980]
+    stroke_line [0, 1050], [0, 990]
+
+    stroke_line [-40, 10], [0,10]
+    stroke_line [10, -40], [10, 0]
+
+    stroke_line [1540, 1050], [1540, 975]
+    stroke_line [1600, 975], [1560, 975]
+
+    stroke_line [1540, -40], [1540, 0]
+    stroke_line [1600, 20], [1560, 20]
+
+    image open(floor_plan), fit: [750, 800], :at => [0, 1000]
     fill_color '6c6d70'
     font_size 16
-    text_box "Listing Features", :at => [650, 1525], style: "normal"
+    text_box "Listing Features", :at => [900, 900], style: "normal"
     font_size 20
-    text_box "#{@tour.listing_address}", :at => [650, 1500]
-    image open(borker_log), :width => 100, :height => 100, :at => [1050,1550]
-    image open(main_image), :width => 450, :height => 600, :at => [650, 1400]
-    text_box "#{@tour.agent_name}", :at => [760, 300]
+    text_box "#{@tour.listing_address}", :at => [900, 875]
+    image open(borker_log), fit: [100, 100], :at => [1400, 950]
+    image open(main_image), fit: [600, 800], :at => [850, 800]
+    image open(broker_image), fit: [200, 200], :at => [900, 350]
+    text_box "#{@tour.agent_name}", :at => [1125, 350]
     font_size 8
-    text_box "Personal Real Estate Corportation", :at => [760, 275]
+    text_box "Personal Real Estate Corportation", :at => [1125, 325]
     font_size 20
-    text_box "#{@tour.agent_phone}", :at => [760, 250]
+    text_box "#{@tour.agent_phone}", :at => [1125, 300]
     font_size 8
-    text_box "#{@tour.agent_email}", :at => [760, 220]
-    text_box "#{@tour.agent_url}", :at => [760, 200]
-    image open(broker_image), :width => 100, :height => 200, :at => [650,300]
-    image open(borker_log), :width => 200, :height => 100, :at => [950,250]
-    start_new_page
+    text_box "#{@tour.agent_email}", :at => [1125, 270]
+    text_box "#{@tour.agent_url}", :at => [1125, 250]
+    image open(borker_log), fit: [100, 100], :at => [1375, 325]
   end
 
   def second_page
+    stroke_line [-40, 980], [0,980]
+    stroke_line [0, 1050], [0, 990]
+
+    stroke_line [-40, 10], [0,10]
+    stroke_line [10, -40], [10, 0]
+
+    stroke_line [1540, 1050], [1540, 975]
+    stroke_line [1600, 975], [1560, 975]
+
+    stroke_line [1540, -40], [1540, 0]
+    stroke_line [1600, 20], [1560, 20]
     fill_color '6c6d70'
     font_size 20
-    text_box "#{@tour.listing_address}", :at => [30, 1550]
-    text_box "Listed for: $#{@tour.price}", :at => [30, 1500], style: "bold"
+    text_box "#{@tour.listing_address}", :at => [40, 900]
+    text_box "Listed for: $#{@tour.price}", :at => [40, 825], style: "bold"
     font_size 8
     tour_description = @tour.description
-    formatted_tour_description = @tour.description.split(" ")
-    first_chapter = []
-    second_chapter = []
-    third_chapter = []
-    fourth_chapter = []
-    fifth_chapter = []
-    formatted_tour_description.each_with_index do |c, index|
-      if index < formatted_tour_description.count / 5
-        first_chapter.push(c)
-        next
-      elsif index < formatted_tour_description.count / 4
-        second_chapter.push(c)
-        next
-      elsif index < formatted_tour_description.count / 3
-        third_chapter.push(c)
-        next
-      elsif index < formatted_tour_description.count / 2
-        fourth_chapter.push(c)
-        next
-      else
-        fifth_chapter.push(c)
-        next
-      end
-    end
-    text_box "#{first_chapter.join(' ')}}", :at => [30, 1450]
-    text_box "#{second_chapter.join(' ')}", :at => [30, 1440]
-    text_box "#{third_chapter.join(' ')}}", :at => [30, 1430]
-    text_box "#{fourth_chapter.join(' ')}", :at => [30, 1420]
-    text_box "#{fifth_chapter.join(' ')}", :at => [30, 1410]
+    text_box "#{tour_description}", :at => [40, 750], :width => 400
     font_size 16
-    text_box "LOT | #{@tour.mls} | SIZE #{@tour.size} SF | #{@tour.bedrooms} BED | #{@tour.bathrooms} BATH | TAXES #{@tour.tax}", :at => [30, 1350]
+    text_box "LOT | #{@tour.mls} | SIZE #{@tour.size} SF | #{@tour.bedrooms} BED | #{@tour.bathrooms} BATH | TAXES #{@tour.tax}", :at => [40, 650]
     main_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[0].name}"
-    image open(main_image), :width => 600, :height => 400, :at => [30,1300]
-    image open(main_image), :width => 190, :height => 100, :at => [30, 890]
-    image open(main_image), :width => 190, :height => 100, :at => [235, 890]
-    image open(main_image), :width => 190, :height => 100, :at => [440, 890]
-    image open(main_image), :width => 500, :height => 400, :at => [650, 1400]
-    image open(main_image), :width => 190, :height => 100, :at => [650, 890]
-    image open(main_image), :width => 190, :height => 100, :at => [850, 890]
-    image open(main_image), :width => 190, :height => 100, :at => [1050, 890]
-    image open(main_image), :width => 190, :height => 100, :at => [650, 790]
-    image open(main_image), :width => 190, :height => 100, :at => [850, 790]
-    image open(main_image), :width => 190, :height => 100, :at => [1050, 790]
-    image open(main_image), :width => 190, :height => 100, :at => [650, 690]
-    image open(main_image), :width => 190, :height => 100, :at => [850, 690]
-    image open(main_image), :width => 190, :height => 100, :at => [1050, 690]
+    image open(main_image), fit: [800, 300], :at => [30, 550]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[2].name}"), :width => 140, :height => 75, :at => [30, 240]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[3].name}"), :width => 140, :height => 75, :at => [185, 240]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[4].name}"), :width => 140, :height => 75, :at => [340, 240]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[5].name}"), fit: [800, 300], :at => [850, 900]
+  
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[6].name}"), :width => 140, :height => 75, :at => [850, 575]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[7].name}"), :width => 140, :height => 75, :at => [1000, 575]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[8].name}"), :width => 140, :height => 75, :at => [1150, 575]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[9].name}"), :width => 140, :height => 75, :at => [850, 475]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[10].name}"), :width => 140, :height => 75, :at => [1000, 475]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[11].name}"), :width => 140, :height => 75, :at => [1150, 475]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[12].name}"), :width => 140, :height => 75, :at => [850, 375]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[13].name}"), :width => 140, :height => 75, :at => [1000, 375]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[14].name}"), :width => 140, :height => 75, :at => [1150, 375]
+    # image open(main_image), :width => 190, :height => 100, :at => [650, 890]
+    # image open(main_image), :width => 190, :height => 100, :at => [850, 890]
+    # image open(main_image), :width => 190, :height => 100, :at => [1050, 890]
+    # image open(main_image), :width => 190, :height => 100, :at => [650, 790]
+    # image open(main_image), :width => 190, :height => 100, :at => [850, 790]
+    # image open(main_image), :width => 190, :height => 100, :at => [1050, 790]
+    # image open(main_image), :width => 190, :height => 100, :at => [650, 690]
+    # image open(main_image), :width => 190, :height => 100, :at => [850, 690]
+    # image open(main_image), :width => 190, :height => 100, :at => [1050, 690]
   end
 end
