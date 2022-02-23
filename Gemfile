@@ -28,6 +28,7 @@ gem 'faraday-net_http'
 gem 'jquery-rails'
 gem 'wicked'
 gem 'prawn', '~> 2.1'
+gem 'pdf-reader'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
