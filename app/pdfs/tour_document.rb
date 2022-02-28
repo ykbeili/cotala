@@ -19,41 +19,42 @@ class TourDocument < Prawn::Document
     # line_width(5) :at => [-40, 1000]
     # line [50, 1000], [150, 1200]
     image = get_image_from_pdf()
+    rotate(270, origin: [500, 400]) do 
+      add_content(image)
+    end
+    stroke_line [-40, 980], [-10,980]
+    stroke_line [0, 1050], [0, 990]
 
-    # stroke_line [-40, 980], [-10,980]
-    # stroke_line [0, 1050], [0, 990]
+    stroke_line [-40, 10], [0,10]
+    stroke_line [10, -40], [10, 0]
 
-    # stroke_line [-40, 10], [0,10]
-    # stroke_line [10, -40], [10, 0]
+    stroke_line [1540, 1050], [1540, 975]
+    stroke_line [1600, 975], [1560, 975]
 
-    # stroke_line [1540, 1050], [1540, 975]
-    # stroke_line [1600, 975], [1560, 975]
+    stroke_line [1540, -40], [1540, 0]
+    stroke_line [1600, 20], [1560, 20]
 
-    # stroke_line [1540, -40], [1540, 0]
-    # stroke_line [1600, 20], [1560, 20]
-    image "1-1-Xop1.tif", fit: [750, 800], :at => [0, 1000]
-    # image open(floor_plan), fit: [750, 800], :at => [0, 1000]
-    # fill_color '6c6d70'
-    # font_size 16
-    # text_box "Listing Features", :at => [900, 900], style: "normal"
-    # font_size 20
-    # text_box "#{@tour.listing_address}", :at => [900, 875]
-    # image open(borker_log), fit: [100, 100], :at => [1400, 950]
-    # image open(main_image), fit: [600, 800], :at => [850, 800]
-    # image open(broker_image), fit: [200, 200], :at => [900, 350]
-    # text_box "#{@tour.agent_name}", :at => [1125, 350]
-    # font_size 8
-    # text_box "Personal Real Estate Corportation", :at => [1125, 325]
-    # font_size 20
-    # text_box "#{@tour.agent_phone}", :at => [1125, 300]
-    # font_size 8
-    # text_box "#{@tour.agent_email}", :at => [1125, 270]
-    # text_box "#{@tour.agent_url}", :at => [1125, 250]
-    # image open(borker_log), fit: [100, 100], :at => [1375, 325]
+    fill_color '6c6d70'
+    font_size 16
+    text_box "Listing Features", :at => [900, 900], style: "normal"
+    font_size 20
+    text_box "#{@tour.listing_address}", :at => [900, 875]
+    image open(borker_log), fit: [100, 100], :at => [1400, 950]
+    image open(main_image), fit: [600, 800], :at => [850, 800]
+    image open(broker_image), fit: [200, 200], :at => [900, 350]
+    text_box "#{@tour.agent_name}", :at => [1125, 350]
+    font_size 8
+    text_box "Personal Real Estate Corportation", :at => [1125, 325]
+    font_size 20
+    text_box "#{@tour.agent_phone}", :at => [1125, 300]
+    font_size 8
+    text_box "#{@tour.agent_email}", :at => [1125, 270]
+    text_box "#{@tour.agent_url}", :at => [1125, 250]
+    image open(borker_log), fit: [100, 100], :at => [1375, 325]
   end
 
   def second_page
-    stroke_line [-40, 980], [0,980]
+    stroke_line [-40, 980], [-10,980]
     stroke_line [0, 1050], [0, 990]
 
     stroke_line [-40, 10], [0,10]
@@ -92,15 +93,17 @@ class TourDocument < Prawn::Document
   end
 
   def get_image_from_pdf
-    extractor = ExtractImages::Extractor.new
     io     = open('http://www.cotala.com/tours/60829/Floorplan.pdf')
     reader = PDF::Reader.new(io)
-    # reader.pages.each do |page|
-    #   puts page.objects
-    # end
     page = reader.page(1)
+    receiver = PDF::Reader::RegisterReceiver.new
+    page.walk(receiver)
+    receiver.callbacks.each do |cb|
+      puts cb
+      puts "cb"
+    end
     p page
     p 'page'
-    return extractor.page(page)
+    return page.raw_content
   end
 end
