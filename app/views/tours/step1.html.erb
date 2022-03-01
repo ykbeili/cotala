@@ -1,46 +1,76 @@
 <%= render 'layouts/navigation'%>
-<div class="container mt-5">
-  <div class="row no-gutters text-left mt-5">
-    <div class="col-12">
-      <%= render '/layouts/steps', tour: @tour%>
-    </div>
-  </div>
-  <div class="row no-gutters mt-5">
-  <div class="col-12">
-    <div class="card" style="width: 18rem;">
-      <img class="card-img-top" src="<%= asset_path('pdf_sample.png') %>" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">4-Page Brochure</h5>
-        <ul>
-          <li>4 page</li>
-          <li>Property Images</li>
-          <li>Easy To Print</li>
-        </ul>
-        <%= link_to "Download Sample", download_path, class:'btn btn-primary', target: "_blank"%>
+<section class="section">
+  <div class="container m-0 p-0">
+    <div class="row no-gutters text-left">
+      <div class="col-12">
+        <%= render '/layouts/steps', tour: @tour%>
       </div>
     </div>
-  </div>
-  <div class="row no-gutters text-left mb-3">
-    <div class="col-4 mt-4">
-      <%= link_to 'Next Step', wizard_path(:step2, :tour_id => @tour.id), class:'btn btn-primary' %>
+    <div class="row no-gutters mt-5">
+    <div class="col-4">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="<%= asset_path('pdf_sample.png') %>" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">4-Page Brochure</h5>
+          <ul>
+            <li>4 page</li>
+            <li>Property Images</li>
+            <li>Easy To Print</li>
+          </ul>
+          <%= link_to "Download Sample", download_path, class:'btn btn-primary', target: "_blank"%>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="<%= asset_path('pdf_sample.png') %>" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">4-Page Brochure</h5>
+          <ul>
+            <li>4 page</li>
+            <li>Property Images</li>
+            <li>Easy To Print</li>
+          </ul>
+          <%= link_to "Download Sample", download_path, class:'btn btn-primary', target: "_blank"%>
+        </div>
+      </div>
+    </div>
+        <div class="col-4">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="<%= asset_path('pdf_sample.png') %>" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">4-Page Brochure</h5>
+          <ul>
+            <li>4 page</li>
+            <li>Property Images</li>
+            <li>Easy To Print</li>
+          </ul>
+          <%= link_to "Download Sample", download_path, class:'btn btn-primary', target: "_blank"%>
+        </div>
+      </div>
+    </div>
+    <div class="row no-gutters text-left mb-3">
+      <div class="col-4 mt-4">
+        <%= link_to 'Next Step', wizard_path(:step2, :tour_id => @tour.id), class:'btn btn-primary' %>
+      </div>
+    </div>
+    <div class="col-12">
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <% Tour.column_names.each do |column | %>
+            <th><%= column %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <% Tour.column_names.each do |column | %>
+            <td><%= @tour[column] %></td>
+            <% end %></tr>
+        </tbody>
+      </table>
+    </div>
     </div>
   </div>
-  <div class="col-12">
-    <table class="table table-dark">
-      <thead>
-        <tr>
-          <% Tour.column_names.each do |column | %>
-          <th><%= column %></th>
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-      <tr>
-          <% Tour.column_names.each do |column | %>
-          <td><%= @tour[column] %></td>
-          <% end %></tr>
-      </tbody>
-    </table>
-  </div>
-  </div>
-</div>
+</section>

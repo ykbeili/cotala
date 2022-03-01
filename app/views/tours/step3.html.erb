@@ -1,3 +1,39 @@
 <%= render 'layouts/navigation'%>
-<%= render '/layouts/steps', tour: @tour%>
-<%= link_to "Create PDF", create_path(:tour_id => @tour.id), class:'btn btn-primary'%>
+<section class="section mb-5">
+  <div class="container p-0 m-0">
+    <div class="row no-gutters">
+      <div class="col-12">
+        <%= render '/layouts/steps', tour: @tour%>
+      </div>
+      <div class="col-6 mt-5">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="<%= asset_path('pdf_sample.png') %>" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Dark Theme</h5>
+            <ul>
+              <li>Dark background color</li>
+              <li>White font</li>
+            </ul>
+            <%= link_to "Download Sample", download_path, class:'btn btn-primary', target: "_blank"%>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 mt-5">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="<%= asset_path('pdf_sample.png') %>" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Light Theme</h5>
+            <ul>
+              <li>White background color</li>
+              <li>Dark font</li>
+            </ul>
+            <%= link_to "Download Sample", download_path, class:'btn btn-primary', target: "_blank"%>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 text-center mt-3">
+        <%= link_to "Create PDF", create_path(:tour_id => @tour.id), class:'btn btn-primary pdf-button'%>
+      </div>
+    </div>
+  </div>
+</section>

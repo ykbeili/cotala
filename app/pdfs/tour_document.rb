@@ -96,14 +96,6 @@ class TourDocument < Prawn::Document
     io     = open('http://www.cotala.com/tours/60829/Floorplan.pdf')
     reader = PDF::Reader.new(io)
     page = reader.page(1)
-    receiver = PDF::Reader::RegisterReceiver.new
-    page.walk(receiver)
-    receiver.callbacks.each do |cb|
-      puts cb
-      puts "cb"
-    end
-    p page
-    p 'page'
     return page.raw_content
   end
 end
