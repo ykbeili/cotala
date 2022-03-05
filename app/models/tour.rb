@@ -3,6 +3,8 @@ class Tour < ApplicationRecord
   Faraday.default_adapter = :net_http
   has_many :images, dependent: :destroy
 
+  serialize :selected_images, Array
+
   # get tour info from cotala
   def self.get_tour(print_job_id)
     begin

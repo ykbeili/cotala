@@ -1,22 +1,28 @@
 <%= render 'layouts/navigation'%>
+<%= max_photos = 15 %>
 <section class="section">
   <div class="container m-0 p-0">
     <div class="row no-gutters text-left">
       <div class="col-12 ">
         <%= render '/layouts/steps', tour: @tour %>
-        <h2 class="mt-3"> Pick 15 Photos</h2>
+        <h2 class="mt-3"> Pick <%= max_photos %> Photos</h2>
       </div>
     </div>
     <div class="row no-gutters mt-5">
       <% @tour.images.each do |image| %>
-        <div class="col-2 my-2">
+        <div data-image-id="<%= image.name %>" class="col-2 my-2 <%= "selected-image" if @tour.selected_images.include?(image.name) %> tour-image">
           <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{image.name}", class:'w-100'%>
         </div>
       <% end %>
     </div>
     <div class="row no-gutters text-left">
       <div class="col-4 mt-4">
-        <%= link_to 'Next Step', wizard_path(:step3, :tour_id => @tour.id), class:'btn btn-primary' %><br/>
+      <%= form_for @tour, url: wizard_path(:step3, :tour_id => @tour.id), method: :put do |f| %>
+        <%=  f.hidden_field :selected_images  %>
+        <%= f.submit "Next Step" %>
+      <% end %>
+      
+      <%= link_to 'Next Step', wizard_path(:step3, :tour_id => @tour.id), class:'btn btn-primary' %><br/>
         <strong>You can always edit the images</strong>
       </div>
       <div class="col-4 mt-4">
@@ -26,3 +32,25 @@
     </div>
   </div>
 </section>
+<script>
+  const MAX_IMAGE_COUNT = <%= max_photos %>;
+  const selectedImages = <%= raw @tour.selected_images %>;
+  $(document).ready(function() {
+    $(".tour-image").on("click", function() {
+      const imageId = $(this).data("image-id");
+        if($(this).hasClass("selected-image")) {
+          const index = selectedImages.indexOf(imageId);
+          selectedImages.splice(index, 1);
+          $(this).removeClass("selected-image");
+        } else {
+          if(selectedImages.length >= MAX_IMAGE_COUNT) {
+            alert(`Please select no more than ${MAX_IMAGE_COUNT} images`);
+          } else {
+            selectedImages.push(imageId);
+            $(this).addClass("selected-image");
+          }
+        }
+        $("#tour_selected_images").val(selectedImages.join(","));
+    });
+  });
+</script>
