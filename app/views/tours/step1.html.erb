@@ -15,15 +15,15 @@
         </div>
       <% end %>
     </div>
-    <div class="row no-gutters text-left">
+    <div class="row no-gutters text-left mb-5">
       <div class="col-4 mt-4">
+      </div>
+      <div class="col-6 mt-5">
       <%= form_for @tour, url: wizard_path(:step2, :tour_id => @tour.id), method: :put do |f| %>
         <%=  f.hidden_field :selected_images  %>
-        <%=  f.submit "Next Step", class: 'btn btn-primary' %>
+        <%=  f.submit "Next Step", class: 'btn btn-primary w-100' %>
       <% end %>
-      <strong>You can always edit the images</strong>
-      </div>
-      <div class="col-4 mt-4">
+      <p class="text-center mt-2">You can always edit the images</p>
       </div>
       <div class="col-4 mt-4">
       </div>
