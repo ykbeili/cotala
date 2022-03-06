@@ -1,0 +1,32 @@
+<div class="modal fade" id="images_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="images_modal_title">Modal title</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row no-gutters">
+            <% tour.images.each do |image| %>
+              <div data-image-id="<%= image.name %>" class="col-4 my-2 <%= "selected-image" if @tour.selected_images.include?(image.name) %> tour-image">
+                <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{image.name}", class:'w-100'%>
+              </div>
+            <% end %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary save">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function() {
+    $('.close').on("click", function() {
+      $('#images_modal').modal('hide')
+    })
+    $('.save').on("click", function() {
+      $('#images_modal').modal('hide')
+    })
+  })
+</script>

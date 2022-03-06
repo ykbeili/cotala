@@ -14,7 +14,7 @@
         <div class="row no-gutters">
           <div class="col-6" >
             <h6>Listing Features</h6>
-            <span><%= @tour.listing_address %></span>
+            <a data-toggle="modal" data-target="#address_modal" id="address_modal_link"><span><%= @tour.listing_address %></span></a>
           </div>
           <div class="col-6" style="text-align: right">
             <%= image_tag @tour.broker_logo %>
@@ -55,29 +55,21 @@
       </div>
     </div>
   </div>
-</section>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+<button type="button" class="btn btn-primary launch" data-toggle="modal" data-target="#images_modal">
   Launch demo modal
 </button>
-
+</section>
+<%= render 'tours/first_page/images_modal', tour: @tour %>
+<%= render 'tours/first_page/address_modal', tour: @tour %>
+<!-- Button trigger modal -->
+<script>
+  $(document).ready(function() {
+    $('.launch').on("click", function() {
+      $('#images_modal').modal('show')
+    });
+    $('#address_modal_link').on("click", function() {
+      $('#address_modal').modal('show')
+    })
+  })
+</script>
 <!-- Modal -->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
