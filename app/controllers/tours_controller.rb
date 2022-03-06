@@ -53,6 +53,6 @@ class ToursController < ApplicationController
   end
 
   def tour_params
-    params.require(:tour).permit(:selected_images, :selected_theme, :listing_address)
+    params.require(:tour).permit(:selected_images, :selected_theme, :listing_address, :agent_email, :agent_name, :agent_url, :agent_phone)
   end
 end
