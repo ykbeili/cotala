@@ -9,44 +9,42 @@
     <div class="row no-gutters">
       <div class="col-6" style="padding-top: 200px">
         <div class="row no-gutters">
-          <span id="address_modal_link" class="text-decoration-underline">
-            <h1><%= @tour.listing_address %></h1>
-          </span>
+          <h1><%= @tour.listing_address %></h1>
         </div>
         <div class="row no-gutters">
-          <span id="address_modal_link" class="text-decoration-underline">
+          <span id="price_modal_link" class="text-decoration-underline modal-link">
             LISTED FOR<h1 class="d-inline-block pl-4"><%= @tour.price %></h1>
           </span>
         </div>
         <div class="row no-gutters">
-          <span id="address_modal_link" class="text-decoration-underline">
+          <span id="description_modal_link" class="text-decoration-underline modal-link">
             <p><%= @tour.description %></p>
           </span>
         </div>
         <div class="row no-gutters">
           <div class="col-2">
-            <span id="address_modal_link" class="text-decoration-underline">
+            <span id="lot_modal_link" class="text-decoration-underline modal-link">
               LOT <%= @tour.lot_maint %> SF
             </span>
           </div>
           <div class="col-2">
-            <span id="address_modal_link" class="text-decoration-underline">
+            <span id="size_modal_link" class="text-decoration-underline modal-link">
               SIZE <%= @tour.size %> SF
             </span>
           </div>
           <div class="col-2">
-            <span id="address_modal_link" class="text-decoration-underline">
+            <span id="bedrooms_modal_link" class="text-decoration-underline modal-link">
               <%= @tour.bedrooms %> BED
             </span>
           </div>
           <div class="col-2">
-            <span id="address_modal_link" class="text-decoration-underline">
+            <span id="bathrooms_modal_link" class="text-decoration-underline modal-link">
               <%= @tour.bathrooms %> BATH
             </span>
           </div>
           <div class="col-2">
-            <span id="address_modal_link" class="text-decoration-underline">
-              TAXES <%= @tour.tax %> BATH
+            <span id="tax_modal_link" class="text-decoration-underline modal-link">
+              TAXES $<%= @tour.tax %>
             </span>
           </div>
         </div>
@@ -111,3 +109,22 @@
   </div>
 </div>
 </section>
+<%= render 'tours/second_page/description_modal', tour: @tour %>
+<%= render 'tours/second_page/price_modal', tour: @tour %>
+<%= render 'tours/second_page/lot_modal', tour: @tour %>
+<%= render 'tours/second_page/size_modal', tour: @tour %>
+<%= render 'tours/second_page/bedrooms_modal', tour: @tour %>
+<%= render 'tours/second_page/bathrooms_modal', tour: @tour %>
+<%= render 'tours/second_page/tax_modal', tour: @tour %>
+<script>
+  $(document).ready(function() {
+    $('.modal-link').on("click", function() {
+      const modalId = $(this)[0].id.replace('_link','');
+      console.log(modalId, 'modalId')
+      $(`#${modalId}`).modal('show')
+    })
+    $('#images_modal_link').on("click", function() {
+      $('#images_modal').modal('show')
+    });
+  })
+</script>

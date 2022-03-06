@@ -39,8 +39,9 @@ class ToursController < ApplicationController
       @tour.update(tp)
     when :step3
       tp = tour_params
-      p tp
-      p 'tp'
+      @tour.update(tp)
+    when :step4
+      tp = tour_params
       @tour.update(tp)
     end
     render_wizard
@@ -53,6 +54,6 @@ class ToursController < ApplicationController
   end
 
   def tour_params
-    params.require(:tour).permit(:selected_images, :selected_theme, :listing_address, :agent_email, :agent_name, :agent_url, :agent_phone)
+    params.require(:tour).permit(:selected_images, :selected_theme, :listing_address, :agent_email, :agent_name, :agent_url, :agent_phone, :price, :bathrooms, :bedrooms, :lot_maint, :description, :size, :tax)
   end
 end
