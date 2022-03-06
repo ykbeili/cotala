@@ -11,7 +11,7 @@
           <div class="col-2">
           </div>
           <div class="col-4 mt-5 ">
-            <div class="card selected-theme theme-column" style="width: 100%;">
+            <div class="card selected-theme theme-column dark" style="width: 100%;">
               <img class="card-img-top" src="<%= asset_path('pdf_sample.png') %>" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">Dark Theme</h5>
@@ -24,7 +24,7 @@
             </div>
           </div>
           <div class="col-4 mt-5 ">
-            <div class="card theme-column" style="width: 100%;">
+            <div class="card theme-column white" style="width: 100%;">
               <img class="card-img-top" src="<%= asset_path('pdf_sample.png') %>" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">Light Theme</h5>
@@ -39,10 +39,10 @@
           <div class="col-2">
           </div>
         </div>
-      <% end %>
       <div class="col-12 text-left mt-3">
-        <%= link_to 'Next Step', wizard_path(:step3, :tour_id => @tour.id), class:'btn btn-primary' %>
+        <%= f.submit 'Next Step', class:'btn btn-primary theme-step-button' %>
       </div>
+      <% end %>
     </div>
   </div>
 </section>
@@ -53,6 +53,13 @@
         $(this).addClass("selected-theme");
         $('.theme-column').not($(this)).removeClass("selected-theme")
         $('#tour_selected_theme').val()
+      }
+    });
+    $(".theme-step-button").on("click", function() {
+      if($(".selected-theme").hasClass("dark")) {
+        $('#tour_selected_theme').val("dark")
+      } else {
+        $('#tour_selected_theme').val("white")
       }
     });
   });

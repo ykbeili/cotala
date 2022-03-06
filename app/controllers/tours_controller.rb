@@ -28,7 +28,7 @@ class ToursController < ApplicationController
     @tour = Tour.find_by_id(params[:tour_id])
     pdf = TourDocument.new(@tour)
     send_data pdf.render,
-    filename: 'export.pdf'
+    filename: "#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf"
   end
 
   def update
@@ -39,7 +39,7 @@ class ToursController < ApplicationController
       @tour.update(tp)
     when :step3
       tp = tour_params
-      @tour.update(tp["selected_theme"])
+      @tour.update(tp)
     end
     render_wizard
   end
