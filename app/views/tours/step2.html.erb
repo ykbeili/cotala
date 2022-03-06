@@ -1,54 +1,39 @@
 <%= render 'layouts/navigation'%>
-<% max_photos = 15 %>
-<section class="section">
-  <div class="container m-0 p-0">
-    <div class="row no-gutters text-left">
-      <div class="col-12 ">
-        <%= render '/layouts/steps', tour: @tour %>
-        <h2 class="mt-3"> Pick <%= max_photos %> Photos</h2>
+<section class="section mb-5">
+  <div class="container p-0 m-0">
+    <div class="row no-gutters">
+      <div class="col-12">
+        <%= render '/layouts/steps', tour: @tour%>
       </div>
-    </div>
-    <div class="row no-gutters mt-5">
-      <% @tour.images.each do |image| %>
-        <div data-image-id="<%= image.name %>" class="col-2 my-2 <%= "selected-image" if @tour.selected_images.include?(image.name) %> tour-image">
-          <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{image.name}", class:'w-100'%>
+      <div class="col-6 mt-5">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="<%= asset_path('pdf_sample.png') %>" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Dark Theme</h5>
+            <ul>
+              <li>Dark background color</li>
+              <li>White font</li>
+            </ul>
+            <%= link_to "Download Sample", download_path, class:'btn btn-primary', target: "_blank"%>
+          </div>
         </div>
-      <% end %>
-    </div>
-    <div class="row no-gutters text-left">
-      <div class="col-4 mt-4">
-      <%= form_for @tour, url: wizard_path(:step3, :tour_id => @tour.id), method: :put do |f| %>
-        <%=  f.hidden_field :selected_images  %>
-        <%=  f.submit "Next Step", class: 'btn btn-primary' %>
-      <% end %>
-      <strong>You can always edit the images</strong>
       </div>
-      <div class="col-4 mt-4">
+      <div class="col-6 mt-5">
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" src="<%= asset_path('pdf_sample.png') %>" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Light Theme</h5>
+            <ul>
+              <li>White background color</li>
+              <li>Dark font</li>
+            </ul>
+            <%= link_to "Download Sample", download_path, class:'btn btn-primary', target: "_blank"%>
+          </div>
+        </div>
       </div>
-      <div class="col-4 mt-4">
+      <div class="col-12 text-left mt-3">
+        <%= link_to 'Next Step', wizard_path(:step3, :tour_id => @tour.id), class:'btn btn-primary' %>
       </div>
     </div>
   </div>
 </section>
-<script>
-  const MAX_IMAGE_COUNT = <%= max_photos %>;
-  const selectedImages = <%= raw @tour.selected_images %>;
-  $(document).ready(function() {
-    $(".tour-image").on("click", function() {
-      const imageId = $(this).data("image-id");
-        if($(this).hasClass("selected-image")) {
-          const index = selectedImages.indexOf(imageId);
-          selectedImages.splice(index, 1);
-          $(this).removeClass("selected-image");
-        } else {
-          if(selectedImages.length >= MAX_IMAGE_COUNT) {
-            alert(`Please select no more than ${MAX_IMAGE_COUNT} images`);
-          } else {
-            selectedImages.push(imageId);
-            $(this).addClass("selected-image");
-          }
-        }
-        $("#tour_selected_images").val(selectedImages.join(","));
-    });
-  });
-</script>

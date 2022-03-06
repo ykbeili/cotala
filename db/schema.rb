@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_05_075459) do
+ActiveRecord::Schema.define(version: 2022_03_06_022620) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2022_03_05_075459) do
     t.string "broker_logo"
     t.integer "cotala_tour_id"
     t.text "selected_images", default: "--- []\n"
+    t.boolean "selectedTheme"
   end
 
   add_foreign_key "images", "tours"

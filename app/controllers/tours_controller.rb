@@ -33,7 +33,7 @@ class ToursController < ApplicationController
 
   def update
     case step
-    when :step3
+    when :step2
       tp = tour_params
       tp["selected_images"] = tp["selected_images"].split(',')
       @tour.update(tp)

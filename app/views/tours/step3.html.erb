@@ -5,34 +5,53 @@
       <div class="col-12">
         <%= render '/layouts/steps', tour: @tour%>
       </div>
-      <div class="col-6 mt-5">
-        <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="<%= asset_path('pdf_sample.png') %>" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Dark Theme</h5>
-            <ul>
-              <li>Dark background color</li>
-              <li>White font</li>
-            </ul>
-            <%= link_to "Download Sample", download_path, class:'btn btn-primary', target: "_blank"%>
+    </div>
+    <div class="row no-gutters">
+      <div class="col-6" style="padding-top: 200px">
+        <%= image_tag 'https://images.squarespace-cdn.com/content/v1/5bdde6530dbda3230ba6bd5d/1542039146291-IY4AG1D0JN2D1400BZ1C/Matterport+-+Best+Practices+for+Schematic+Floor+Plans.jpg?format=1000w', style: 'transform: rotate(270deg); width: 700px' %>
+      </div>
+      <div class="col-6" style="padding-top: 200px">
+        <div class="row no-gutters">
+          <div class="col-6" >
+            <h6>Listing Features</h6>
+            <span><%= @tour.listing_address %></span>
+          </div>
+          <div class="col-6" style="text-align: right">
+            <%= image_tag @tour.broker_logo %>
           </div>
         </div>
-      </div>
-      <div class="col-6 mt-5">
-        <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="<%= asset_path('pdf_sample.png') %>" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Light Theme</h5>
-            <ul>
-              <li>White background color</li>
-              <li>Dark font</li>
-            </ul>
-            <%= link_to "Download Sample", download_path, class:'btn btn-primary', target: "_blank"%>
+        <div class="row no-gutters">
+          <div class="col-12">
+            <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[0].name}", style: 'width: 700px' %>
           </div>
         </div>
-      </div>
-      <div class="col-12 text-left mt-3">
-        <%= link_to 'Next Step', wizard_path(:step4, :tour_id => @tour.id), class:'btn btn-primary' %>
+        <div class="row no-gutters">
+            <div class="col-4 pr-3">
+              <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[1].name}", style: 'width: 235px; padding-top: 10px;padding-right: 15px' %>
+            </div>
+            <div class="col-4">
+              <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[2].name}", style: 'width: 235px; padding-top: 10px;padding-right: 7.5px' %>
+            </div>
+            <div class="col-4">
+              <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[3].name}", style: 'width: 235px; padding-top: 10px;padding-left: 7.5px' %>
+            </div>
+          </div>
+          <div class="row no-gutters pt-5">
+          <div class="col-4">
+            <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[0].name}", style: 'width: 100%' %>
+          </div>
+          <div class="col-5">
+            <span class="d-block"><%= @tour.agent_name %> </span>
+            <span class="d-block">Personal Real Estate Corporation</span>
+            <span class="d-block"><%= @tour.agent_phone %></span>
+            <span class="d-block"><%= @tour.agent_email %></span>
+            <span class="d-block"><%= @tour.agent_url %></span>
+          </div>
+          <div class="col-3">
+            <%= image_tag @tour.broker_logo, style: 'width: 100%' %>
+          </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

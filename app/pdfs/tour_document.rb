@@ -2,8 +2,10 @@ class TourDocument < Prawn::Document
   require "open-uri"
   require './lib/extract_images'
 
+  PDF_SIZE = [1632, 1056]
+
   def initialize(tour)
-    super(:page_size => [1632, 1056])
+    super(:page_size => PDF_SIZE)
     @tour = tour
     first_page
     start_new_page
