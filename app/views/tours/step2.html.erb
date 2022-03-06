@@ -1,5 +1,5 @@
 <%= render 'layouts/navigation'%>
-<%= max_photos = 15 %>
+<% max_photos = 15 %>
 <section class="section">
   <div class="container m-0 p-0">
     <div class="row no-gutters text-left">
@@ -19,11 +19,9 @@
       <div class="col-4 mt-4">
       <%= form_for @tour, url: wizard_path(:step3, :tour_id => @tour.id), method: :put do |f| %>
         <%=  f.hidden_field :selected_images  %>
-        <%= f.submit "Next Step" %>
+        <%= f.submit "Next Step", class:'btn btn-primary' %>
       <% end %>
-      
-      <%= link_to 'Next Step', wizard_path(:step3, :tour_id => @tour.id), class:'btn btn-primary' %><br/>
-        <strong>You can always edit the images</strong>
+      <strong>You can always edit the images</strong>
       </div>
       <div class="col-4 mt-4">
       </div>
