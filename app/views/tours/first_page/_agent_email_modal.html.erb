@@ -1,4 +1,4 @@
-<div class="modal fade" id="address_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade" id="agent_email_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -8,7 +8,7 @@
         <div class="row no-gutters">
           <%= form_for @tour, url: wizard_path(:step3, :tour_id => @tour.id), method: :put, remote: true do |f| %>
           <h6>Listing Features</h6>
-          <%= f.text_area :listing_address, id:'listing_address_text_area' %>
+          <%= f.text_area :agent_email, id:'agent_email_text_area' %>
         </div>
       </div>
       <div class="modal-footer">
@@ -22,14 +22,14 @@
 <script>
   $(document).ready(function() {
     $('.close').on("click", function() {
-      $('#address_modal').modal('hide')
+      $('#agent_email_modal').modal('hide')
     })
     $('.save').on("click", function() {
-      $('#address_modal').modal('hide');
+      $('#agent_email_modal').modal('hide');
       $.ajax({
         url: `/tours/step3?tour_id=<%= tour.id %>`,
         method: 'put',
-        data: { tour: { listing_address: $('#listing_address_text_area').val() }},
+        data: { tour: { listing_address: $('#agent_email_text_area').val() }},
         success: function(response) {
         },
         error: function(response) {

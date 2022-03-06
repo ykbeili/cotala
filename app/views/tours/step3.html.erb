@@ -14,7 +14,7 @@
         <div class="row no-gutters">
           <div class="col-6" >
             <h6>Listing Features</h6>
-            <a data-toggle="modal" data-target="#address_modal" id="address_modal_link"><span><%= @tour.listing_address %></span></a>
+            <span id="address_modal_link" class="text-decoration-underline"><%= @tour.listing_address %></span>
           </div>
           <div class="col-6" style="text-align: right">
             <%= image_tag @tour.broker_logo %>
@@ -41,11 +41,11 @@
             <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[0].name}", style: 'width: 100%' %>
           </div>
           <div class="col-5">
-            <span class="d-block"><%= @tour.agent_name %> </span>
+            <span id="agent_name_modal_link" class="d-block text-decoration-underline modal-link"><%= @tour.agent_name %> </span>
             <span class="d-block">Personal Real Estate Corporation</span>
-            <span class="d-block"><%= @tour.agent_phone %></span>
-            <span class="d-block"><%= @tour.agent_email %></span>
-            <span class="d-block"><%= @tour.agent_url %></span>
+            <span id="agent_phone_modal_link" class="d-block text-decoration-underline modal-link"><%= @tour.agent_phone %></span>
+            <span id="agent_email_modal_link" class="d-block text-decoration-underline modal-link"><%= @tour.agent_email %></span>
+            <span id="agent_url_modal_link" class="d-block text-decoration-underline modal-link"><%= @tour.agent_url %></span>
           </div>
           <div class="col-3">
             <%= image_tag @tour.broker_logo, style: 'width: 100%' %>
@@ -55,16 +55,21 @@
       </div>
     </div>
   </div>
-<button type="button" class="btn btn-primary launch" data-toggle="modal" data-target="#images_modal">
-  Launch demo modal
-</button>
 </section>
 <%= render 'tours/first_page/images_modal', tour: @tour %>
 <%= render 'tours/first_page/address_modal', tour: @tour %>
-<!-- Button trigger modal -->
+<%= render 'tours/first_page/agent_email_modal', tour: @tour %>
+<%= render 'tours/first_page/agent_url_modal', tour: @tour %>
+<%= render 'tours/first_page/agent_phone_modal', tour: @tour %>
+<%= render 'tours/first_page/agent_name_modal', tour: @tour %>
 <script>
   $(document).ready(function() {
-    $('.launch').on("click", function() {
+    $('.modal-link').on("click", function() {
+      const modalId = $(this)[0].id.replace('_link','');
+      console.log(modalId, 'modalId')
+      $(`#${modalId}`).modal('show')
+    })
+    $('#images_modal_link').on("click", function() {
       $('#images_modal').modal('show')
     });
     $('#address_modal_link').on("click", function() {
@@ -72,4 +77,3 @@
     })
   })
 </script>
-<!-- Modal -->
