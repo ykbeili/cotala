@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   match 'download_ofs', to: 'tours#download_ofs', as: 'download', via: :get
   match 'create_pdf', to: 'tours#create_pdf', as: 'create', via: :get
   resources :tours
+  resources :tour_details, only: [:update]
 end
