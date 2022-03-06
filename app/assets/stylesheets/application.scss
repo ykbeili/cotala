@@ -43,19 +43,19 @@ body {
   color: $white;
 }
 .navbar {
-  padding: 0px 410px;
+  padding: 0px 11.81%;
   background-color: $white;
   height: 75px;
   border-bottom: 1px solid black;
 }
 .section {
-  padding: 60px 0px 0px 410px;
+  padding: 60px 0px 0px 11.81%;
 }
 .pdf-button {
   padding: 10px 150px;
 }
 .section-banner {
-  padding: 180px 0px 0px 410px;
+  padding: 180px 0px 0px 11.81%;
   background-image: url("ofs-2021-3.jpeg");
   background-repeat: no-repeat;
   height: 1000px;
@@ -65,4 +65,8 @@ body {
 
 .selected-image {
   border: 5px solid;
+}
+
+.selected-theme {
+  border: 2px solid;
 }

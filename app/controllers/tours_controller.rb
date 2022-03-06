@@ -37,6 +37,9 @@ class ToursController < ApplicationController
       tp = tour_params
       tp["selected_images"] = tp["selected_images"].split(',')
       @tour.update(tp)
+    when :step3
+      tp = tour_params
+      @tour.update(tp["selected_theme"])
     end
     render_wizard
   end
@@ -48,6 +51,6 @@ class ToursController < ApplicationController
   end
 
   def tour_params
-    params.require(:tour).permit(:selected_images)
+    params.require(:tour).permit(:selected_images, :selected_theme)
   end
 end

@@ -5,35 +5,55 @@
       <div class="col-12">
         <%= render '/layouts/steps', tour: @tour%>
       </div>
-      <div class="col-6 mt-5">
-        <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="<%= asset_path('pdf_sample.png') %>" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Dark Theme</h5>
-            <ul>
-              <li>Dark background color</li>
-              <li>White font</li>
-            </ul>
-            <%= link_to "Download Sample", download_path, class:'btn btn-primary', target: "_blank"%>
+      <%= form_for @tour, url: wizard_path(:step3, :tour_id => @tour.id), method: :put do |f| %>
+        <%=  f.hidden_field :selected_theme  %>
+        <div class="row no-gutters">
+          <div class="col-2">
+          </div>
+          <div class="col-4 mt-5 ">
+            <div class="card selected-theme theme-column" style="width: 100%;">
+              <img class="card-img-top" src="<%= asset_path('pdf_sample.png') %>" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">Dark Theme</h5>
+                <ul>
+                  <li>Dark background color</li>
+                  <li>White font</li>
+                </ul>
+                <%= link_to "Download Sample", download_path, class:'btn btn-primary', target: "_blank"%>
+              </div>
+            </div>
+          </div>
+          <div class="col-4 mt-5 ">
+            <div class="card theme-column" style="width: 100%;">
+              <img class="card-img-top" src="<%= asset_path('pdf_sample.png') %>" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title">Light Theme</h5>
+                <ul>
+                  <li>White background color</li>
+                  <li>Dark font</li>
+                </ul>
+                <%= link_to "Download Sample", download_path, class:'btn btn-primary', target: "_blank"%>
+              </div>
+            </div>
+          </div>
+          <div class="col-2">
           </div>
         </div>
-      </div>
-      <div class="col-6 mt-5">
-        <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="<%= asset_path('pdf_sample.png') %>" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Light Theme</h5>
-            <ul>
-              <li>White background color</li>
-              <li>Dark font</li>
-            </ul>
-            <%= link_to "Download Sample", download_path, class:'btn btn-primary', target: "_blank"%>
-          </div>
-        </div>
-      </div>
+      <% end %>
       <div class="col-12 text-left mt-3">
         <%= link_to 'Next Step', wizard_path(:step3, :tour_id => @tour.id), class:'btn btn-primary' %>
       </div>
     </div>
   </div>
 </section>
+<script>
+  $(document).ready(function() {
+    $(".theme-column").on("click", function() {
+      if(!$(this).hasClass("selected-theme")) {
+        $(this).addClass("selected-theme");
+        $('.theme-column').not($(this)).removeClass("selected-theme")
+        $('#tour_selected_theme').val()
+      }
+    });
+  });
+</script>
