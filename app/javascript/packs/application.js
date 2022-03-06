@@ -14,3 +14,11 @@ import "channels"
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+
+require("@popperjs/core")
+
+import "bootstrap"
+import 'bootstrap/js/src/modal' 
+// Import the specific modules you may need (Modal, Alert, etc)
+// import { Modal } from "bootstrap"
