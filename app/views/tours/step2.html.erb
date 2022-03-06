@@ -19,7 +19,7 @@
       <div class="col-4 mt-4">
       <%= form_for @tour, url: wizard_path(:step3, :tour_id => @tour.id), method: :put do |f| %>
         <%=  f.hidden_field :selected_images  %>
-        <%= f.submit "Next Step", class:'btn btn-primary' %>
+        <%=  f.submit "Next Step", class: 'btn btn-primary' %>
       <% end %>
       <strong>You can always edit the images</strong>
       </div>

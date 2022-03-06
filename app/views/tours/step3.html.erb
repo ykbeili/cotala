@@ -31,8 +31,8 @@
           </div>
         </div>
       </div>
-      <div class="col-12 text-center mt-3">
-        <%= link_to "Create PDF", create_path(:tour_id => @tour.id), class:'btn btn-primary pdf-button'%>
+      <div class="col-12 text-left mt-3">
+        <%= link_to 'Next Step', wizard_path(:step4, :tour_id => @tour.id), class:'btn btn-primary' %>
       </div>
     </div>
   </div>
