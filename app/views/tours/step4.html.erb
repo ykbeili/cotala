@@ -6,5 +6,108 @@
         <%= render '/layouts/steps', tour: @tour%>
       </div>
     </div>
+    <div class="row no-gutters">
+      <div class="col-6" style="padding-top: 200px">
+        <div class="row no-gutters">
+          <span id="address_modal_link" class="text-decoration-underline">
+            <h1><%= @tour.listing_address %></h1>
+          </span>
+        </div>
+        <div class="row no-gutters">
+          <span id="address_modal_link" class="text-decoration-underline">
+            LISTED FOR<h1 class="d-inline-block pl-4"><%= @tour.price %></h1>
+          </span>
+        </div>
+        <div class="row no-gutters">
+          <span id="address_modal_link" class="text-decoration-underline">
+            <p><%= @tour.description %></p>
+          </span>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-2">
+            <span id="address_modal_link" class="text-decoration-underline">
+              LOT <%= @tour.lot_maint %> SF
+            </span>
+          </div>
+          <div class="col-2">
+            <span id="address_modal_link" class="text-decoration-underline">
+              SIZE <%= @tour.size %> SF
+            </span>
+          </div>
+          <div class="col-2">
+            <span id="address_modal_link" class="text-decoration-underline">
+              <%= @tour.bedrooms %> BED
+            </span>
+          </div>
+          <div class="col-2">
+            <span id="address_modal_link" class="text-decoration-underline">
+              <%= @tour.bathrooms %> BATH
+            </span>
+          </div>
+          <div class="col-2">
+            <span id="address_modal_link" class="text-decoration-underline">
+              TAXES <%= @tour.tax %> BATH
+            </span>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-12">
+            <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[4].name}", style: 'width: 100%' %>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-4">
+            <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[5].name}", style: 'width: 100%'  %>
+          </div>
+          <div class="col-4">
+            <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[5].name}", style: 'width: 100%'  %>
+          </div>
+          <div class="col-4">
+            <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[5].name}" , style: 'width: 100%' %>
+          </div>
+        </div>
+      </div>
+      <div class="col-6" style="padding-top: 200px">
+        <div class="row no-gutters">
+          <div class="col-12" >
+            <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[4].name}", style: 'width: 100%' %>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-4">
+            <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[2].name}", style: 'width: 100%; padding-top: 10px;padding-right: 7.5px' %>
+          </div>
+          <div class="col-4">
+            <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[3].name}", style: 'width: 100%; padding-top: 10px;padding-left: 7.5px' %>
+          </div>
+          <div class="col-4">
+            <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[3].name}", style: 'width: 100%; padding-top: 10px;padding-left: 7.5px' %>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-4">
+            <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[2].name}", style: 'width: 100%; padding-top: 10px;padding-right: 7.5px' %>
+          </div>
+          <div class="col-4">
+            <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[3].name}", style: 'width: 100%; padding-top: 10px;padding-left: 7.5px' %>
+          </div>
+          <div class="col-4">
+            <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[3].name}", style: 'width: 100%; padding-top: 10px;padding-left: 7.5px' %>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-4">
+            <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[2].name}", style: 'width: 100%; padding-top: 10px;padding-right: 7.5px' %>
+          </div>
+          <div class="col-4">
+            <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[3].name}", style: 'width: 100%; padding-top: 10px;padding-left: 7.5px' %>
+          </div>
+          <div class="col-4">
+            <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[3].name}", style: 'width: 100%; padding-top: 10px;padding-left: 7.5px' %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 </section>

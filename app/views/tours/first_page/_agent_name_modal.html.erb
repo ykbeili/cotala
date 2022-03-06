@@ -29,7 +29,7 @@
       $.ajax({
         url: `/tours/step3?tour_id=<%= tour.id %>`,
         method: 'put',
-        data: { tour: { listing_address: $('#agent_name_text_area').val() }},
+        data: { tour: { agent_name: $('#agent_name_text_area').val() }},
         success: function(response) {
         },
         error: function(response) {
