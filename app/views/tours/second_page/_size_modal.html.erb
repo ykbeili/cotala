@@ -1,0 +1,28 @@
+<div class="modal fade" id="size_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="images_modal_title">Modal title</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row no-gutters">
+          <%= form_for @tour, url: tour_detail_path(@tour, type: :size),  method: :put, remote: true do |f| %>
+          <h6>Listing Features</h6>
+          <%= f.text_area :size, id:'size_text_area' %>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-secondary save">Save</button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function() {
+    $('.close').on("click", function() {
+      $('#size_modal').modal('hide')
+    })
+  })
+</script>

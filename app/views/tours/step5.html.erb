@@ -1,2 +1,17 @@
 <%= render 'layouts/navigation'%>
-<%= render '/layouts/steps', tour: @tour%>
+<section class="section mb-5">
+  <div class="container p-0 m-0">
+    <div class="row no-gutters">
+      <div class="col-12">
+        <%= render '/layouts/steps', tour: @tour%>
+      </div>
+    </div>
+    <div class="row no-gutters mt-5">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <%= link_to "Generate PDF", create_path(:tour_id => @tour.id), class:'btn btn-primary pdf-button'%>
+      </div>
+      <div class="col-3"></div>
+    </div>
+  </div>
+</section>

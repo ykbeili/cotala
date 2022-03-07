@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_05_075459) do
+ActiveRecord::Schema.define(version: 2022_03_07_013803) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,22 @@ ActiveRecord::Schema.define(version: 2022_03_05_075459) do
     t.string "broker_logo"
     t.integer "cotala_tour_id"
     t.text "selected_images", default: "--- []\n"
+    t.string "selected_theme"
+    t.string "first_image"
+    t.string "second_image"
+    t.string "third_image"
+    t.string "fourth_image"
+    t.string "fifth_image"
+    t.string "sixth_image"
+    t.string "seventh_image"
+    t.string "eighth_image"
+    t.string "ninth_image"
+    t.string "tenth_image"
+    t.string "eleventh_image"
+    t.string "twelfth_image"
+    t.string "thirteenth_image"
+    t.string "fourteenth_image"
+    t.string "fifteenth_image"
   end
 
   add_foreign_key "images", "tours"

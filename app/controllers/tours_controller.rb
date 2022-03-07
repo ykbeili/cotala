@@ -28,14 +28,35 @@ class ToursController < ApplicationController
     @tour = Tour.find_by_id(params[:tour_id])
     pdf = TourDocument.new(@tour)
     send_data pdf.render,
-    filename: 'export.pdf'
+    filename: "#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf"
   end
 
   def update
     case step
-    when :step3
+    when :step2
       tp = tour_params
       tp["selected_images"] = tp["selected_images"].split(',')
+      @tour.first_image = tp["selected_images"][0]
+      @tour.second_image = tp["selected_images"][1]
+      @tour.third_image = tp["selected_images"][2]
+      @tour.fourth_image = tp["selected_images"][3]
+      @tour.fifth_image = tp["selected_images"][4]
+      @tour.sixth_image = tp["selected_images"][5]
+      @tour.seventh_image = tp["selected_images"][6]
+      @tour.eighth_image = tp["selected_images"][7]
+      @tour.ninth_image = tp["selected_images"][8]
+      @tour.tenth_image = tp["selected_images"][9]
+      @tour.eleventh_image = tp["selected_images"][10]
+      @tour.twelfth_image = tp["selected_images"][11]
+      @tour.thirteenth_image = tp["selected_images"][12]
+      @tour.fourteenth_image = tp["selected_images"][13]
+      @tour.fifteenth_image = tp["selected_images"][14]
+      @tour.update(tp)
+    when :step3
+      tp = tour_params
+      @tour.update(tp)
+    when :step4
+      tp = tour_params
       @tour.update(tp)
     end
     render_wizard
@@ -48,6 +69,6 @@ class ToursController < ApplicationController
   end
 
   def tour_params
-    params.require(:tour).permit(:selected_images)
+    params.require(:tour).permit(:selected_images, :selected_theme, :listing_address, :agent_email, :agent_name, :agent_url, :agent_phone, :price, :bathrooms, :bedrooms, :lot_maint, :description, :size, :tax, :first_image)
   end
 end

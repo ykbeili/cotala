@@ -5,35 +5,69 @@
       <div class="col-12">
         <%= render '/layouts/steps', tour: @tour%>
       </div>
-      <div class="col-6 mt-5">
-        <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="<%= asset_path('pdf_sample.png') %>" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Dark Theme</h5>
-            <ul>
-              <li>Dark background color</li>
-              <li>White font</li>
-            </ul>
-            <%= link_to "Download Sample", download_path, class:'btn btn-primary', target: "_blank"%>
+    </div>
+    <div class="row no-gutters">
+      <div class="col-6" style="padding-top: 200px">
+        <%= image_tag 'https://images.squarespace-cdn.com/content/v1/5bdde6530dbda3230ba6bd5d/1542039146291-IY4AG1D0JN2D1400BZ1C/Matterport+-+Best+Practices+for+Schematic+Floor+Plans.jpg?format=1000w', style: 'transform: rotate(270deg); width: 700px' %>
+      </div>
+      <div class="col-6" style="padding-top: 200px">
+        <div class="row no-gutters">
+          <div class="col-6" >
+            <h6>Listing Features</h6>
+            <span id="address_modal_link" class="text-decoration-underline"><%= @tour.listing_address %></span>
+          </div>
+          <div class="col-6" style="text-align: right">
+            <%= image_tag @tour.broker_logo %>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-12">
+            <span id="first_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}", style: 'width: 700px' %></a>
+          </div>
+        </div>
+          <div class="row no-gutters pt-5">
+          <div class="col-4">
+            <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[0].name}", style: 'width: 100%' %>
+          </div>
+          <div class="col-5">
+            <span id="agent_name_modal_link" class="d-block text-decoration-underline modal-link"><%= @tour.agent_name %> </span>
+            <span class="d-block">Personal Real Estate Corporation</span>
+            <span id="agent_phone_modal_link" class="d-block text-decoration-underline modal-link"><%= @tour.agent_phone %></span>
+            <span id="agent_email_modal_link" class="d-block text-decoration-underline modal-link"><%= @tour.agent_email %></span>
+            <span id="agent_url_modal_link" class="d-block text-decoration-underline modal-link"><%= @tour.agent_url %></span>
+          </div>
+          <div class="col-3">
+            <%= image_tag @tour.broker_logo, style: 'width: 100%' %>
+          </div>
           </div>
         </div>
       </div>
-      <div class="col-6 mt-5">
-        <div class="card" style="width: 18rem;">
-          <img class="card-img-top" src="<%= asset_path('pdf_sample.png') %>" alt="Card image cap">
-          <div class="card-body">
-            <h5 class="card-title">Light Theme</h5>
-            <ul>
-              <li>White background color</li>
-              <li>Dark font</li>
-            </ul>
-            <%= link_to "Download Sample", download_path, class:'btn btn-primary', target: "_blank"%>
-          </div>
-        </div>
-      </div>
-      <div class="col-12 text-center mt-3">
-        <%= link_to "Create PDF", create_path(:tour_id => @tour.id), class:'btn btn-primary pdf-button'%>
+    </div>
+    <div class="row no-gutters text-center mt-5">
+      <div class="col-6">
+        <%= link_to 'Next Step', wizard_path(:step4, :tour_id => @tour.id), class: 'btn btn-primary theme-step-button w-100' %>
       </div>
     </div>
   </div>
 </section>
+<%= render 'tours/first_page/images_modal', tour: @tour %>
+<%= render 'tours/first_page/address_modal', tour: @tour %>
+<%= render 'tours/first_page/agent_email_modal', tour: @tour %>
+<%= render 'tours/first_page/agent_url_modal', tour: @tour %>
+<%= render 'tours/first_page/agent_phone_modal', tour: @tour %>
+<%= render 'tours/first_page/agent_name_modal', tour: @tour %>
+<%= render 'tours/first_page/first_image_modal', tour: @tour %>
+<script>
+  $(document).ready(function() {
+    $('.modal-link').on("click", function() {
+      const modalId = $(this)[0].id.replace('_link','');
+      $(`#${modalId}`).modal('show')
+    })
+    $('#images_modal_link').on("click", function() {
+      $('#images_modal').modal('show')
+    });
+    $('#address_modal_link').on("click", function() {
+      $('#address_modal').modal('show')
+    })
+  })
+</script>
