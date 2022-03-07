@@ -8,9 +8,9 @@
         <%= form_for @tour, url: tour_detail_path(@tour, type: :first_image), method: :put, remote: true do |f| %>
         <%= f.hidden_field :first_image %>
         <div class="row no-gutters">
-            <% tour.images.each do |image| %>
-              <div data-image-id="<%= image.name %>" class="col-4 my-2 <%= "selected-image" if @tour.selected_images.include?(image.name) %> tour-image">
-                <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{image.name}", class:'w-100'%>
+            <% tour.selected_images.each do |image| %>
+              <div data-image-id="<%= image %>" class="col-4 my-2 <%= "selected-image" if tour.first_image == image %> tour-image">
+                <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{image}", class:'w-100'%>
               </div>
             <% end %>
         </div>
@@ -24,13 +24,15 @@
   </div>
 </div>
 <script>
+const selectedImages = <%= raw @tour.selected_images %>;
   $(document).ready(function() {
     $('.close').on("click", function() {
-      $('#firts_image_modal').modal('hide')
+      $('#first_image_modal').modal('hide')
     })
     $('.save').on("click", function() {
       if($('.selected-image').length === 0){
         alert(`Please select at least 1 image`);
+        $('#first_image_modal').modal('show')
       } else {
         $('#first_image_modal').modal('hide')
       }
