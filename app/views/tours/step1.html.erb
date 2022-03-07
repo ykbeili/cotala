@@ -35,7 +35,7 @@
 </section>
 <script>
   MAX_IMAGE_COUNT = <%= max_photos %>;
-  selectedImages = <%= raw @tour.selected_images %>;
+  topSelectedImages = <%= raw @tour.selected_images %>;
   document.addEventListener("turbolinks:load", function() {
     $('.to-step2-button').on("click", function(e) {
       if($('.selected-image').length < MAX_IMAGE_COUNT) {
@@ -46,18 +46,18 @@
     $(".tour-image").on("click", function() {
       const imageId = $(this).data("image-id");
         if($(this).hasClass("selected-image")) {
-          const index = selectedImages.indexOf(imageId);
-          selectedImages.splice(index, 1);
+          const index = topSelectedImages.indexOf(imageId);
+          topSelectedImages.splice(index, 1);
           $(this).removeClass("selected-image");
         } else {
-          if(selectedImages.length >= MAX_IMAGE_COUNT) {
+          if(topSelectedImages.length >= MAX_IMAGE_COUNT) {
             alert(`Please select no more than ${MAX_IMAGE_COUNT} images`);
           } else {
-            selectedImages.push(imageId);
+            topSelectedImages.push(imageId);
             $(this).addClass("selected-image");
           }
         }
-        $("#tour_selected_images").val(selectedImages.join(","));
+        $("#tour_selected_images").val(topSelectedImages.join(","));
     });
   });
 </script>

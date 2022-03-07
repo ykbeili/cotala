@@ -2,7 +2,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="<%= image_id %>_modal_title">Modal title</h5>
+        <h5 class="modal-title" id="<%= image_id %>_modal_title">Edit Info</h5>
       </div>
       <div class="modal-body">
         <%= form_for @tour, url: tour_detail_path(@tour, type: "image"), method: :put, remote: true do |f| %>

@@ -2,13 +2,13 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="images_modal_title">Modal title</h5>
+        <h5 class="modal-title" id="images_modal_title">Edit Info</h5>
       </div>
       <div class="modal-body">
         <div class="row no-gutters">
           <%= form_for @tour, url: tour_detail_path(@tour, type: :address), method: :put, remote: true do |f| %>
           <h6>Listing Features</h6>
-          <%= f.text_area :listing_address, id:'listing_address_text_area' %>
+          <%= f.text_area :listing_address, id:'listing_address_text_area', class: "text-edit", rows: 10 %>
         </div>
       </div>
       <div class="modal-footer">
