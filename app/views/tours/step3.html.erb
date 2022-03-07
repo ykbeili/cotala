@@ -25,17 +25,6 @@
             <span id="first_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}", style: 'width: 700px' %></a>
           </div>
         </div>
-        <div class="row no-gutters">
-            <div class="col-4 pr-3">
-              <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[1].name}", style: 'width: 235px; padding-top: 10px;padding-right: 15px' %>
-            </div>
-            <div class="col-4">
-              <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[2].name}", style: 'width: 235px; padding-top: 10px;padding-right: 7.5px' %>
-            </div>
-            <div class="col-4">
-              <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[3].name}", style: 'width: 235px; padding-top: 10px;padding-left: 7.5px' %>
-            </div>
-          </div>
           <div class="row no-gutters pt-5">
           <div class="col-4">
             <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[0].name}", style: 'width: 100%' %>

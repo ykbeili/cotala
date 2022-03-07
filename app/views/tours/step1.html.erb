@@ -21,7 +21,7 @@
       <div class="col-6 mt-5">
       <%= form_for @tour, url: wizard_path(:step2, :tour_id => @tour.id), method: :put do |f| %>
         <%=  f.hidden_field :selected_images  %>
-        <%=  f.submit "Next Step", class: 'btn btn-primary w-100' %>
+        <%=  f.submit "Next Step", class: 'btn btn-primary w-100 to-step2-button' %>
       <% end %>
       <p class="text-center mt-2">You can always edit the images</p>
       </div>
@@ -34,6 +34,12 @@
   const MAX_IMAGE_COUNT = <%= max_photos %>;
   const selectedImages = <%= raw @tour.selected_images %>;
   $(document).ready(function() {
+    $('.to-step2-button').on("click", function(e) {
+      if($('.selected-image').length < MAX_IMAGE_COUNT) {
+        e.preventDefault()
+        alert(`please selecte ${MAX_IMAGE_COUNT} images`)
+      }
+    })
     $(".tour-image").on("click", function() {
       const imageId = $(this).data("image-id");
         if($(this).hasClass("selected-image")) {

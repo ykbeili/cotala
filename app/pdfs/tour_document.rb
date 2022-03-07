@@ -28,7 +28,7 @@ class TourDocument < Prawn::Document
     font_size 20
     text_box "#{@tour.listing_address}", :at => [880, 875], style: "bold"
     image open(borker_log), fit: [100, 100], :at => [1450, 925]
-    image open(main_image), :width => 700, :height => 575, :at => [830, 800]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}"), :width => 700, :height => 575, :at => [830, 800]
     image open(broker_image), fit: [200, 200], :at => [880, 200]
     text_box "#{@tour.agent_name}", :at => [1125, 200]
     font_size 8
@@ -53,22 +53,22 @@ class TourDocument < Prawn::Document
     text_box "#{tour_description}", :at => [40, 850], :width => 600, :leading => 5
     font_size 16
     text_box "LOT | #{@tour.mls} | SIZE #{@tour.size} SF | #{@tour.bedrooms} BED | #{@tour.bathrooms} BATH | TAXES #{@tour.tax}", :at => [40, 650]
-    main_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[0].name}"
+    main_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.second_image}"
     image open(main_image), :width => 700, :height => 400, :at => [40, 600]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[2].name}"), :width => 225, :height => 150, :at => [40, 185]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[3].name}"), :width => 225, :height => 150, :at => [275, 185]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[4].name}"), :width => 225, :height => 150, :at => [510, 185]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[5].name}"), :width => 700, :height => 450, :at => [830, 960]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.third_image}"), :width => 225, :height => 150, :at => [40, 185]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fourth_image}"), :width => 225, :height => 150, :at => [275, 185]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fifth_image}"), :width => 225, :height => 150, :at => [510, 185]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.sixth_image}"), :width => 700, :height => 450, :at => [830, 960]
   
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[6].name}"), :width => 225, :height => 150, :at => [830, 500]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[7].name}"), :width => 225, :height => 150, :at => [1090, 500]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[8].name}"), :width => 225, :height => 150, :at => [1350, 500]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[9].name}"), :width => 225, :height => 150, :at => [830, 340]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[10].name}"), :width => 225, :height => 150, :at => [1090, 340]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[11].name}"), :width => 225, :height => 150, :at => [1350, 340]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[12].name}"), :width => 225, :height => 150, :at => [830, 180]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[13].name}"), :width => 225, :height => 150, :at => [1090, 180]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[14].name}"), :width => 225, :height => 150, :at => [1350, 180]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.seventh_image}"), :width => 225, :height => 150, :at => [830, 500]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.eighth_image}"), :width => 225, :height => 150, :at => [1090, 500]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.ninth_image}"), :width => 225, :height => 150, :at => [1350, 500]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.tenth_image}"), :width => 225, :height => 150, :at => [830, 340]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.eleventh_image}"), :width => 225, :height => 150, :at => [1090, 340]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.twelfth_image}"), :width => 225, :height => 150, :at => [1090, 180]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.thirteenth_image}"), :width => 225, :height => 150, :at => [1350, 340]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fourteenth_image}"), :width => 225, :height => 150, :at => [830, 180]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fifteenth_image}"), :width => 225, :height => 150, :at => [1350, 180]
   end
 
   def add_crop_marks
