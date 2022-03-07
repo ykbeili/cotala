@@ -18,7 +18,7 @@ class TourDetailsController < ApplicationController
   end
 
   def tour_params
-    params.require(:tour).permit(:listing_address, :agent_email, :agent_name, :agent_url, :agent_phone, :first_image)
+    params.require(:tour).permit(:listing_address, :agent_email, :agent_name, :agent_url, :agent_phone, :first_image, :size, :lot_maint, :bathrooms, :bedrooms, :price, :tax)
   end
 
 end
