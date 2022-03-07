@@ -14,7 +14,7 @@ class TourDetailsController < ApplicationController
   end
 
   def tour_params
-    params.require(:tour).permit(:listing_address, :agent_email, :agent_name, :agent_url, :agent_phone, :first_image, :second_image, :third_image, :fourth_image, :fifth_image, :sixth_image, :seventh_image, :eighth_image, :ninth_image, :tenth_image, :eleventh_image, :twelfth_image, :thirteenth_image, :fourteenth_image, :fifteenth_image, :size, :lot_maint, :bathrooms, :bedrooms, :price, :tax)
+    params.require(:tour).permit(:listing_address, :agent_email, :agent_name, :agent_url, :agent_phone, :first_image, :second_image, :third_image, :fourth_image, :fifth_image, :sixth_image, :seventh_image, :eighth_image, :ninth_image, :tenth_image, :eleventh_image, :twelfth_image, :thirteenth_image, :fourteenth_image, :fifteenth_image, :size, :lot_maint, :bathrooms, :bedrooms, :price, :tax, :description)
   end
 
 end

@@ -7,7 +7,6 @@
       <div class="modal-body">
         <div class="row no-gutters">
           <%= form_for @tour, url: tour_detail_path(@tour, type: :agent_email), method: :put, remote: true do |f| %>
-          <h6>Listing Features</h6>
           <%= f.text_area :agent_email, id:'agent_email_text_area' %>
         </div>
       </div>
