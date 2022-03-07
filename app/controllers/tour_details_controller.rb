@@ -4,16 +4,12 @@ class TourDetailsController < ApplicationController
   def update
     # case params[:type]
     @tour.update(tour_params)
-    p params
-    p 'params'
     render params[:type]
   end
 
   private
 
   def find_tour
-    p params
-    p 'params'
     @tour = Tour.find_by_id(params[:id])
   end
 

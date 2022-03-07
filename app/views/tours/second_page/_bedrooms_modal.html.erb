@@ -6,14 +6,14 @@
       </div>
       <div class="modal-body">
         <div class="row no-gutters">
-          <%= form_for @tour, url: wizard_path(:step4, :tour_id => @tour.id), method: :put, remote: true do |f| %>
+          <%= form_for @tour, url: tour_detail_path(@tour, type: :bedrooms),  method: :put, remote: true do |f| %>
           <h6>Listing Features</h6>
           <%= f.text_area :bedrooms, id:'bedrooms_text_area' %>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-secondary save">Save</button>
+        <button type="submit" class="btn btn-secondary save">Save</button>
         <% end %>
       </div>
     </div>
@@ -23,19 +23,6 @@
   $(document).ready(function() {
     $('.close').on("click", function() {
       $('#bedrooms_modal').modal('hide')
-    })
-    $('.save').on("click", function() {
-      $('#bedrooms_modal').modal('hide');
-      $.ajax({
-        url: `/tours/step4?tour_id=<%= tour.id %>`,
-        method: 'put',
-        data: { tour: { bedrooms: $('#bedrooms_text_area').val() }},
-        success: function(response) {
-        },
-        error: function(response) {
-          console.log(response, 'response')
-        },
-      })
     })
   })
 </script>
