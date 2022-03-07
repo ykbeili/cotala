@@ -22,7 +22,7 @@
         </div>
         <div class="row no-gutters">
           <div class="col-12">
-            <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[0].name}", style: 'width: 700px' %>
+            <span id="first_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}", style: 'width: 700px' %></a>
           </div>
         </div>
         <div class="row no-gutters">
@@ -67,11 +67,11 @@
 <%= render 'tours/first_page/agent_url_modal', tour: @tour %>
 <%= render 'tours/first_page/agent_phone_modal', tour: @tour %>
 <%= render 'tours/first_page/agent_name_modal', tour: @tour %>
+<%= render 'tours/first_page/first_image_modal', tour: @tour %>
 <script>
   $(document).ready(function() {
     $('.modal-link').on("click", function() {
       const modalId = $(this)[0].id.replace('_link','');
-      console.log(modalId, 'modalId')
       $(`#${modalId}`).modal('show')
     })
     $('#images_modal_link').on("click", function() {
