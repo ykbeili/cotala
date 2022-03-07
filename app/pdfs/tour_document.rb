@@ -61,14 +61,14 @@ class TourDocument < Prawn::Document
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.sixth_image}"), :width => 700, :height => 450, :at => [830, 960]
   
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.seventh_image}"), :width => 225, :height => 150, :at => [830, 500]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.eighth_image}"), :width => 225, :height => 150, :at => [1090, 500]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.ninth_image}"), :width => 225, :height => 150, :at => [1350, 500]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.eighth_image}"), :width => 225, :height => 150, :at => [1065, 500]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.ninth_image}"), :width => 225, :height => 150, :at => [1300, 500]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.tenth_image}"), :width => 225, :height => 150, :at => [830, 340]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.eleventh_image}"), :width => 225, :height => 150, :at => [1090, 340]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.twelfth_image}"), :width => 225, :height => 150, :at => [1090, 180]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.thirteenth_image}"), :width => 225, :height => 150, :at => [1350, 340]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fourteenth_image}"), :width => 225, :height => 150, :at => [830, 180]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fifteenth_image}"), :width => 225, :height => 150, :at => [1350, 180]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.eleventh_image}"), :width => 225, :height => 150, :at => [1065, 340]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.twelfth_image}"), :width => 225, :height => 150, :at => [1300, 340]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.thirteenth_image}"), :width => 225, :height => 150, :at => [830, 180]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fourteenth_image}"), :width => 225, :height => 150, :at => [1065, 180]
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fifteenth_image}"), :width => 225, :height => 150, :at => [1300, 180]
   end
 
   def add_crop_marks
