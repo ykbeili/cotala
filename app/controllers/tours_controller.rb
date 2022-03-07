@@ -1,7 +1,7 @@
 class ToursController < ApplicationController
   include Wicked::Wizard
   require "prawn"
-  steps :step1, :step2, :step3, :step4, :step5, :step6
+  steps :step1, :step2, :step3, :step4, :step5
   before_action :find_tour, only: [:show, :update]
 
   def index

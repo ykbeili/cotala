@@ -1,15 +1,15 @@
-<div class="modal fade" id="first_image_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade image-modal" id="<%= image_id %>_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="first_image_modal_title">Modal title</h5>
+        <h5 class="modal-title" id="<%= image_id %>_modal_title">Modal title</h5>
       </div>
       <div class="modal-body">
-        <%= form_for @tour, url: tour_detail_path(@tour, type: :first_image), method: :put, remote: true do |f| %>
-        <%= f.hidden_field :first_image %>
+        <%= form_for @tour, url: tour_detail_path(@tour, type: "image"), method: :put, remote: true do |f| %>
+        <%= f.hidden_field image_id.to_sym %>
         <div class="row no-gutters">
             <% tour.selected_images.each do |image| %>
-              <div data-image-id="<%= image %>" class="col-4 my-2 <%= "selected-image" if tour.first_image == image %> tour-image">
+              <div data-image-id="<%= image %>" class="col-4 my-2 <%= "selected-image" if tour.send(image_id) == image %> tour-image">
                 <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{image}", class:'w-100'%>
               </div>
             <% end %>
@@ -17,7 +17,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary save">Save changes</button>
+        <button type="submit" class="btn btn-primary save">Set Image</button>
         <% end %>
       </div>
     </div>
@@ -27,17 +27,17 @@
   selectedImages = <%= raw @tour.selected_images %>;
   document.addEventListener("turbolinks:load", function() {
     $('.close').on("click", function() {
-      $('#first_image_modal').modal('hide')
+      $('#<%= image_id %>_modal').modal('hide')
     })
     $('.save').on("click", function() {
       if($('.selected-image').length === 0){
         alert(`Please select at least 1 image`);
-        $('#first_image_modal').modal('show')
+        $('#<%= image_id %>_modal').modal('show')
       } else {
-        $('#first_image_modal').modal('hide')
+        $('#<%= image_id %>_modal').modal('hide')
       }
     })
-    $(".tour-image").on("click", function() {
+    $("#<%= image_id %>_modal .tour-image").on("click", function() {
       const imageId = $(this).data("image-id");
         if($(this).hasClass("selected-image")) {
           const index = selectedImages.indexOf(imageId);
@@ -48,7 +48,7 @@
           selectedImages.push(imageId);
           $(this).addClass("selected-image");
         }
-        $("#tour_first_image").val($(".selected-image").data("image-id"));
+        $("#tour_<%= image_id %>").val($(".selected-image").data("image-id"));
     });
   })
 </script>

@@ -7,6 +7,10 @@
       </div>
     </div>
     <div class="row no-gutters">
+      <h2>
+        Click on the different photos or text to customize
+        <small class="text-muted">(note that the display is approximate)</small>
+      </h2>
       <div class="col-6" style="padding-top: 200px">
         <%= image_tag 'https://images.squarespace-cdn.com/content/v1/5bdde6530dbda3230ba6bd5d/1542039146291-IY4AG1D0JN2D1400BZ1C/Matterport+-+Best+Practices+for+Schematic+Floor+Plans.jpg?format=1000w', style: 'transform: rotate(270deg); width: 700px' %>
       </div>
@@ -22,12 +26,12 @@
         </div>
         <div class="row no-gutters">
           <div class="col-12">
-            <span id="first_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}", style: 'width: 700px' %></a>
+            <a id="first_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}", style: 'width: 700px' %></a>
           </div>
         </div>
           <div class="row no-gutters pt-5">
           <div class="col-4">
-            <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[0].name}", style: 'width: 100%' %>
+            <a id="second_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.second_image}", style: 'width: 100%' %></a>
           </div>
           <div class="col-5">
             <span id="agent_name_modal_link" class="d-block text-decoration-underline modal-link"><%= @tour.agent_name %> </span>
@@ -56,9 +60,13 @@
 <%= render 'tours/first_page/agent_url_modal', tour: @tour %>
 <%= render 'tours/first_page/agent_phone_modal', tour: @tour %>
 <%= render 'tours/first_page/agent_name_modal', tour: @tour %>
-<%= render 'tours/first_page/first_image_modal', tour: @tour %>
+
+<%= render 'tours/third_step/image_modal', tour: @tour, image_id: "first_image" %>
+<%= render 'tours/third_step/image_modal', tour: @tour, image_id: "second_image" %>
+
+
 <script>
-  $(document).ready(function() {
+  document.addEventListener("turbolinks:load", function() {
     $('.modal-link').on("click", function() {
       const modalId = $(this)[0].id.replace('_link','');
       $(`#${modalId}`).modal('show')

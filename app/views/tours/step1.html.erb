@@ -5,7 +5,10 @@
     <div class="row no-gutters text-left">
       <div class="col-12 ">
         <%= render '/layouts/steps', tour: @tour %>
-        <h2 class="mt-3"> Pick <%= max_photos %> Photos</h2>
+        <h2 class="mt-3">
+          Please Select <%= max_photos %> Photos
+          <small class="text-muted">(to be used for brochure photos)</small>
+        </h2>
       </div>
     </div>
     <div class="row no-gutters mt-5">
@@ -31,9 +34,9 @@
   </div>
 </section>
 <script>
-  const MAX_IMAGE_COUNT = <%= max_photos %>;
-  const selectedImages = <%= raw @tour.selected_images %>;
-  $(document).ready(function() {
+  MAX_IMAGE_COUNT = <%= max_photos %>;
+  selectedImages = <%= raw @tour.selected_images %>;
+  document.addEventListener("turbolinks:load", function() {
     $('.to-step2-button').on("click", function(e) {
       if($('.selected-image').length < MAX_IMAGE_COUNT) {
         e.preventDefault()

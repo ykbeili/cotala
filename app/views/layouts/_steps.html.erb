@@ -1,22 +1,19 @@
 <div class="container m-0 p-0">
   <div class="row no-gutters">
-    <div class="col-2">
+    <div class="col-sm">
       <%= link_to 'step one', wizard_path(:step1, tour_id: @tour.id), class:"btn step #{step == :step1 ? 'btn-primary': 'btn-light'}"  %>
     </div>
-    <div class="col-2">
+    <div class="col-sm">
       <%= link_to 'step two', wizard_path(:step2, tour_id: @tour.id), class:"btn step #{step == :step2 ? 'btn-primary': 'btn-light'}"  %>
     </div>
-    <div class="col-2">
+    <div class="col-sm">
       <%= link_to 'step three', wizard_path(:step3, tour_id: @tour.id), class:"btn step #{step == :step3 ? 'btn-primary': 'btn-light'}"  %>
     </div>
-    <div class="col-2">
+    <div class="col-sm">
       <%= link_to 'step four', wizard_path(:step4, tour_id: @tour.id), class:"btn step #{step == :step4 ? 'btn-primary': 'btn-light'}"  %>
     </div>
-    <div class="col-2">
+    <div class="col-sm">
       <%= link_to 'step five', wizard_path(:step5, tour_id: @tour.id), class:"btn step #{step == :step5 ? 'btn-primary': 'btn-light'}"  %>
-    </div>
-    <div class="col-2">
-      <%= link_to 'step six', wizard_path(:step6, tour_id: @tour.id), class:"btn step #{step == :step6 ? 'btn-primary': 'btn-light'}"  %>
     </div>
   </div>
 </div>

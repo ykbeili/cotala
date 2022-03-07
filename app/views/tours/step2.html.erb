@@ -50,7 +50,7 @@
   </div>
 </section>
 <script>
-  $(document).ready(function() {
+  document.addEventListener("turbolinks:load", function() {
     $(".theme-column").on("click", function() {
       if(!$(this).hasClass("selected-theme")) {
         $(this).addClass("selected-theme");

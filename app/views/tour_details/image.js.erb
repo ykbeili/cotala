@@ -1,0 +1,4 @@
+$(".image-modal").modal('hide');
+<% ["first_image","second_image","third_image","fourth_image","fifth_image","sixth_image","seventh_image","eighth_image","ninth_image","tenth_image","eleventh_image","twelfth_image","thirteenth_image","fourteenth_image","fifteenth_image"].each do |image| %>
+  $("a#<%= image %>_modal_link img").attr("src","https://www.cotala.com/tours/<%= @tour.cotala_tour_id%>/<%= @tour.cotala_tour_id%>_<%= @tour.send(image) %>");
+<% end %>

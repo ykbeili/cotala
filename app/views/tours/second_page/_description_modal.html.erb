@@ -20,7 +20,7 @@
   </div>
 </div>
 <script>
-  $(document).ready(function() {
+  document.addEventListener("turbolinks:load", function() {
     $('.close').on("click", function() {
       $('#description_modal').modal('hide')
     })
