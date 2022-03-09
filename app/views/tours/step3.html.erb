@@ -49,7 +49,7 @@
     </div>
     <div class="row no-gutters text-center mt-5">
       <div class="col-6">
-        <%= link_to 'Next Step', wizard_path(:step4, :tour_id => @tour.id), class: 'btn btn-primary theme-step-button w-100' %>
+        <%= link_to 'Next Step', wizard_path(:step4, :tour_id => @tour.id), class: 'btn btn-primary theme-step-button w-100',data: { turbolinks: false } %>
       </div>
     </div>
   </div>
