@@ -6,10 +6,10 @@
         <%= render '/layouts/steps', tour: @tour%>
       </div>
     </div>
-    <div class="row no-gutters">
-      <h2>
+    <div class="row no-gutters <%= @tour.selected_theme == 'dark' ? 'bg-black' : ''%>">
+      <h2 class="<%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">
         Click on the different photos or text to customize
-        <small class="text-muted">(note that the display is approximate)</small>
+        <small class="text-muted <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">(note that the display is approximate)</small>
       </h2>
       <div class="col-6" style="padding-top: 200px">
         <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/Floorplan_Branded.jpg", style: 'width: 100%; padding-right: 20px' %>
@@ -17,8 +17,8 @@
       <div class="col-6" style="padding-top: 200px">
         <div class="row no-gutters">
           <div class="col-6" >
-            <h6>Listing Features</h6>
-            <span id="address_modal_link" class="text-decoration-underline"><%= @tour.listing_address %></span>
+            <h6 class="<%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">Listing Features</h6>
+            <span id="address_modal_link" class="text-decoration-underline <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.listing_address %></span>
           </div>
           <div class="col-6" style="text-align: right">
             <%= image_tag @tour.broker_logo %>
@@ -34,11 +34,11 @@
             <a id="second_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.second_image}", style: 'width: 100%' %></a>
           </div>
           <div class="col-5">
-            <span id="agent_name_modal_link" class="d-block text-decoration-underline modal-link"><%= @tour.agent_name %> </span>
-            <span class="d-block">Personal Real Estate Corporation</span>
-            <span id="agent_phone_modal_link" class="d-block text-decoration-underline modal-link"><%= @tour.agent_phone %></span>
-            <span id="agent_email_modal_link" class="d-block text-decoration-underline modal-link"><%= @tour.agent_email %></span>
-            <span id="agent_url_modal_link" class="d-block text-decoration-underline modal-link"><%= @tour.agent_url %></span>
+            <span id="agent_name_modal_link" class="d-block text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.agent_name %> </span>
+            <span class="d-block <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">Personal Real Estate Corporation</span>
+            <span id="agent_phone_modal_link" class="d-block text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.agent_phone %></span>
+            <span id="agent_email_modal_link" class="d-block text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.agent_email %></span>
+            <span id="agent_url_modal_link" class="d-block text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.agent_url %></span>
           </div>
           <div class="col-3">
             <%= image_tag @tour.broker_logo, style: 'width: 100%' %>

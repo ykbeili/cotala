@@ -6,44 +6,44 @@
         <%= render '/layouts/steps', tour: @tour%>
       </div>
     </div>
-    <div class="row no-gutters">
+    <div class="row no-gutters <%= @tour.selected_theme == 'dark' ? 'bg-black' : ''%>">
       <div class="col-6" style="padding-top: 200px">
         <div class="row no-gutters">
-          <h1><%= @tour.listing_address %></h1>
+          <h1 class="<%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.listing_address %></h1>
         </div>
         <div class="row no-gutters">
           <span id="price_modal_link" class="text-decoration-underline modal-link">
-            LISTED FOR<h1 class="d-inline-block pl-4"><%= @tour.price %></h1>
+            LISTED FOR<h1 class="d-inline-block pl-4 <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.price %></h1>
           </span>
         </div>
         <div class="row no-gutters">
           <span id="description_modal_link" class="text-decoration-underline modal-link">
-            <p><%= @tour.description %></p>
+            <p class="<%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.description %></p>
           </span>
         </div>
         <div class="row no-gutters">
           <div class="col-2">
-            <span id="lot_modal_link" class="text-decoration-underline modal-link">
+            <span id="lot_modal_link" class="text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">
               LOT <%= @tour.lot_maint %> SF
             </span>
           </div>
           <div class="col-2">
-            <span id="size_modal_link" class="text-decoration-underline modal-link">
+            <span id="size_modal_link" class="text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">
               SIZE <%= @tour.size %> SF
             </span>
           </div>
           <div class="col-2">
-            <span id="bedrooms_modal_link" class="text-decoration-underline modal-link">
+            <span id="bedrooms_modal_link" class="text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">
               <%= @tour.bedrooms %> BED
             </span>
           </div>
           <div class="col-2">
-            <span id="bathrooms_modal_link" class="text-decoration-underline modal-link">
+            <span id="bathrooms_modal_link" class="text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">
               <%= @tour.bathrooms %> BATH
             </span>
           </div>
           <div class="col-2">
-            <span id="tax_modal_link" class="text-decoration-underline modal-link">
+            <span id="tax_modal_link" class="text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">
               TAXES $<%= @tour.tax %>
             </span>
           </div>

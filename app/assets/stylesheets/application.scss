@@ -62,13 +62,17 @@ body {
   background-position: center;
   background-size: cover;
 }
-
+.tour-image,
+.theme-column,
+.modal-link {
+  cursor: pointer;
+}
 .selected-image {
-  border: 5px solid;
+  border: 3px solid #981c1e;
 }
 
 .selected-theme {
-  border: 2px solid;
+  border: 2px solid #981c1e;
 }
 
 .text-edit {
