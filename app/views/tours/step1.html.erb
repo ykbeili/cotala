@@ -13,8 +13,8 @@
     </div>
     <div class="row no-gutters mt-5">
       <% @tour.images.each do |image| %>
-        <div data-image-id="<%= image.name %>" class="col-2 my-2 <%= "selected-image" if @tour.selected_images.include?(image.name) %> tour-image">
-          <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{image.name}", class:'w-100'%>
+        <div data-image-id="<%= image.name %>" class="col-3 my-2 card <%= "selected-image" if @tour.selected_images.include?(image.name) %> tour-image">
+          <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{image.name}", class:'w-100 card-img-top'%>
         </div>
       <% end %>
     </div>

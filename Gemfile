@@ -26,9 +26,8 @@ gem 'bootstrap', '~> 5.1.3'
 gem 'faraday'
 gem 'faraday-net_http'
 gem 'jquery-rails'
-gem 'wicked'
 gem 'prawn', '~> 2.1'
-gem 'pdf-reader'
+gem 'wicked'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

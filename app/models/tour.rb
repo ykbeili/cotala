@@ -7,17 +7,15 @@ class Tour < ApplicationRecord
 
   # get tour info from cotala
   def self.get_tour(print_job_id)
-    begin
-      @response = Faraday.get("https://www.cotala.com/printjobs/#{print_job_id}/data.txt")
-      @parsed_response_hash = parse_response(@response.body)
-      @parsed_response_hash
-    rescue StandardError
-      p StandardError
-    end
+    @response = Faraday.get("https://www.cotala.com/printjobs/#{print_job_id}/data.txt")
+    @parsed_response_hash = parse_response(@response.body)
+    @parsed_response_hash
+  rescue StandardError
+    p StandardError
   end
 
   def self.save_record(response)
-    images = get_images(response["NumPics"])
+    images = get_images(response['NumPics'])
     @tour = Tour.new
     tour_images = []
     images.each do |image|
@@ -25,31 +23,31 @@ class Tour < ApplicationRecord
       tour_images.push(tour_image)
     end
     @tour.images = tour_images
-    @tour.agent_name = response["AgentName"]
-    @tour.agent_phone = response["AgentPhone"]
-    @tour.agent_email = response["AgentEmail"]
-    @tour.agent_url = response["AgentUrl"]
-    @tour.brokerage_name = response["BrokerageName"]
-    @tour.brokerage_address = response["BrokerageAddress"]
-    @tour.brokerage_brand = response["BrokerageBrand"]
-    @tour.broker_logo = response["BrokerLogo"]
-    @tour.listing_address = response["ListingAddress"]
-    @tour.show_price = response["ShowPrice"]
-    @tour.price = response["Price"]
-    @tour.mls = response["MLS"]
-    @tour.tax = response["Tax"]
-    @tour.built = response["Built"]
-    @tour.bedrooms = response["Bedrooms"]
-    @tour.bathrooms = response["Bathrooms"]
-    @tour.size = response["Size"]
-    @tour.lot_or_maint = response["Lot_or_Maint"] == "Lot" ? true : false
-    @tour.lot_maint = response["LotMaint"]
-    @tour.description = response["Description"]
-    @tour.style = response["Style"]
-    @tour.property_type = response["Type"]
-    @tour.cotala_tour_id = response["TourID"]
-    @tour.num_of_pics = response["NumPics"]
-    @tour.print_job_id = response["PrintjobID"]
+    @tour.agent_name = response['AgentName']
+    @tour.agent_phone = response['AgentPhone']
+    @tour.agent_email = response['AgentEmail']
+    @tour.agent_url = response['AgentUrl']
+    @tour.brokerage_name = response['BrokerageName']
+    @tour.brokerage_address = response['BrokerageAddress']
+    @tour.brokerage_brand = response['BrokerageBrand']
+    @tour.broker_logo = response['BrokerLogo']
+    @tour.listing_address = response['ListingAddress']
+    @tour.show_price = response['ShowPrice']
+    @tour.price = response['Price']
+    @tour.mls = response['MLS']
+    @tour.tax = response['Tax']
+    @tour.built = response['Built']
+    @tour.bedrooms = response['Bedrooms']
+    @tour.bathrooms = response['Bathrooms']
+    @tour.size = response['Size']
+    @tour.lot_or_maint = response['Lot_or_Maint'] == 'Lot'
+    @tour.lot_maint = response['LotMaint']
+    @tour.description = response['Description']
+    @tour.style = response['Style']
+    @tour.property_type = response['Type']
+    @tour.cotala_tour_id = response['TourID']
+    @tour.num_of_pics = response['NumPics']
+    @tour.print_job_id = response['PrintjobID']
     if @tour.save
       @tour
     else
@@ -57,7 +55,6 @@ class Tour < ApplicationRecord
     end
   end
 
-  private
   # parse api response
   def self.parse_response(response)
     parsed_response_hash = {}
@@ -75,12 +72,8 @@ class Tour < ApplicationRecord
     hash_keys = []
     hash_values = []
     response.each_with_index do |e, index|
-      if e.include?("\"")
-        e = e.gsub!('"', '')
-      end
-      if e.include?("\n")
-        e = e.chomp("\n")
-      end
+      e = e.gsub!('"', '') if e.include?('"')
+      e = e.chomp("\n") if e.include?("\n")
       if e.include?('PrintjobID')
         print_job_id = e.slice(0..9)
         agent_name = e.slice(11..e.length - 1)
@@ -101,7 +94,7 @@ class Tour < ApplicationRecord
     images = []
     num_of_pics = num_of_pics.to_i
     (1..num_of_pics).each do |key|
-      images.push(key.to_s + '.jpg')
+      images.push("#{key}.jpg")
     end
     images
   end

@@ -25,7 +25,7 @@
             </div>
           </div>
           <div class="col-4 mt-3">
-            <div class="card theme-column white <%= 'selected-theme' if @tour.selected_theme == 'white' %>" style="width: 100%;">
+            <div class="card theme-column white selected-theme <%= 'selected-theme' if @tour.selected_theme == 'white' %>" style="width: 100%;">
               <img class="card-img-top" src="<%= asset_path('pdf_sample.png') %>" alt="Card image cap">
               <div class="card-body">
                 <h5 class="card-title">Light Theme</h5>
