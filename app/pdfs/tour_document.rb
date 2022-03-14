@@ -27,7 +27,7 @@ class TourDocument < Prawn::Document
       size: 120
     )
     qrcode_image = IO.binwrite('/tmp/github-qrcode.png', qrcode_to_png.to_s)
-    image open('/tmp/github-qrcode.png'), at: [1350, 925]
+    image open('/tmp/github-qrcode.png'), at: [1300, 925]
     fill_rectangle [-35, 1056], 1632, 1096 if @tour.selected_theme == 'dark'
     floor_plan = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/Floorplan_Branded.jpg"
     main_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[0].name}"
