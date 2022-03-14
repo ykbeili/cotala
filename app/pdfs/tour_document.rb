@@ -1,5 +1,6 @@
 class TourDocument < Prawn::Document
   require 'open-uri'
+  require 'rqrcode'
   PDF_SIZE = [1632, 1056].freeze
 
   def initialize(tour)
@@ -12,6 +13,21 @@ class TourDocument < Prawn::Document
 
   def first_page
     fill_color '000000' if @tour.selected_theme == 'dark'
+    qrcode = RQRCode::QRCode.new('http://github.com/')
+    qrcode_to_png = qrcode.as_png(
+      bit_depth: 1,
+      border_modules: 4,
+      color_mode: ChunkyPNG::COLOR_GRAYSCALE,
+      color: 'black',
+      file: nil,
+      fill: 'white',
+      module_px_size: 6,
+      resize_exactly_to: false,
+      resize_gte_to: false,
+      size: 120
+    )
+    qrcode_image = IO.binwrite('/tmp/github-qrcode.png', qrcode_to_png.to_s)
+    image open('/tmp/github-qrcode.png'), at: [1350, 925]
     fill_rectangle [-35, 1056], 1632, 1096 if @tour.selected_theme == 'dark'
     floor_plan = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/Floorplan_Branded.jpg"
     main_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[0].name}"

@@ -27,6 +27,7 @@ gem 'faraday'
 gem 'faraday-net_http'
 gem 'jquery-rails'
 gem 'prawn', '~> 2.1'
+gem 'rqrcode', '~> 2.0'
 gem 'wicked'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

@@ -1,6 +1,7 @@
 class ToursController < ApplicationController
   include Wicked::Wizard
   require 'prawn'
+  require 'rqrcode'
   steps :step1, :step2, :step3, :step4, :step5
   before_action :find_tour, only: %i[show update]
 
@@ -8,6 +9,7 @@ class ToursController < ApplicationController
     random_array = [87_416, 87_417, 87_418, 87_419, 87_420, 87_424, 87_425, 87_427]
     @response = Tour.get_tour(random_array.sample)
     @tour = Tour.save_record(@response)
+    p IO.binwrite('/tmp/github-qrcode.png', qrcode_image.to_s)
     if @tour.present?
       render :index
     else
