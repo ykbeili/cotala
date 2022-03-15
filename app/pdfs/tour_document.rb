@@ -79,7 +79,7 @@ class TourDocument < Prawn::Document
           width: 230, height: 150, at: [510, 195]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.sixth_image}"),
           width: 700, height: 450, at: [830, 960]
-    image open('/tmp/github-qrcode.png'), at: [1420, 960]
+    image open('/tmp/github-qrcode.png'), at: [1410, 960]
 
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.seventh_image}"),
           width: 230, height: 150, at: [830, 505]
