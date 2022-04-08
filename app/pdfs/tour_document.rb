@@ -97,7 +97,7 @@ class TourDocument < Prawn::Document
     text_box "#{@tour.lot_maint} SF", at: [90, 629]
     text_box '|', at: [170, 629]
     text_box 'SIZE', at: [200, 629]
-    text_box "#{@tour.lot_maint} SF", at: [250, 629]
+    text_box "#{@tour.size} SF", at: [250, 629]
     text_box '|', at: [320, 629]
     text_box @tour.bedrooms.to_s, at: [360, 629]
     text_box 'BED', at: [375, 629]

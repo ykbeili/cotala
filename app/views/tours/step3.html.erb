@@ -21,7 +21,7 @@
             <span id="address_modal_link" class="text-decoration-underline <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.listing_address %></span>
           </div>
           <div class="col-6" style="text-align: right">
-            <%= image_tag @tour.broker_logo %>
+            <%= image_tag @tour.agent_logo_url if @tour.agent_logo_url %>
           </div>
         </div>
         <div class="row no-gutters">
@@ -29,9 +29,9 @@
             <a id="first_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}", style: 'width: 100%' %></a>
           </div>
         </div>
-          <div class="row no-gutters pt-5">
+          <div class="row no-gutters pt-4">
           <div class="col-4">
-            <a id="second_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.second_image}", style: 'width: 100%' %></a>
+            <%= image_tag @tour.agent_headshot_url, style: "width:150px; height: 150px; border-radius: 50%;margin-left: 30px" if @tour.agent_headshot_url %>
           </div>
           <div class="col-5">
             <span id="agent_name_modal_link" class="d-block text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.agent_name %> </span>
@@ -41,7 +41,7 @@
             <span id="agent_url_modal_link" class="d-block text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.agent_url %></span>
           </div>
           <div class="col-3">
-            <%= image_tag @tour.broker_logo, style: 'width: 100%' %>
+            <%= image_tag @tour.broker_logo, style: 'width: 100%;margin-top: 60px' %>
           </div>
           </div>
         </div>
