@@ -18,6 +18,7 @@ class TourDocument < Prawn::Document
     main_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[0].name}"
     broker_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[1].name}"
     borker_log = @tour.broker_logo
+    agent_headshot_url = @tour.agent_headshot_url
     image open(floor_plan), fit: [700, 900], at: [40, 950]
     add_crop_marks
     fill_color @tour.selected_theme == 'dark' ? 'FFFFFF' : '6c6d70'
@@ -29,14 +30,19 @@ class TourDocument < Prawn::Document
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}"),
           width: 700, height: 575, at: [830, 800]
     image open(broker_image), fit: [200, 200], at: [880, 200]
+    stroke_line [1110, 205], [1110, 105]
     text_box @tour.agent_name.to_s, at: [1125, 200]
     font_size 8
+    fill_color 'b0b0b0'
     text_box 'Personal Real Estate Corportation', at: [1125, 175]
-    font_size 20
-    text_box @tour.agent_phone.to_s, at: [1125, 160]
+    font_size 18
+    fill_color '6c6d70'
+    text_box @tour.agent_phone.to_s, at: [1125, 160], style: 'normal'
     font_size 8
+    fill_color 'b0b0b0'
     text_box @tour.agent_email.to_s, at: [1125, 135]
     text_box @tour.agent_url.to_s, at: [1125, 120]
+    #     image open(agent_headshot_url), fit: [100, 100], at: [1450, 185] if agent_headshot_url.present?
     image open(borker_log), fit: [100, 100], at: [1450, 185]
   end
 
@@ -61,14 +67,38 @@ class TourDocument < Prawn::Document
     fill_color @tour.selected_theme == 'dark' ? 'FFFFFF' : '6c6d70'
     font_size 20
     text_box @tour.listing_address.upcase.to_s, at: [40, 960]
-    text_box "Listed for: $#{@tour.price}", at: [40, 900], style: 'bolder'
+    font_size 6
+    text_box 'LISTED', at: [40, 900], style: 'normal'
+    text_box 'FOR', at: [40, 890]
+    font_size 24
+    text_box "$#{@tour.price}", at: [65, 900], style: 'bolder'
     font_size 8
     tour_description = @tour.description
-    font_size 12
-    text_box tour_description.to_s, at: [40, 850], width: 700, leading: 5
-    font_size 16
-    text_box "LOT | #{@tour.mls} | SIZE #{@tour.size} SF | #{@tour.bedrooms} BED | #{@tour.bathrooms} BATH | TAXES #{@tour.tax}",
+    font_size 14
+    fill_color 'c1c1c1'
+    text_box tour_description.to_s, at: [40, 830], width: 700, leading: 7, style: 'normal'
+    font_size 14
+    fill_color 'b0b0b0'
+    text_box '__________________________________________________________________________________________',
              at: [40, 650]
+    text_box '__________________________________________________________________________________________',
+             at: [40, 620]
+    text_box 'LOT', at: [40, 629]
+    text_box "#{@tour.lot_maint} SF", at: [90, 629]
+    text_box '|', at: [170, 629]
+    text_box 'SIZE', at: [200, 629]
+    text_box "#{@tour.lot_maint} SF", at: [250, 629]
+    text_box '|', at: [320, 629]
+    text_box @tour.bedrooms.to_s, at: [360, 629]
+    text_box 'BED', at: [375, 629]
+    text_box '|', at: [430, 629]
+    text_box @tour.bathrooms.to_s, at: [470, 629]
+    text_box 'BATH', at: [485, 629]
+    text_box '|', at: [550, 629]
+    text_box 'TAXES', at: [570, 629]
+    text_box @tour.tax.to_s, at: [650, 629]
+    #     text_box "LOT | #{@tour.mls} | SIZE #{@tour.size} SF | #{@tour.bedrooms} BED | #{@tour.bathrooms} BATH | TAXES #{@tour.tax}",
+    #              at: [40, 650]
     main_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.second_image}"
     image open(main_image), width: 700, height: 400, at: [40, 600]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.third_image}"),
