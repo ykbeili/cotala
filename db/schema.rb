@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_07_013803) do
+ActiveRecord::Schema.define(version: 2022_04_08_015744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,11 @@ ActiveRecord::Schema.define(version: 2022_03_07_013803) do
     t.string "thirteenth_image"
     t.string "fourteenth_image"
     t.string "fifteenth_image"
+    t.boolean "agent_logo"
+    t.string "agent_logo_url"
+    t.boolean "agent_headshot"
+    t.string "agent_headshot_url"
+    t.string "hook_url"
   end
 
   add_foreign_key "images", "tours"

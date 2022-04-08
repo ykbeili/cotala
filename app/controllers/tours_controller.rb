@@ -6,7 +6,7 @@ class ToursController < ApplicationController
 
   def index
     random_array = [87_416, 87_417, 87_418, 87_419, 87_420, 87_424, 87_425, 87_427]
-    @response = Tour.get_tour(random_array.sample)
+    @response = Tour.get_tour(87_480)
     @tour = Tour.save_record(@response)
     if @tour.present?
       render :index
