@@ -19,35 +19,45 @@ class TourDocument < Prawn::Document
     broker_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[1].name}"
     borker_log = @tour.broker_logo
     agent_headshot_url = @tour.agent_headshot_url
-    image open(floor_plan), fit: [700, 900], at: [40, 950]
     add_crop_marks
     fill_color @tour.selected_theme == 'dark' ? 'FFFFFF' : '6c6d70'
     font_size 14
-    text_box 'Listing Features', at: [880, 900], style: 'normal'
+    text_box 'Listing Features', at: [860, 900], style: 'normal'
     font_size 20
-    text_box @tour.listing_address.upcase.to_s, at: [880, 875], style: 'bold'
-    image open(borker_log), fit: [100, 100], at: [1450, 925]
+    text_box @tour.listing_address.upcase.to_s, at: [860, 875], style: 'bold'
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}"),
           width: 700, height: 575, at: [830, 800]
-    image open(broker_image), fit: [200, 200], at: [880, 200]
-    stroke_line [1110, 205], [1110, 105]
-    text_box @tour.agent_name.to_s, at: [1125, 200]
+    if agent_headshot_url
+      bounding_box([845, 200], width: 400, height: 450) do
+        image_width = 150
+        image_height = 150
+        crop_size = 100
+        save_graphics_state do
+          soft_mask do
+            fill_color 0, 0, 0, 0
+            fill_circle [68, 390], 55
+          end
+          image open(agent_headshot_url), at: [bounds.left, bounds.top], width: image_width, height: image_height
+        end
+      end
+    end
+    stroke_line [990, 195], [990, 85]
+    text_box @tour.agent_name.to_s, at: [1010, 195]
     font_size 8
     fill_color 'b0b0b0'
-    text_box 'Personal Real Estate Corportation', at: [1125, 175]
+    text_box 'Personal Real Estate Corportation', at: [1010, 170]
     font_size 18
     fill_color '6c6d70'
-    text_box @tour.agent_phone.to_s, at: [1125, 160], style: 'normal'
+    text_box @tour.agent_phone.to_s, at: [1010, 155], style: 'normal'
     font_size 8
     fill_color 'b0b0b0'
-    text_box @tour.agent_email.to_s, at: [1125, 135]
-    text_box @tour.agent_url.to_s, at: [1125, 120]
-    #     image open(agent_headshot_url), fit: [100, 100], at: [1450, 185] if agent_headshot_url.present?
-    image open(borker_log), fit: [100, 100], at: [1450, 185]
+    text_box @tour.agent_email.to_s, at: [1010, 130]
+    text_box @tour.agent_url.to_s, at: [1010, 115]
+    image open(borker_log), fit: [100, 100], at: [1430, 118] if agent_headshot_url.present?
   end
 
   def second_page
-    qrcode = RQRCode::QRCode.new('http://github.com/')
+    qrcode = RQRCode::QRCode.new(@tour.hook_url.to_s)
     qrcode_to_png = qrcode.as_png(
       bit_depth: 1,
       border_modules: 4,

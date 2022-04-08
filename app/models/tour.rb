@@ -64,8 +64,6 @@ class Tour < ApplicationRecord
   def self.parse_response(response)
     parsed_response_hash = {}
     parsed_response = response.split("\t")
-    p response
-    p 'response'
     parsed_respons_hash = get_response_arrays(parsed_response)
     hash_keys = parsed_respons_hash[:hash_keys]
     hash_values = parsed_respons_hash[:hash_values]
@@ -79,10 +77,12 @@ class Tour < ApplicationRecord
     hash_keys = []
     hash_values = []
     response.each_with_index do |e, index|
+      e = e.gsub!('"', '') if e.include?('"')
+      e = e.gsub("\n", '') if e.include?("\n")
       if e.include?('Hook')
-        print_job_id = e.slice(0..3)
-        agent_name = e.slice(6..e.length - 1)
-        hash_keys.push(print_job_id)
+        hook = e.slice(0..4)
+        agent_name = e.slice(4..e.length - 1)
+        hash_keys.push(hook)
         hash_values.push(agent_name)
         next
       end
@@ -92,10 +92,6 @@ class Tour < ApplicationRecord
         hash_values.push(e)
       end
     end
-    p hash_keys
-    p 'hash_keys'
-    p hash_values
-    p 'hash vlaues'
     { hash_keys: hash_keys, hash_values: hash_values }
   end
 
