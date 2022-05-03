@@ -1,7 +1,7 @@
 class TourDocument < Prawn::Document
   require 'open-uri'
   require 'rqrcode'
-  PDF_SIZE = [1632, 1056].freeze
+  PDF_SIZE = [1270, 870].freeze
 
   def initialize(tour)
     super(page_size: PDF_SIZE)
@@ -12,6 +12,7 @@ class TourDocument < Prawn::Document
   end
 
   def first_page
+    stroke_axis
     fill_color '000000' if @tour.selected_theme == 'dark'
     fill_rectangle [-35, 1056], 1632, 1096 if @tour.selected_theme == 'dark'
     floor_plan = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/Floorplan_Branded.jpg"
@@ -22,13 +23,13 @@ class TourDocument < Prawn::Document
     add_crop_marks
     fill_color @tour.selected_theme == 'dark' ? 'FFFFFF' : '6c6d70'
     font_size 14
-    text_box 'Listing Features', at: [860, 900], style: 'normal'
+    text_box 'Listing Features', at: [760, 700], style: 'normal'
     font_size 20
-    text_box @tour.listing_address.upcase.to_s, at: [860, 875], style: 'bold'
+    text_box @tour.listing_address.upcase.to_s, at: [660, 675], style: 'bold'
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}"),
-          width: 700, height: 575, at: [830, 800]
+          width: 542, height: 475, at: [640, 652]
     if agent_headshot_url
-      bounding_box([845, 200], width: 400, height: 450) do
+      bounding_box([645, 150], width: 400, height: 450) do
         image_width = 150
         image_height = 150
         crop_size = 100
@@ -41,22 +42,23 @@ class TourDocument < Prawn::Document
         end
       end
     end
-    stroke_line [990, 195], [990, 85]
-    text_box @tour.agent_name.to_s, at: [1010, 195]
+    stroke_line [790, 145], [790, 35]
+    text_box @tour.agent_name.to_s, at: [810, 140]
     font_size 8
     fill_color 'b0b0b0'
-    text_box 'Personal Real Estate Corportation', at: [1010, 170]
+    text_box 'Personal Real Estate Corportation', at: [810, 115]
     font_size 18
     fill_color '6c6d70'
-    text_box @tour.agent_phone.to_s, at: [1010, 155], style: 'normal'
+    text_box @tour.agent_phone.to_s, at: [810, 100], style: 'normal'
     font_size 8
     fill_color 'b0b0b0'
-    text_box @tour.agent_email.to_s, at: [1010, 130]
-    text_box @tour.agent_url.to_s, at: [1010, 115]
-    image open(borker_log), fit: [100, 100], at: [1430, 118] if agent_headshot_url.present?
+    text_box @tour.agent_email.to_s, at: [810, 75]
+    text_box @tour.agent_url.to_s, at: [810, 40]
+    image open(borker_log), fit: [100, 100], at: [1230, 118] if agent_headshot_url.present?
   end
 
   def second_page
+    stroke_axis
     qrcode = RQRCode::QRCode.new(@tour.hook_url.to_s)
     qrcode_to_png = qrcode.as_png(
       bit_depth: 1,
@@ -76,47 +78,48 @@ class TourDocument < Prawn::Document
     add_crop_marks
     fill_color @tour.selected_theme == 'dark' ? 'FFFFFF' : '6c6d70'
     font_size 20
-    text_box @tour.listing_address.upcase.to_s, at: [40, 960]
+    text_box @tour.listing_address.upcase.to_s, at: [0, 780]
     font_size 6
-    text_box 'LISTED', at: [40, 900], style: 'normal'
-    text_box 'FOR', at: [40, 890]
+    text_box 'LISTED', at: [0, 730], style: 'normal'
+    text_box 'FOR', at: [0, 720]
     font_size 24
-    text_box "$#{@tour.price}", at: [65, 900], style: 'bolder'
+    text_box "$#{@tour.price}", at: [25, 725], style: 'bolder'
     font_size 8
     tour_description = @tour.description
     font_size 14
     fill_color 'c1c1c1'
-    text_box tour_description.to_s, at: [40, 830], width: 700, leading: 7, style: 'normal'
-    font_size 14
+    text_box tour_description.to_s, at: [0, 670], width: 550, leading: 7, style: 'normal'
+    font_size 18
     fill_color 'b0b0b0'
-    text_box '__________________________________________________________________________________________',
-             at: [40, 650]
-    text_box '__________________________________________________________________________________________',
-             at: [40, 620]
-    text_box 'LOT', at: [40, 629]
-    text_box "#{@tour.lot_maint} SF", at: [90, 629]
-    text_box '|', at: [170, 629]
-    text_box 'SIZE', at: [200, 629]
-    text_box "#{@tour.size} SF", at: [250, 629]
-    text_box '|', at: [320, 629]
-    text_box @tour.bedrooms.to_s, at: [360, 629]
-    text_box 'BED', at: [375, 629]
-    text_box '|', at: [430, 629]
-    text_box @tour.bathrooms.to_s, at: [470, 629]
-    text_box 'BATH', at: [485, 629]
-    text_box '|', at: [550, 629]
-    text_box 'TAXES', at: [570, 629]
-    text_box @tour.tax.to_s, at: [650, 629]
+    text_box '_____________________________________________________________',
+             at: [0, 500]
+    text_box '_____________________________________________________________',
+             at: [0, 470]
+    font_size 14
+    text_box 'LOT', at: [0, 479]
+    text_box "#{@tour.lot_maint} SF", at: [40, 479]
+    text_box '|', at: [120, 479]
+    text_box 'SIZE', at: [150, 479]
+    text_box "#{@tour.size} SF", at: [200, 479]
+    text_box '|', at: [280, 479]
+    text_box @tour.bedrooms.to_s, at: [310, 479]
+    text_box 'BED', at: [325, 479]
+    text_box '|', at: [380, 479]
+    text_box @tour.bathrooms.to_s, at: [420, 479]
+    text_box 'BATH', at: [435, 479]
+    text_box '|', at: [500, 479]
+    text_box 'TAXES', at: [520, 479]
+    text_box @tour.tax.to_s, at: [600, 479]
     #     text_box "LOT | #{@tour.mls} | SIZE #{@tour.size} SF | #{@tour.bedrooms} BED | #{@tour.bathrooms} BATH | TAXES #{@tour.tax}",
     #              at: [40, 650]
     main_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.second_image}"
-    image open(main_image), width: 700, height: 400, at: [40, 600]
+    image open(main_image), width: 540, height: 350, at: [0, 430]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.third_image}"),
-          width: 230, height: 150, at: [40, 195]
+          width: 230, height: 150, at: [40, 95]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fourth_image}"),
-          width: 230, height: 150, at: [275, 195]
+          width: 230, height: 150, at: [275, 95]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fifth_image}"),
-          width: 230, height: 150, at: [510, 195]
+          width: 230, height: 150, at: [510, 95]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.sixth_image}"),
           width: 700, height: 450, at: [830, 960]
     image open('/tmp/github-qrcode.png'), at: [1410, 960]
@@ -143,16 +146,16 @@ class TourDocument < Prawn::Document
 
   def add_crop_marks
     # top left
-    stroke_line [-40, 980], [-10, 980] # left
-    stroke_line [0, 1150], [0, 990] # right
+    stroke_line [-40, 800], [-20, 800] # left
+    stroke_line [-15, 850], [-15, 815] # right
     # bottom left
-    stroke_line [-40, 0], [-10, 0] # left
-    stroke_line [0, -40], [0, -10] # right
+    stroke_line [-40, 0], [-15, 0] # left
+    stroke_line [-15, -40], [-15, -15] # right
     # top right
-    stroke_line [1560, 1060], [1560, 1000] # left
-    stroke_line [1600, 990], [1570, 990] # right
+    stroke_line [1215, 850], [1215, 815] # left
+    stroke_line [1250, 800], [1220, 800] # right
     # bottom right
-    stroke_line [1560, -40], [1560, -10] # left
-    stroke_line [1600, 0], [1570, 0] # right
+    stroke_line [1215, -40], [1215, -10] # left
+    stroke_line [1250, 0], [1220, 0] # right
   end
 end

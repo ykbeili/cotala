@@ -27,12 +27,14 @@ class ToursController < ApplicationController
   def create_pdf
     @tour = Tour.find_by_id(params[:tour_id])
     pdf = TourDocument.new(@tour)
-    ftp = Net::FTP.new(FTP_LINK)
-    ftp.login('tam@cotala.com', 'B*22?Rpdlen+')
-    file_path = "#{Rails.root}/tmp/#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf"
-    pdf.render_file file_path
-    ftp.putbinaryfile(file_path, "525179324/#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf")
-    redirect_to 'https://www.cotala.com/orders/?k=90nwsCmrNq2g3fX0euowFU47zzEsnxG4dMPwyI9y6OpmRDSD5V1jgpL823436ahx'
+    send_data pdf.render,
+              filename: "#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf"
+    # ftp = Net::FTP.new(FTP_LINK)
+    # ftp.login('tam@cotala.com', 'B*22?Rpdlen+')
+    # file_path = "#{Rails.root}/tmp/#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf"
+    # pdf.render_file file_path
+    # ftp.putbinaryfile(file_path, "525179324/#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf")
+    # redirect_to 'https://www.cotala.com/orders/?k=90nwsCmrNq2g3fX0euowFU47zzEsnxG4dMPwyI9y6OpmRDSD5V1jgpL823436ahx'
   end
 
   def update
