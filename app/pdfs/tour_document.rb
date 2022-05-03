@@ -58,7 +58,12 @@ class TourDocument < Prawn::Document
   end
 
   def second_page
-    stroke_axis
+#     font_families.update(
+#       'Muli' => {
+#         normal: "#{Prawn::DATADIR}/fonts/Muli.ttf"
+#       }
+#     )
+#     font 'Muli'
     qrcode = RQRCode::QRCode.new(@tour.hook_url.to_s)
     qrcode_to_png = qrcode.as_png(
       bit_depth: 1,
@@ -78,70 +83,70 @@ class TourDocument < Prawn::Document
     add_crop_marks
     fill_color @tour.selected_theme == 'dark' ? 'FFFFFF' : '6c6d70'
     font_size 20
-    text_box @tour.listing_address.upcase.to_s, at: [0, 780]
+    text_box @tour.listing_address.upcase.to_s, at: [23.75, 775]
     font_size 6
-    text_box 'LISTED', at: [0, 730], style: 'normal'
-    text_box 'FOR', at: [0, 720]
+    text_box 'LISTED', at: [23.75, 726], style: 'normal'
+    text_box 'FOR', at: [23.75, 715]
     font_size 24
-    text_box "$#{@tour.price}", at: [25, 725], style: 'bolder'
+    text_box "$#{@tour.price}", at: [48.75, 724], style: 'bolder'
     font_size 8
     tour_description = @tour.description
-    font_size 14
+    font_size 10
     fill_color 'c1c1c1'
-    text_box tour_description.to_s, at: [0, 670], width: 550, leading: 7, style: 'normal'
+    text_box tour_description.to_s, at: [23.75, 670], width: 500, leading: 6, style: 'normal'
     font_size 18
     fill_color 'b0b0b0'
-    text_box '_____________________________________________________________',
-             at: [0, 500]
-    text_box '_____________________________________________________________',
-             at: [0, 470]
-    font_size 14
-    text_box 'LOT', at: [0, 479]
-    text_box "#{@tour.lot_maint} SF", at: [40, 479]
-    text_box '|', at: [120, 479]
-    text_box 'SIZE', at: [150, 479]
-    text_box "#{@tour.size} SF", at: [200, 479]
-    text_box '|', at: [280, 479]
-    text_box @tour.bedrooms.to_s, at: [310, 479]
-    text_box 'BED', at: [325, 479]
-    text_box '|', at: [380, 479]
-    text_box @tour.bathrooms.to_s, at: [420, 479]
-    text_box 'BATH', at: [435, 479]
-    text_box '|', at: [500, 479]
-    text_box 'TAXES', at: [520, 479]
-    text_box @tour.tax.to_s, at: [600, 479]
+    text_box '_______________________________________________________',
+             at: [23.75, 550]
+    text_box '_______________________________________________________',
+             at: [23.75, 520]
+    font_size 12
+    text_box 'LOT', at: [23.75, 525]
+    text_box "#{@tour.lot_maint} SF", at: [68.75, 525]
+    text_box '|', at: [150, 525]
+    text_box 'SIZE', at: [170, 525]
+    text_box "#{@tour.size} SF", at: [220, 525]
+    text_box '|', at: [295, 525]
+    text_box @tour.bedrooms.to_s, at: [315, 525]
+    text_box 'BED', at: [325, 525]
+    text_box '|', at: [360, 525]
+    text_box @tour.bathrooms.to_s, at: [370, 525]
+    text_box 'BATH', at: [380, 525]
+    text_box '|', at: [425, 525]
+    text_box 'TAXES', at: [450, 525]
+    text_box @tour.tax.to_s, at: [500, 525]
     #     text_box "LOT | #{@tour.mls} | SIZE #{@tour.size} SF | #{@tour.bedrooms} BED | #{@tour.bathrooms} BATH | TAXES #{@tour.tax}",
     #              at: [40, 650]
     main_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.second_image}"
-    image open(main_image), width: 540, height: 350, at: [0, 430]
+    image open(main_image), width: 550, height: 350, at: [23.75, 495]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.third_image}"),
-          width: 230, height: 150, at: [40, 95]
+          width: 180, height: 120, at: [23.75, 140]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fourth_image}"),
-          width: 230, height: 150, at: [275, 95]
+          width: 180, height: 120, at: [208, 140]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fifth_image}"),
-          width: 230, height: 150, at: [510, 95]
+          width: 180, height: 120, at: [393, 140]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.sixth_image}"),
-          width: 700, height: 450, at: [830, 960]
+          width: 550, height: 375, at: [635, 775]
     image open('/tmp/github-qrcode.png'), at: [1410, 960]
 
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.seventh_image}"),
-          width: 230, height: 150, at: [830, 505]
+          width: 180, height: 120, at: [635, 395]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.eighth_image}"),
-          width: 230, height: 150, at: [1065, 505]
+          width: 180, height: 120, at: [820, 395]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.ninth_image}"),
-          width: 230, height: 150, at: [1300, 505]
+          width: 180, height: 120, at: [1005, 395]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.tenth_image}"),
-          width: 230, height: 150, at: [830, 350]
+          width: 180, height: 120, at: [635, 268]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.eleventh_image}"),
-          width: 230, height: 150, at: [1065, 350]
+          width: 180, height: 120, at: [820, 268]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.twelfth_image}"),
-          width: 230, height: 150, at: [1300, 350]
+          width: 180, height: 120, at: [1005, 268]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.thirteenth_image}"),
-          width: 230, height: 150, at: [830, 195]
+          width: 180, height: 120, at: [635, 140]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fourteenth_image}"),
-          width: 230, height: 150, at: [1065, 195]
+          width: 180, height: 120, at: [820, 140]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fifteenth_image}"),
-          width: 230, height: 150, at: [1300, 195]
+          width: 180, height: 120, at: [1005, 140]
   end
 
   def add_crop_marks
