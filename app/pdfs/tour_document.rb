@@ -22,12 +22,14 @@ class TourDocument < Prawn::Document
     agent_headshot_url = @tour.agent_headshot_url
     add_crop_marks
     fill_color @tour.selected_theme == 'dark' ? 'FFFFFF' : '6c6d70'
-    font_size 14
-    text_box 'Listing Features', at: [760, 700], style: 'normal'
+    font_size 14 
+#     [23.75, 775]
+    text_box 'Listing Features', at: [660, 775], style: 'normal'
     font_size 20
-    text_box @tour.listing_address.upcase.to_s, at: [660, 675], style: 'bold'
+    text_box @tour.listing_address.upcase.to_s, at: [660, 750], style: 'bold'
+#      width: 550, height: 350,
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}"),
-          width: 542, height: 475, at: [640, 652]
+          width: 550, height: 500, at: [635, 690]
     if agent_headshot_url
       bounding_box([645, 150], width: 400, height: 450) do
         image_width = 150
