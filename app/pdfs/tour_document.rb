@@ -1,18 +1,19 @@
 class TourDocument < Prawn::Document
   require 'open-uri'
   require 'rqrcode'
-  PDF_SIZE = [1270, 870].freeze
+  PDF_SIZE = [1300, 870].freeze
 
   def initialize(tour)
     super(page_size: PDF_SIZE)
     @tour = tour
-    first_page
+#     first_page
+    add_crop_marks
     start_new_page
-    second_page
+    add_crop_marks
+#     second_page
   end
 
   def first_page
-    stroke_axis
     fill_color '000000' if @tour.selected_theme == 'dark'
     fill_rectangle [-35, 1056], 1632, 1096 if @tour.selected_theme == 'dark'
     floor_plan = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/Floorplan_Branded.jpg"
@@ -80,9 +81,9 @@ class TourDocument < Prawn::Document
       size: 120
     )
     qrcode_image = IO.binwrite('/tmp/github-qrcode.png', qrcode_to_png.to_s)
+    add_crop_marks
     fill_color '000000' if @tour.selected_theme == 'dark'
     fill_rectangle [-35, 1056], 1632, 1096 if @tour.selected_theme == 'dark'
-    add_crop_marks
     fill_color @tour.selected_theme == 'dark' ? 'FFFFFF' : '6c6d70'
     font_size 20
     text_box @tour.listing_address.upcase.to_s, at: [23.75, 775]
@@ -153,16 +154,16 @@ class TourDocument < Prawn::Document
 
   def add_crop_marks
     # top left
-    stroke_line [-40, 800], [-20, 800] # left
-    stroke_line [-15, 850], [-15, 815] # right
+    stroke_line [-40, 795], [-10, 795] # left
+    stroke_line [0, 850], [0, 810] # right
     # bottom left
-    stroke_line [-40, 0], [-15, 0] # left
-    stroke_line [-15, -40], [-15, -15] # right
+    stroke_line [-40, 4], [-10, 4] # left
+    stroke_line [0, -40], [0, -10] # right
     # top right
-    stroke_line [1215, 850], [1215, 815] # left
-    stroke_line [1250, 800], [1220, 800] # right
+    stroke_line [1224.25, 850], [1224.25, 810] # left
+    stroke_line [1265, 795], [1230, 795] # right
     # bottom right
-    stroke_line [1215, -40], [1215, -10] # left
-    stroke_line [1250, 0], [1220, 0] # right
+    stroke_line [1224.25, -40], [1224.25, -10] # left
+    stroke_line [1265, 4], [1230, 4] # right
   end
 end
