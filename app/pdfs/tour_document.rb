@@ -5,18 +5,22 @@ class TourDocument < Prawn::Document
 
   def initialize(tour)
     super(page_size: PDF_SIZE)
+    font_families.update("Muli" => {
+      :normal => Rails.root.join("app/assets/fonts/Mulish-Regular.ttf").to_s,
+      :bold => Rails.root.join("app/assets/fonts/Mulish-Bold.ttf").to_s,
+      :black => Rails.root.join("app/assets/fonts/Mulish-Black.ttf").to_s
+    })
     @tour = tour
-#     first_page
-    add_crop_marks
+    first_page
     start_new_page
-    add_crop_marks
-#     second_page
+    second_page
   end
 
   def first_page
+    font "Muli"
     fill_color '000000' if @tour.selected_theme == 'dark'
     fill_rectangle [-35, 1056], 1632, 1096 if @tour.selected_theme == 'dark'
-    floor_plan = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/Floorplan_Branded.jpg"
+    floor_plan = "https://www.cotala.com/tours/64025/Floorplan_Branded.jpg?r=1433302117"
     main_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[0].name}"
     broker_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[1].name}"
     borker_log = @tour.broker_logo
@@ -25,48 +29,47 @@ class TourDocument < Prawn::Document
     fill_color @tour.selected_theme == 'dark' ? 'FFFFFF' : '6c6d70'
     font_size 14 
 #     [23.75, 775]
-    text_box 'Listing Features', at: [660, 775], style: 'normal'
+    font "Muli"
+    text_box 'Listing Features', at: [660, 725], style: :normal
     font_size 20
-    text_box @tour.listing_address.upcase.to_s, at: [660, 750], style: 'bold'
-#      width: 550, height: 350,
+    text_box @tour.listing_address.upcase.to_s, at: [660, 700]
+    rotate(270, origin: [550, 500]) do 
+      image open(floor_plan), width: 750, height: 600, at: [300, 550]
+    end
+    
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}"),
-          width: 550, height: 500, at: [635, 690]
+          width: 550, height: 500, at: [635, 640]
     if agent_headshot_url
-      bounding_box([645, 150], width: 400, height: 450) do
-        image_width = 150
-        image_height = 150
-        crop_size = 100
+      bounding_box([660, 112], width: 400, height: 450) do
+        image_width = 90
+        image_height = 90
+        crop_size = 0
         save_graphics_state do
           soft_mask do
             fill_color 0, 0, 0, 0
-            fill_circle [68, 390], 55
+            fill_circle [45, 405], 45
           end
           image open(agent_headshot_url), at: [bounds.left, bounds.top], width: image_width, height: image_height
         end
       end
     end
-    stroke_line [790, 145], [790, 35]
-    text_box @tour.agent_name.to_s, at: [810, 140]
+    stroke_color 'b0b0b0'
+    stroke_line [775, 110], [775, 20]
+    text_box @tour.agent_name.to_s, at: [790, 115], style: :bold
     font_size 8
     fill_color 'b0b0b0'
-    text_box 'Personal Real Estate Corportation', at: [810, 115]
+    text_box 'Personal Real Estate Corportation', at: [790, 90]
     font_size 18
     fill_color '6c6d70'
-    text_box @tour.agent_phone.to_s, at: [810, 100], style: 'normal'
-    font_size 8
+    text_box @tour.agent_phone.to_s, at: [790, 75], style: :normal
+    font_size 12
     fill_color 'b0b0b0'
-    text_box @tour.agent_email.to_s, at: [810, 75]
-    text_box @tour.agent_url.to_s, at: [810, 40]
-    image open(borker_log), fit: [100, 100], at: [1230, 118] if agent_headshot_url.present?
+    text_box @tour.agent_email.to_s, at: [790, 50]
+    text_box @tour.agent_url.to_s, at: [790, 35]
+    image open(borker_log), fit: [75, 75], at: [1110, 50] if agent_headshot_url.present?
   end
 
   def second_page
-#     font_families.update(
-#       'Muli' => {
-#         normal: "#{Prawn::DATADIR}/fonts/Muli.ttf"
-#       }
-#     )
-#     font 'Muli'
     qrcode = RQRCode::QRCode.new(@tour.hook_url.to_s)
     qrcode_to_png = qrcode.as_png(
       bit_depth: 1,
@@ -88,15 +91,16 @@ class TourDocument < Prawn::Document
     font_size 20
     text_box @tour.listing_address.upcase.to_s, at: [23.75, 775]
     font_size 6
-    text_box 'LISTED', at: [23.75, 726], style: 'normal'
-    text_box 'FOR', at: [23.75, 715]
+    text_box 'LISTED', at: [23.75, 726], style: :normal
+    text_box 'FOR', at: [23.75, 716]
     font_size 24
-    text_box "$#{@tour.price}", at: [48.75, 724], style: 'bolder'
+    text_box "$#{@tour.price}", at: [48.75, 727], style: :bold
     font_size 8
     tour_description = @tour.description
     font_size 10
     fill_color 'c1c1c1'
-    text_box tour_description.to_s, at: [23.75, 670], width: 500, leading: 6, style: 'normal'
+#     font "Muli"
+    text_box tour_description.to_s, at: [23.75, 670], width: 550, leading: 6, style: :normal
     font_size 18
     fill_color 'b0b0b0'
     text_box '_______________________________________________________',
@@ -105,19 +109,19 @@ class TourDocument < Prawn::Document
              at: [23.75, 520]
     font_size 12
     text_box 'LOT', at: [23.75, 525]
-    text_box "#{@tour.lot_maint} SF", at: [68.75, 525]
-    text_box '|', at: [150, 525]
-    text_box 'SIZE', at: [170, 525]
-    text_box "#{@tour.size} SF", at: [220, 525]
-    text_box '|', at: [295, 525]
-    text_box @tour.bedrooms.to_s, at: [315, 525]
-    text_box 'BED', at: [325, 525]
-    text_box '|', at: [360, 525]
-    text_box @tour.bathrooms.to_s, at: [370, 525]
-    text_box 'BATH', at: [380, 525]
-    text_box '|', at: [425, 525]
+    text_box "#{@tour.lot_maint}   SF", at: [65, 525]
+    text_box '|', at: [145, 525]
+    text_box 'SIZE', at: [165, 525]
+    text_box "#{@tour.size} SF", at: [210, 525]
+    text_box '|', at: [275, 525]
+    text_box @tour.bedrooms.to_s, at: [295, 525]
+    text_box 'BED', at: [312, 525]
+    text_box '|', at: [353, 525]
+    text_box @tour.bathrooms.to_s, at: [373, 525]
+    text_box 'BATH', at: [390, 525]
+    text_box '|', at: [435, 525]
     text_box 'TAXES', at: [450, 525]
-    text_box @tour.tax.to_s, at: [500, 525]
+    text_box @tour.tax.to_s, at: [502, 525]
     #     text_box "LOT | #{@tour.mls} | SIZE #{@tour.size} SF | #{@tour.bedrooms} BED | #{@tour.bathrooms} BATH | TAXES #{@tour.tax}",
     #              at: [40, 650]
     main_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.second_image}"
@@ -129,21 +133,21 @@ class TourDocument < Prawn::Document
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fifth_image}"),
           width: 180, height: 120, at: [393, 140]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.sixth_image}"),
-          width: 550, height: 375, at: [635, 775]
-    image open('/tmp/github-qrcode.png'), at: [1410, 960]
+          width: 550, height: 380, at: [635, 775]
+    image open('/tmp/github-qrcode.png'),width: 60, height: 60, at: [1125, 775]
 
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.seventh_image}"),
-          width: 180, height: 120, at: [635, 395]
+          width: 180, height: 120, at: [635, 390]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.eighth_image}"),
-          width: 180, height: 120, at: [820, 395]
+          width: 180, height: 120, at: [820, 390]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.ninth_image}"),
-          width: 180, height: 120, at: [1005, 395]
+          width: 180, height: 120, at: [1005, 390]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.tenth_image}"),
-          width: 180, height: 120, at: [635, 268]
+          width: 180, height: 120, at: [635, 265]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.eleventh_image}"),
-          width: 180, height: 120, at: [820, 268]
+          width: 180, height: 120, at: [820, 265]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.twelfth_image}"),
-          width: 180, height: 120, at: [1005, 268]
+          width: 180, height: 120, at: [1005, 265]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.thirteenth_image}"),
           width: 180, height: 120, at: [635, 140]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fourteenth_image}"),
