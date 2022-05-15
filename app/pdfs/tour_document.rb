@@ -17,6 +17,7 @@ class TourDocument < Prawn::Document
   end
 
   def first_page
+    add_crop_marks
     font "Muli"
     fill_color '000000' if @tour.selected_theme == 'dark'
     fill_rectangle [-35, 1056], 1632, 1096 if @tour.selected_theme == 'dark'
@@ -25,7 +26,6 @@ class TourDocument < Prawn::Document
     broker_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[1].name}"
     borker_log = @tour.broker_logo
     agent_headshot_url = @tour.agent_headshot_url
-    add_crop_marks
     fill_color @tour.selected_theme == 'dark' ? 'FFFFFF' : '6c6d70'
     font_size 14 
 #     [23.75, 775]
@@ -70,6 +70,7 @@ class TourDocument < Prawn::Document
   end
 
   def second_page
+    add_crop_marks
     qrcode = RQRCode::QRCode.new(@tour.hook_url.to_s)
     qrcode_to_png = qrcode.as_png(
       bit_depth: 1,
@@ -84,7 +85,6 @@ class TourDocument < Prawn::Document
       size: 120
     )
     qrcode_image = IO.binwrite('/tmp/github-qrcode.png', qrcode_to_png.to_s)
-    add_crop_marks
     fill_color '000000' if @tour.selected_theme == 'dark'
     fill_rectangle [-35, 1056], 1632, 1096 if @tour.selected_theme == 'dark'
     fill_color @tour.selected_theme == 'dark' ? 'FFFFFF' : '6c6d70'
@@ -103,9 +103,9 @@ class TourDocument < Prawn::Document
     text_box tour_description.to_s, at: [28.75, 670], width: 550, leading: 6, style: :normal
     font_size 18
     fill_color 'b0b0b0'
-    text_box '____________________________________________________________',
+    text_box '_____________________________________________________________',
              at: [28.75, 550]
-    text_box '____________________________________________________________',
+    text_box '_____________________________________________________________',
              at: [28.75, 520]
     font_size 12
     text_box 'LOT', at: [28.75, 525]
