@@ -138,9 +138,13 @@ class TourDocument < Prawn::Document
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.sixth_image}"),
           width: 550, height: 370, at: [650, 795]
     image open('/tmp/github-qrcode.png'),width: 60, height: 60, at: [1140, 797]
+#     fill_color 'FFFFFF'
+    font_size 6
+    text_box "TAKE THE TOUR", at: [1148, 745]
     fill_color 'FFFFFF'
-    font_size 8
-#     text_box "TAKE THE TOUR", at: [1135, 735]
+    fill { rectangle [1140, 737], 61, 10 }
+    fill_color '6c6d70'
+    text_box "cotala.com/#{@tour.cotala_tour_id}", at: [1146, 738]
 #     text_box "cotala.com/#{@tour.cotala_tour_id}", at: [1135, 725]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.seventh_image}"),
           width: 180, height: 110, at: [650, 420]
