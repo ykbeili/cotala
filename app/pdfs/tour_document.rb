@@ -57,13 +57,10 @@ class TourDocument < Prawn::Document
     stroke_line [785, 130], [785, 40]
     text_box @tour.agent_name.to_s, at: [800, 135], style: :bold
     font_size 8
-#     fill_color 'b0b0b0'
     text_box 'Personal Real Estate Corportation', at: [800, 110]
     font_size 18
-#     fill_color '6c6d70'
     text_box @tour.agent_phone.to_s, at: [800, 95], style: :normal
     font_size 12
-#     fill_color 'b0b0b0'
     text_box @tour.agent_email.to_s, at: [800, 70]
     text_box @tour.agent_url.to_s, at: [800, 55]
     image open(borker_log), fit: [75, 75], at: [1115, 70] if agent_headshot_url.present?
@@ -91,26 +88,20 @@ class TourDocument < Prawn::Document
     font_size 20
     text_box @tour.listing_address.upcase.to_s, at: [32.75, 758]
     font_size 6
-    text_box 'LISTED', at: [32.75, 709], style: :normal
-    text_box 'FOR', at: [32.75, 699]
+    text_box 'LISTED', at: [37.75, 705], style: :normal
+    text_box 'FOR', at: [37.75, 695]
     font_size 24
     text_box "$#{@tour.price}", at: [63.75, 710], style: :bold
     font_size 8
     tour_description = @tour.description
     font_size 10
-#     fill_color 'c1c1c1'
     font "Muli"
     text_box tour_description.to_s, at: [32.75, 653], width: 550, leading: 6, style: :normal
     font_size 18
-#     fill_color 'c1c1c1'
     stroke_color '000000'
     stroke_line [30.75, 533], [580.75, 533]
     stroke_line [30.75, 505], [580.75, 505]
-#     text_box '_____________________________________________________________',
-#              at: [35.75, 570]
-#     text_box '_____________________________________________________________',
-#              at: [35.75, 520]
-    font_size 12
+    font_size 11
     text_box 'LOT', at: [29.75, 528]
     text_box "#{@tour.lot_maint}   SF", at: [69, 528]
     text_box '|', at: [149, 528]
@@ -121,12 +112,10 @@ class TourDocument < Prawn::Document
     text_box 'BED', at: [316, 528]
     text_box '|', at: [357, 528]
     text_box @tour.bathrooms.to_s, at: [377, 528]
-    text_box 'BATH', at: [394, 528]
+    text_box 'BATH', at: [392, 528]
     text_box '|', at: [439, 528]
-    text_box 'TAXES', at: [454, 528]
-    text_box @tour.tax.to_s, at: [499, 528]
-    #     text_box "LOT | #{@tour.mls} | SIZE #{@tour.size} SF | #{@tour.bedrooms} BED | #{@tour.bathrooms} BATH | TAXES #{@tour.tax}",
-    #              at: [40, 650]
+    text_box 'TAXES', at: [459, 528]
+    text_box @tour.tax.to_s, at: [510, 528]
     main_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.second_image}"
     image open(main_image), width: 550, height: 340, at: [30.75, 498]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.third_image}"),
@@ -138,14 +127,12 @@ class TourDocument < Prawn::Document
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.sixth_image}"),
           width: 550, height: 370, at: [645, 758]
     image open('/tmp/github-qrcode.png'),width: 60, height: 60, at: [1139, 758]
-#     fill_color 'FFFFFF'
     font_size 6
     text_box "TAKE THE TOUR", at: [1144, 706]
     fill_color 'FFFFFF'
     fill { rectangle [1139, 699], 61, 10 }
     fill_color '6c6d70'
     text_box "cotala.com/#{@tour.cotala_tour_id}", at: [1142, 699]
-#     text_box "cotala.com/#{@tour.cotala_tour_id}", at: [1135, 725]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.seventh_image}"),
           width: 180, height: 110, at: [645, 383]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.eighth_image}"),
