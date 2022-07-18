@@ -5,9 +5,20 @@ class ToursController < ApplicationController
   steps :step1, :step2, :step3, :step4, :step5
   before_action :find_tour, only: %i[show update]
   FTP_LINK = 'ftp.cotala.com'.freeze
+  # before_action :get_cotala_tour_id, only: %i[index]
   def index
     random_array = [87_416, 87_417, 87_418, 87_419, 87_420, 87_424, 87_425, 87_427]
-    @response = Tour.get_tour(88_485)
+    tour_id = 
+    if @cotala_tour_id 
+      @response = Tour.get_tour(@cotala_tour_id)
+    else
+      # 88_485 default
+      # 89293 Headshot = no, personal logo = no
+      # 90157 Headshot = no, personal logo = yes
+      # 90461 Headshot = yes, personal logo = yes
+      @response = Tour.get_tour(88_485)
+      # render json: { errors: @tour.errors }, status: :unprocessable_entity
+    end
     @tour = Tour.save_record(@response)
     if @tour.present?
       render :index
@@ -72,6 +83,10 @@ class ToursController < ApplicationController
 
   def find_tour
     @tour = Tour.find_by_id(params[:tour_id])
+  end
+
+  def get_cotala_tour_id
+    @cotala_tour_id = params.require(:tour_id)
   end
 
   def tour_params

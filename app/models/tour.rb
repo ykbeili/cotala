@@ -64,8 +64,6 @@ class Tour < ApplicationRecord
   def self.parse_response(response)
     parsed_response_hash = {}
     parsed_response = response.split("\t")
-    p parsed_response
-    p 'parsed_response'
     parsed_respons_hash = get_response_arrays(parsed_response)
     hash_keys = parsed_respons_hash[:hash_keys]
     hash_values = parsed_respons_hash[:hash_values]

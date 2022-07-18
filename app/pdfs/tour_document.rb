@@ -25,10 +25,10 @@ class TourDocument < Prawn::Document
     main_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[0].name}"
     broker_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[1].name}"
     borker_log = @tour.broker_logo
-    agent_headshot_url = @tour.agent_headshot_url
+    agent_headshot_url = @tour.agent_headshot_url if @tour.agent_headshot_url.present?
+    agent_logo_url = @tour.agent_logo_url if @tour.agent_logo_url.present?
     fill_color @tour.selected_theme == 'dark' ? 'FFFFFF' : '6c6d70'
     font_size 14 
-#     [23.75, 775]
     font "Muli"
     text_box 'Listing Features', at: [675, 745], style: :normal
     font_size 20
@@ -36,7 +36,6 @@ class TourDocument < Prawn::Document
     rotate(270, origin: [550, 500]) do 
       image open(floor_plan), width: 750, height: 600, at: [305, 570]
     end
-    
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}"),
           width: 550, height: 500, at: [642, 660]
     if agent_headshot_url
@@ -52,18 +51,28 @@ class TourDocument < Prawn::Document
           image open(agent_headshot_url), at: [bounds.left, bounds.top], width: image_width, height: image_height
         end
       end
-    end
-    stroke_color 'b0b0b0'
-    stroke_line [785, 130], [785, 40]
-    text_box @tour.agent_name.to_s, at: [800, 135], style: :bold
-    font_size 8
-    text_box 'Personal Real Estate Corportation', at: [800, 110]
-    font_size 18
-    text_box @tour.agent_phone.to_s, at: [800, 95], style: :normal
-    font_size 12
-    text_box @tour.agent_email.to_s, at: [800, 70]
-    text_box @tour.agent_url.to_s, at: [800, 55]
-    image open(borker_log), fit: [75, 75], at: [1115, 70] if agent_headshot_url.present?
+      stroke_color 'b0b0b0'
+      stroke_line [785, 130], [785, 40]
+      text_box @tour.agent_name.to_s, at: [800, 135], style: :bold
+      font_size 8
+      text_box 'Personal Real Estate Corportation', at: [800, 110]
+      font_size 18
+      text_box @tour.agent_phone.to_s, at: [800, 95], style: :normal
+      font_size 12
+      text_box @tour.agent_email.to_s, at: [800, 70]
+      text_box @tour.agent_url.to_s, at: [800, 55]
+      else
+      text_box @tour.agent_name.to_s, at: [665, 135], style: :bold
+      font_size 8
+      text_box 'Personal Real Estate Corportation', at: [665, 110]
+      font_size 18
+      text_box @tour.agent_phone.to_s, at: [665, 95], style: :normal
+      font_size 12
+      text_box @tour.agent_email.to_s, at: [665, 70]
+      text_box @tour.agent_url.to_s, at: [665, 55]
+      end
+      image open(agent_logo_url), fit: [75, 75], at: [1115, 735] if agent_logo_url.present?
+      image open(borker_log), fit: [75, 75], at: [1115, 70] if borker_log.present?
   end
 
   def second_page
@@ -96,7 +105,7 @@ class TourDocument < Prawn::Document
     tour_description = @tour.description
     font_size 10
     font "Muli"
-    text_box tour_description.to_s, at: [32.75, 653], width: 550, leading: 6, style: :normal
+    text_box tour_description.to_s, at: [32.75, 653], width: 550, height: 120, leading: 5, style: :normal
     font_size 18
     stroke_color '000000'
     stroke_line [30.75, 533], [580.75, 533]
