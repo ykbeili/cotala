@@ -16,7 +16,7 @@ class ToursController < ApplicationController
       # 89293 Headshot = no, personal logo = no
       # 90157 Headshot = no, personal logo = yes
       # 90461 Headshot = yes, personal logo = yes
-      @response = Tour.get_tour(88_485)
+      @response = Tour.get_tour(90461)
       # render json: { errors: @tour.errors }, status: :unprocessable_entity
     end
     @tour = Tour.save_record(@response)

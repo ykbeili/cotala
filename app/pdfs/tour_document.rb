@@ -94,22 +94,36 @@ class TourDocument < Prawn::Document
     fill_color '000000' if @tour.selected_theme == 'dark'
     fill_rectangle [-35, 1056], 1632, 1096 if @tour.selected_theme == 'dark'
     fill_color @tour.selected_theme == 'dark' ? 'FFFFFF' : '6c6d70'
-    font_size 20
-    text_box @tour.listing_address.upcase.to_s, at: [32.75, 758]
-    font_size 6
-    text_box 'LISTED', at: [37.75, 705], style: :normal
-    text_box 'FOR', at: [37.75, 695]
-    font_size 24
-    text_box "$#{@tour.price}", at: [63.75, 710], style: :bold
+
     font_size 8
     tour_description = @tour.description
+    if tour_description.length > 700
+      font_size 9
+      text_box tour_description.to_s, at: [32.75, 660], width: 550, height: 135, leading: 6, style: :normal
+      font_size 20
+      text_box @tour.listing_address.upcase.to_s, at: [32.75, 765]
+      font_size 6
+      text_box 'LISTED', at: [37.75, 710], style: :normal
+      text_box 'FOR', at: [37.75, 700]
+      font_size 24
+      text_box "$#{@tour.price}", at: [63.75, 715], style: :bold
+    else
+      font_size 8
+      text_box tour_description.to_s, at: [32.75, 653], width: 550, height: 120, leading: 5, style: :normal
+      stroke_line [30.75, 533], [580.75, 533]
+      stroke_line [30.75, 505], [580.75, 505]
+      font_size 20
+      text_box @tour.listing_address.upcase.to_s, at: [32.75, 758]
+      font_size 6
+      text_box 'LISTED', at: [37.75, 705], style: :normal
+      text_box 'FOR', at: [37.75, 695]
+      font_size 24
+      text_box "$#{@tour.price}", at: [63.75, 710], style: :bold
+    end
     font_size 10
     font "Muli"
-    text_box tour_description.to_s, at: [32.75, 653], width: 550, height: 120, leading: 5, style: :normal
     font_size 18
     stroke_color '000000'
-    stroke_line [30.75, 533], [580.75, 533]
-    stroke_line [30.75, 505], [580.75, 505]
     font_size 11
     text_box 'LOT', at: [29.75, 528]
     text_box "#{@tour.lot_maint}   SF", at: [69, 528]
