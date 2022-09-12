@@ -11,11 +11,11 @@ class ToursController < ApplicationController
     if @cotala_tour_id 
       @response = Tour.get_tour(@cotala_tour_id)
     else
-      # 88_485 default
+      # 88485 default
       # 89293 Headshot = no, personal logo = no
       # 90157 Headshot = no, personal logo = yes
       # 90461 Headshot = yes, personal logo = yes
-      @response = Tour.get_tour(90461)
+      @response = Tour.get_tour(90157)
       # render json: { errors: @tour.errors }, status: :unprocessable_entity
     end
     @tour = Tour.save_record(@response)
@@ -44,7 +44,7 @@ class ToursController < ApplicationController
     file_path = "#{Rails.root}/tmp/#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf"
     pdf.render_file file_path
     ftp.putbinaryfile(file_path, "525179324/#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf")
-    redirect_to 'https://www.cotala.com/orders/?k=90nwsCmrNq2g3fX0euowFU47zzEsnxG4dMPwyI9y6OpmRDSD5V1jgpL823436ahx'
+    redirect_to tour.hook_url if tour.hook_url.present?
   end
 
   def update

@@ -80,7 +80,7 @@ class Tour < ApplicationRecord
       e = e.gsub!('"', '') if e.include?('"')
       e = e.gsub("\n", '') if e.include?("\n")
       if e.include?('Hook')
-        hook = e.slice(0..4)
+        hook = e.slice(0..3)
         agent_name = e.slice(4..e.length - 1)
         hash_keys.push(hook)
         hash_values.push(agent_name)
