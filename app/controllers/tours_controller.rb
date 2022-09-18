@@ -44,7 +44,7 @@ class ToursController < ApplicationController
     file_path = "#{Rails.root}/tmp/#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf"
     pdf.render_file file_path
     ftp.putbinaryfile(file_path, "525179324/#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf")
-    redirect_to tour.hook_url if tour.hook_url.present?
+    redirect_to @tour.hook_url if @tour.hook_url.present?
   end
 
   def update
