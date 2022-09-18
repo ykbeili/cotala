@@ -134,7 +134,7 @@ class TourDocument < Prawn::Document
       text_box "#{@tour.lot_maint}   SF", at: [69, 528]
     else
       text_box 'MAINT', at: [29.75, 528]
-      text_box "#{@tour.lot_maint}", at: [69, 528]
+      text_box "$#{@tour.lot_maint}", at: [69, 528]
     end
     text_box '|', at: [149, 528]
     text_box 'SIZE', at: [169, 528]

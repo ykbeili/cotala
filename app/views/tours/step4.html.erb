@@ -24,10 +24,10 @@
         <div class="row no-gutters">
           <div class="col-2">
             <span id="lot_modal_link" class="text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">
-              <% if @tour.lot_or_main == true%>
+              <% if @tour.lot_or_maint == true%>
               LOT <%= @tour.lot_maint %> SF
               <% else %>
-              MAINT <%= @tour.lot_maint %>
+              MAINT $<%= @tour.lot_maint %>
               <% end %>
             </span>
           </div>

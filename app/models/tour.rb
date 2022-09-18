@@ -33,7 +33,7 @@ class Tour < ApplicationRecord
     @tour.broker_logo = response['BrokerLogo']
     @tour.listing_address = response['ListingAddress']
     @tour.show_price = response['ShowPrice']
-    @tour.price = response['Price']
+    @tour.price = response['Price'].tap { |s| s.delete!(',') }.to_i
     @tour.mls = response['MLS']
     @tour.tax = response['Tax']
     @tour.built = response['Built']
