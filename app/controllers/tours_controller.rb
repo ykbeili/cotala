@@ -43,7 +43,7 @@ class ToursController < ApplicationController
     ftp.login('tam@cotala.com', 'B*22?Rpdlen+')
     file_path = "#{Rails.root}/tmp/#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf"
     pdf.render_file file_path
-    ftp.putbinaryfile(file_path, "525179324/#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf")
+    ftp.putbinaryfile(file_path, "printjobs/#{@tour.print_job_id}/testproof.pdf")
     redirect_to @tour.hook_url if @tour.hook_url.present?
   end
 

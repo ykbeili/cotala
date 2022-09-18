@@ -12,7 +12,11 @@
         <small class="text-muted <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">(note that the display is approximate)</small>
       </h2>
       <div class="col-6" style="padding-top: 200px">
+      <% if Faraday.head("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/Floorplan_Branded.jpg").status == 200 %>
         <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/Floorplan_Branded.jpg", style: 'width: 100%; padding-right: 20px' %>
+      <% else %>
+        <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/FullPublic.jpg", style: 'width: 100%; padding-right: 20px' %>
+      <% end %>
       </div>
       <div class="col-6" style="padding-top: 200px">
         <div class="row no-gutters">
@@ -31,7 +35,7 @@
         </div>
           <div class="row no-gutters pt-4">
           <div class="col-4">
-            <%= image_tag @tour.agent_headshot_url, style: "width:150px; height: 150px; border-radius: 50%;margin-left: 30px" if @tour.agent_headshot_url %>
+            <%= image_tag @tour.agent_headshot_url, style: "width:150px; height: 150px; border-radius: 50%;margin-left: 30px" if @tour.agent_headshot_url.present? %>
           </div>
           <div class="col-5">
             <span id="agent_name_modal_link" class="d-block text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.agent_name %> </span>

@@ -21,7 +21,11 @@ class TourDocument < Prawn::Document
     font "Muli"
     fill_color '000000' if @tour.selected_theme == 'dark'
     fill_rectangle [-35, 1056], 1632, 1096 if @tour.selected_theme == 'dark'
-    floor_plan = "https://www.cotala.com/tours/64025/Floorplan_Branded.jpg?r=1433302117"
+    if Faraday.head("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/Floorplan_Branded.jpg").status == 200
+      floor_plan = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/Floorplan_Branded.jpg"
+    else
+      floor_plan = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/FullPublic.jpg"
+    end
     main_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[0].name}"
     broker_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.images[1].name}"
     borker_log = @tour.broker_logo
@@ -125,8 +129,13 @@ class TourDocument < Prawn::Document
     font_size 18
     stroke_color '000000'
     font_size 11
-    text_box 'LOT', at: [29.75, 528]
-    text_box "#{@tour.lot_maint}   SF", at: [69, 528]
+    if @tour.lot_or_maint == true
+      text_box 'LOT', at: [29.75, 528]
+      text_box "#{@tour.lot_maint}   SF", at: [69, 528]
+    else
+      text_box 'MAINT', at: [29.75, 528]
+      text_box "#{@tour.lot_maint}", at: [69, 528]
+    end
     text_box '|', at: [149, 528]
     text_box 'SIZE', at: [169, 528]
     text_box "#{@tour.size} SF", at: [214, 528]
