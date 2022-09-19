@@ -138,7 +138,11 @@ class TourDocument < Prawn::Document
     end
     text_box '|', at: [149, 528]
     text_box 'SIZE', at: [169, 528]
-    text_box "#{@tour.size} SF", at: [214, 528]
+    if @tour.size == 'see floorplan'
+      text_box "#{@tour.size}", at: [214, 528]
+    else
+      text_box "#{@tour.size} SF", at: [214, 528]
+    end
     text_box '|', at: [279, 528]
     text_box @tour.bedrooms.to_s, at: [299, 528]
     text_box 'BED', at: [316, 528]
