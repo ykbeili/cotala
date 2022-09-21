@@ -25,7 +25,7 @@
             <span id="address_modal_link" class="text-decoration-underline <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.listing_address %></span>
           </div>
           <div class="col-6" style="text-align: right">
-            <%= image_tag @tour.agent_logo_url if @tour.agent_logo_url %>
+            <%= image_tag @tour.agent_logo_url, style: "width:200px; height: 100px; margin-bottom: 20px" if @tour.agent_logo_url %>
           </div>
         </div>
         <div class="row no-gutters">
