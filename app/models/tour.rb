@@ -52,6 +52,7 @@ class Tour < ApplicationRecord
     @tour.agent_logo_url = response['AgentLogoURL']
     @tour.agent_headshot = response['AgentHeadshot']
     @tour.agent_headshot_url = response['AgentHeadshotURL']
+    @tour.version = response['Version']
     @tour.hook_url = response['Hook']
     if @tour.save
       @tour
