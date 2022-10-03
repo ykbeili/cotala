@@ -41,7 +41,7 @@ class Tour < ApplicationRecord
     @tour.bathrooms = response['Bathrooms']
     @tour.size = response['Size']
     @tour.lot_or_maint = response['Lot_or_Maint'] == 'Lot'
-    @tour.lot_maint = response['LotMaint']
+    @tour.lot_maint = response['LotMaint'].tap { |s| s.delete!(',') }.to_i
     @tour.description = response['Description']
     @tour.style = response['Style']
     @tour.property_type = response['Type']
@@ -52,6 +52,7 @@ class Tour < ApplicationRecord
     @tour.agent_logo_url = response['AgentLogoURL']
     @tour.agent_headshot = response['AgentHeadshot']
     @tour.agent_headshot_url = response['AgentHeadshotURL']
+    @tour.floorplan_orientation = response['FloorplanOrientation']
     @tour.version = response['Version']
     @tour.hook_url = response['Hook']
     if @tour.save

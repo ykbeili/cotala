@@ -3,6 +3,7 @@ class ToursController < ApplicationController
   require 'net/ftp'
   require 'prawn'
   steps :step1, :step2, :step3, :step4, :step5
+  include ActionView::Helpers::NumberHelper
   before_action :find_tour, only: %i[show update]
   FTP_LINK = 'ftp.cotala.com'.freeze
   before_action :get_cotala_tour_id, only: %i[index]

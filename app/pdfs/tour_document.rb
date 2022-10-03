@@ -2,6 +2,7 @@ class TourDocument < Prawn::Document
   require 'open-uri'
   require 'rqrcode'
   PDF_SIZE = [1300, 870].freeze
+  include ActionView::Helpers::NumberHelper
 
   def initialize(tour)
     super(page_size: PDF_SIZE)
@@ -37,8 +38,15 @@ class TourDocument < Prawn::Document
     text_box 'Listing Features', at: [675, 745], style: :normal
     font_size 20
     text_box @tour.listing_address.upcase.to_s, at: [675, 720]
-    rotate(270, origin: [550, 500]) do 
-      image open(floor_plan), width: 750, height: 600, at: [305, 570]
+    if @tour.floorplan_orientation == 'vertical'
+      p 'sssss'
+      p floor_plan
+      p 'fllor'
+      image open(floor_plan), fit: [750, 750], at: [26.75, 775]
+    else
+      rotate(270, origin: [550, 500]) do 
+        image open(floor_plan), width: 750, height: 600, at: [305, 570]
+      end
     end
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}"),
           width: 550, height: 500, at: [642, 660]
@@ -81,7 +89,7 @@ class TourDocument < Prawn::Document
 
   def second_page
     add_crop_marks
-    qrcode = RQRCode::QRCode.new(@tour.hook_url.to_s)
+    qrcode = RQRCode::QRCode.new("https://cotala.com/#{@tour.cotala_tour_id}")
     qrcode_to_png = qrcode.as_png(
       bit_depth: 1,
       border_modules: 4,
@@ -94,7 +102,9 @@ class TourDocument < Prawn::Document
       resize_gte_to: false,
       size: 120
     )
-    qrcode_image = IO.binwrite('/tmp/github-qrcode.png', qrcode_to_png.to_s)
+    p qrcode_to_png
+    p 'qrcode_to_png'
+    qrcode_image = IO.binwrite("/tmp/#{@tour.cotala_tour_id}.png", qrcode_to_png.to_s)
     fill_color '000000' if @tour.selected_theme == 'dark'
     fill_rectangle [-35, 1056], 1632, 1096 if @tour.selected_theme == 'dark'
     fill_color @tour.selected_theme == 'dark' ? 'FFFFFF' : '6c6d70'
@@ -110,7 +120,7 @@ class TourDocument < Prawn::Document
       text_box 'LISTED', at: [37.75, 710], style: :normal
       text_box 'FOR', at: [37.75, 700]
       font_size 24
-      text_box "$#{@tour.price}", at: [63.75, 715], style: :bold
+      text_box "$#{number_with_delimiter(@tour.price, delimiter: ",")}", at: [63.75, 715], style: :bold
     else
       font_size 8
       text_box tour_description.to_s, at: [32.75, 653], width: 550, height: 120, leading: 5, style: :normal
@@ -122,23 +132,24 @@ class TourDocument < Prawn::Document
       text_box 'LISTED', at: [37.75, 705], style: :normal
       text_box 'FOR', at: [37.75, 695]
       font_size 24
-      text_box "$#{@tour.price}", at: [63.75, 710], style: :bold
+      text_box "#{number_with_delimiter(@tour.price, delimiter: ",")}", at: [63.75, 710], style: :bold
     end
     font_size 10
     font "Muli"
     font_size 18
     stroke_color '000000'
     font_size 11
+    lot_or_main_value = @tour.lot_maint.to_s.sub(/\.?0+$/, '').to_i
     if @tour.lot_or_maint == true
       text_box 'LOT', at: [29.75, 528]
-      text_box "#{@tour.lot_maint}   SF", at: [69, 528]
+      text_box "#{number_with_delimiter(lot_or_main_value, delimiter: ',')} SF", at: [69, 528]
     else
       text_box 'MAINT', at: [29.75, 528]
-      text_box "$#{@tour.lot_maint}", at: [69, 528]
+      text_box "$#{@tour.lot_maint}", at: [74, 528]
     end
     text_box '|', at: [149, 528]
     text_box 'SIZE', at: [169, 528]
-    if @tour.size == 'see floorplan'
+    if @tour.size == 'see floorplan' || @tour.size == 'see plan' 
       text_box "#{@tour.size}", at: [214, 528]
     else
       text_box "#{@tour.size} SF", at: [214, 528]
@@ -151,7 +162,7 @@ class TourDocument < Prawn::Document
     text_box 'BATH', at: [392, 528]
     text_box '|', at: [439, 528]
     text_box 'TAXES', at: [459, 528]
-    text_box @tour.tax.to_s, at: [510, 528]
+    text_box "$#{@tour.tax.to_s}", at: [510, 528]
     main_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.second_image}"
     image open(main_image), width: 550, height: 340, at: [30.75, 498]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.third_image}"),
@@ -162,13 +173,13 @@ class TourDocument < Prawn::Document
           width: 180, height: 110, at: [400, 153]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.sixth_image}"),
           width: 550, height: 370, at: [645, 758]
-    image open('/tmp/github-qrcode.png'),width: 60, height: 60, at: [1139, 758]
+    image open("/tmp/#{@tour.cotala_tour_id}.png"),width: 65, height: 65, at: [1139, 766]
     font_size 6
-    text_box "TAKE THE TOUR", at: [1144, 706]
+    text_box "TAKE THE TOUR", at: [1144, 708]
     fill_color 'FFFFFF'
-    fill { rectangle [1139, 699], 61, 10 }
+    fill { rectangle [1139, 701], 61, 10 }
     fill_color '6c6d70'
-    text_box "cotala.com/#{@tour.cotala_tour_id}", at: [1142, 699]
+    text_box "cotala.com/#{@tour.cotala_tour_id}", at: [1142, 700]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.seventh_image}"),
           width: 180, height: 110, at: [645, 383]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.eighth_image}"),
