@@ -53,6 +53,9 @@ class Tour < ApplicationRecord
     @tour.agent_headshot = response['AgentHeadshot']
     @tour.agent_headshot_url = response['AgentHeadshotURL']
     @tour.floorplan_orientation = response['FloorplanOrientation']
+    p response
+    p 'response'
+    @tour.prec = response['PREC'] == "yes" ? true : false
     @tour.version = response['Version']
     @tour.hook_url = response['Hook']
     if @tour.save

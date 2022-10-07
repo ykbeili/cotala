@@ -39,7 +39,9 @@
           </div>
           <div class="col-5">
             <span id="agent_name_modal_link" class="d-block text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.agent_name %> </span>
-            <span class="d-block <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">Personal Real Estate Corporation</span>
+            <% if @tour.prec == true %>
+              <span class="d-block <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">Personal Real Estate Corporation</span>
+            <% end %>
             <span id="agent_phone_modal_link" class="d-block text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.agent_phone %></span>
             <span id="agent_email_modal_link" class="d-block text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.agent_email %></span>
             <span id="agent_url_modal_link" class="d-block text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.agent_url %></span>

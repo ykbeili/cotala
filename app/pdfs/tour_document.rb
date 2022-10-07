@@ -38,14 +38,15 @@ class TourDocument < Prawn::Document
     text_box 'Listing Features', at: [675, 745], style: :normal
     font_size 20
     text_box @tour.listing_address.upcase.to_s, at: [675, 720]
-    if @tour.floorplan_orientation == 'vertical'
-      p 'sssss'
-      p floor_plan
-      p 'fllor'
+    if floor_plan.include? "FullPublic"
       image open(floor_plan), fit: [750, 750], at: [26.75, 775]
     else
-      rotate(270, origin: [550, 500]) do 
-        image open(floor_plan), width: 750, height: 600, at: [305, 570]
+      if @tour.floorplan_orientation == 'vertical'
+        image open(floor_plan), fit: [750, 750], at: [26.75, 775]
+      else
+        rotate(270, origin: [550, 500]) do 
+          image open(floor_plan), width: 750, height: 600, at: [305, 570]
+        end
       end
     end
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}"),
@@ -67,21 +68,37 @@ class TourDocument < Prawn::Document
       stroke_line [785, 130], [785, 40]
       text_box @tour.agent_name.to_s, at: [800, 135], style: :bold
       font_size 8
-      text_box 'Personal Real Estate Corportation', at: [800, 110]
+      text_box 'Personal Real Estate Corportation', at: [800, 110] if @tour.prec == true
       font_size 18
-      text_box @tour.agent_phone.to_s, at: [800, 95], style: :normal
-      font_size 12
-      text_box @tour.agent_email.to_s, at: [800, 70]
-      text_box @tour.agent_url.to_s, at: [800, 55]
+      if @tour.prec == true
+        text_box @tour.agent_phone.to_s, at: [800, 95], style: :normal
+        font_size 12
+        text_box @tour.agent_email.to_s, at: [800, 70]
+        text_box @tour.agent_url.to_s, at: [800, 55]
+      else
+        text_box @tour.agent_phone.to_s, at: [800, 110], style: :normal
+        font_size 12
+        text_box @tour.agent_email.to_s, at: [800, 85]
+        text_box @tour.agent_url.to_s, at: [800, 70]
+      end
+
       else
       text_box @tour.agent_name.to_s, at: [665, 135], style: :bold
       font_size 8
-      text_box 'Personal Real Estate Corportation', at: [665, 110]
+      text_box 'Personal Real Estate Corportation', at: [665, 110] if @tour.prec == true 
       font_size 18
-      text_box @tour.agent_phone.to_s, at: [665, 95], style: :normal
-      font_size 12
-      text_box @tour.agent_email.to_s, at: [665, 70]
-      text_box @tour.agent_url.to_s, at: [665, 55]
+      if @tour.prec == true
+        text_box @tour.agent_phone.to_s, at: [665, 95], style: :normal
+        font_size 12
+        text_box @tour.agent_email.to_s, at: [665, 70]
+        text_box @tour.agent_url.to_s, at: [665, 55]
+      else
+        text_box @tour.agent_phone.to_s, at: [665, 110], style: :normal
+        font_size 12
+        text_box @tour.agent_email.to_s, at: [665, 85]
+        text_box @tour.agent_url.to_s, at: [665, 70]
+      end
+
       end
       image open(agent_logo_url), fit: [75, 75], at: [1115, 735] if agent_logo_url.present?
       image open(borker_log), fit: [75, 75], at: [1115, 70] if borker_log.present?
@@ -102,8 +119,6 @@ class TourDocument < Prawn::Document
       resize_gte_to: false,
       size: 120
     )
-    p qrcode_to_png
-    p 'qrcode_to_png'
     qrcode_image = IO.binwrite("/tmp/#{@tour.cotala_tour_id}.png", qrcode_to_png.to_s)
     fill_color '000000' if @tour.selected_theme == 'dark'
     fill_rectangle [-35, 1056], 1632, 1096 if @tour.selected_theme == 'dark'
@@ -122,17 +137,17 @@ class TourDocument < Prawn::Document
       font_size 24
       text_box "$#{number_with_delimiter(@tour.price, delimiter: ",")}", at: [63.75, 715], style: :bold
     else
-      font_size 8
+      font_size 9
       text_box tour_description.to_s, at: [32.75, 653], width: 550, height: 120, leading: 5, style: :normal
-      stroke_line [30.75, 533], [580.75, 533]
-      stroke_line [30.75, 505], [580.75, 505]
+      # stroke_line [30.75, 533], [580.75, 533]
+      # stroke_line [30.75, 505], [580.75, 505]
       font_size 20
       text_box @tour.listing_address.upcase.to_s, at: [32.75, 758]
       font_size 6
       text_box 'LISTED', at: [37.75, 705], style: :normal
       text_box 'FOR', at: [37.75, 695]
       font_size 24
-      text_box "#{number_with_delimiter(@tour.price, delimiter: ",")}", at: [63.75, 710], style: :bold
+      text_box "$#{number_with_delimiter(@tour.price, delimiter: ",")}", at: [63.75, 710], style: :bold
     end
     font_size 10
     font "Muli"
@@ -147,22 +162,22 @@ class TourDocument < Prawn::Document
       text_box 'MAINT', at: [29.75, 528]
       text_box "$#{@tour.lot_maint}", at: [74, 528]
     end
-    text_box '|', at: [149, 528]
-    text_box 'SIZE', at: [169, 528]
+    text_box '|', at: [145, 528]
+    text_box 'SIZE', at: [165, 528]
     if @tour.size == 'see floorplan' || @tour.size == 'see plan' 
-      text_box "#{@tour.size}", at: [214, 528]
+      text_box "#{@tour.size}", at: [210, 528]
     else
-      text_box "#{@tour.size} SF", at: [214, 528]
+      text_box "#{@tour.size} SF", at: [210, 528]
     end
-    text_box '|', at: [279, 528]
-    text_box @tour.bedrooms.to_s, at: [299, 528]
-    text_box 'BED', at: [316, 528]
-    text_box '|', at: [357, 528]
-    text_box @tour.bathrooms.to_s, at: [377, 528]
-    text_box 'BATH', at: [392, 528]
-    text_box '|', at: [439, 528]
-    text_box 'TAXES', at: [459, 528]
-    text_box "$#{@tour.tax.to_s}", at: [510, 528]
+    text_box '|', at: [275, 528]
+    text_box @tour.bedrooms.to_s, at: [295, 528]
+    text_box 'BED', at: [312, 528]
+    text_box '|', at: [353, 528]
+    text_box @tour.bathrooms.to_s, at: [373, 528]
+    text_box 'BATH', at: [388, 528]
+    text_box '|', at: [435, 528]
+    text_box 'TAXES', at: [454, 528]
+    text_box "$#{@tour.tax.to_s}", at: [505, 528]
     main_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.second_image}"
     image open(main_image), width: 550, height: 340, at: [30.75, 498]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.third_image}"),
@@ -175,11 +190,11 @@ class TourDocument < Prawn::Document
           width: 550, height: 370, at: [645, 758]
     image open("/tmp/#{@tour.cotala_tour_id}.png"),width: 65, height: 65, at: [1139, 766]
     font_size 6
-    text_box "TAKE THE TOUR", at: [1144, 708]
+    text_box "TAKE THE TOUR", at: [1148, 708]
     fill_color 'FFFFFF'
     fill { rectangle [1139, 701], 61, 10 }
     fill_color '6c6d70'
-    text_box "cotala.com/#{@tour.cotala_tour_id}", at: [1142, 700]
+    text_box "cotala.com/#{@tour.cotala_tour_id}", at: [1147, 700]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.seventh_image}"),
           width: 180, height: 110, at: [645, 383]
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.eighth_image}"),
