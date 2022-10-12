@@ -41,7 +41,11 @@ class Tour < ApplicationRecord
     @tour.bathrooms = response['Bathrooms']
     @tour.size = response['Size']
     @tour.lot_or_maint = response['Lot_or_Maint'] == 'Lot'
-    @tour.lot_maint = response['LotMaint'].tap { |s| s.delete!(',') }.to_i
+    if response['LotMaint'].include?(',')
+      @tour.lot_maint = response['LotMaint'].tap { |s| s.delete!(',') }.to_i
+    else
+      @tour.lot_maint = response['LotMaint']
+    end
     @tour.description = response['Description']
     @tour.style = response['Style']
     @tour.property_type = response['Type']

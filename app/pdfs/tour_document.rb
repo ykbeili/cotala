@@ -101,7 +101,7 @@ class TourDocument < Prawn::Document
 
       end
       image open(agent_logo_url), fit: [75, 75], at: [1115, 735] if agent_logo_url.present?
-      image open(borker_log), fit: [75, 75], at: [1115, 70] if borker_log.present?
+      image open(borker_log), fit: [75, 75], at: [1115, 110] if borker_log.present?
   end
 
   def second_page
