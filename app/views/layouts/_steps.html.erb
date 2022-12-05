@@ -1,7 +1,9 @@
 <div class="container m-0 p-0">
   <div class="row no-gutters">
     <div class="col-sm">
-      <%= link_to 'step one', wizard_path(:step1, tour_id: @tour.id), class:"btn step #{step == :step1 ? 'btn-primary': 'btn-light'}" ,data: { turbolinks: false } %>
+    <% p step %>
+    <% p 'step' %>
+      <%= link_to 'step one', wizard_path(:step1, tour_id: @tour.id), class:"btn step #{step == :step1 || step.nil? ? 'btn-primary': 'btn-light'}" ,data: { turbolinks: false } %>
     </div>
     <div class="col-sm">
       <%= link_to 'step two', wizard_path(:step2, tour_id: @tour.id), class:"btn step #{step == :step2 ? 'btn-primary': 'btn-light'}",data: { turbolinks: false }  %>
@@ -11,9 +13,6 @@
     </div>
     <div class="col-sm">
       <%= link_to 'step four', wizard_path(:step4, tour_id: @tour.id), class:"btn step #{step == :step4 ? 'btn-primary': 'btn-light'}",data: { turbolinks: false }  %>
-    </div>
-    <div class="col-sm">
-      <%= link_to 'step five', wizard_path(:step5, tour_id: @tour.id), class:"btn step #{step == :step5 ? 'btn-primary': 'btn-light'}",data: { turbolinks: false }  %>
     </div>
   </div>
 </div>

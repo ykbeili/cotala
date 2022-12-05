@@ -1,17 +1,18 @@
-<div class="modal fade image-modal" id="<%= image_id %>_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal fade image-modal" id="<%= image_id %>_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" style="over-flow: scroll">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content" style="max-height: 500px; overflow: scroll">
       <div class="modal-header">
-        <h5 class="modal-title" id="<%= image_id %>_modal_title">Edit Info</h5>
+        <h5 class="modal-title" id="<%= image_id %>_modal_title">Select one image</h5>
       </div>
       <div class="modal-body">
         <%= form_for @tour, url: tour_detail_path(@tour, type: "image"), method: :put, remote: true do |f| %>
         <%= f.hidden_field image_id.to_sym %>
         <div class="row no-gutters">
-            <% tour.selected_images.each do |image| %>
-              <div data-image-id="<%= image %>" class="col-4 my-2 <%= "selected-image" if tour.send(image_id) == image %> tour-image">
-                <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{image}", class:'w-100'%>
+            <% tour.images.each do |image| %>
+              <div data-image-id="<%= image.name %>" class="col-4 my-2 <%= "selected-image" if tour.send(image_id) == image %> tour-image">
+                <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{image.name}", class:'w-100'%>
               </div>
+              
             <% end %>
         </div>
       </div>

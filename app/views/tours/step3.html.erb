@@ -7,81 +7,210 @@
       </div>
     </div>
     <div class="row no-gutters <%= @tour.selected_theme == 'dark' ? 'bg-black' : ''%>">
-      <h2 class="<%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">
-        Click on the different photos or text to customize
-        <small class="text-muted <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">(note that the display is approximate)</small>
-      </h2>
-      <div class="col-6" style="padding-top: 200px">
-      <% if Faraday.head("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/Floorplan_Branded.jpg").status == 200 %>
-        <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/Floorplan_Branded.jpg", style: 'width: 100%; padding-right: 20px' %>
-      <% else %>
-        <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/FullPublic.jpg", style: 'width: 100%; padding-right: 20px' %>
-      <% end %>
-      </div>
       <div class="col-6" style="padding-top: 200px">
         <div class="row no-gutters">
-          <div class="col-6" >
-            <h6 class="<%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">Listing Features</h6>
-            <span id="address_modal_link" class="text-decoration-underline <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.listing_address %></span>
+          <h1 class="<%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.listing_address %></h1>
+        </div>
+        <div class="row no-gutters">
+          <span id="price_modal_link" class="text-decoration-underline modal-link">
+            LISTED FOR<h1 class="d-inline-block pl-4 <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.price %></h1>
+          </span>
+        </div>
+        <div class="row no-gutters">
+          <span id="description_modal_link" class="text-decoration-underline modal-link">
+            <p class="<%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.description %></p>
+          </span>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-2">
+            <span id="lot_modal_link" class="text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">
+              <% if @tour.lot_or_maint == true%>
+              LOT <%= @tour.lot_maint %> SF
+              <% else %>
+              MAINT $<%= @tour.lot_maint %>
+              <% end %>
+            </span>
           </div>
-          <div class="col-6" style="text-align: right">
-            <%= image_tag @tour.agent_logo_url, style: "width:200px; height: 100px; margin-bottom: 20px" if @tour.agent_logo_url %>
+          <div class="col-2">
+            <span id="size_modal_link" class="text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">
+              SIZE <%= @tour.size %> SF
+            </span>
+          </div>
+          <div class="col-2">
+            <span id="bedrooms_modal_link" class="text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">
+              <%= @tour.bedrooms %> BED
+            </span>
+          </div>
+          <div class="col-2">
+            <span id="bathrooms_modal_link" class="text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">
+              <%= @tour.bathrooms %> BATH
+            </span>
+          </div>
+          <div class="col-2">
+            <span id="tax_modal_link" class="text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">
+              TAXES $<%= @tour.tax %>
+            </span>
           </div>
         </div>
         <div class="row no-gutters">
           <div class="col-12">
-            <a id="first_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}", style: 'width: 100%' %></a>
+          <% if @tour.second_image.nil? %>
+            <a href="javascript:void(0);" id="second_image_modal_link" class="text-decoration-underline modal-link"><img class="card-img-top" src="<%= asset_path('placeholder-image.png') %>"></a>
+          <% else %>
+            <a href="javascript:void(0);" id="second_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.second_image}", style: 'width: 100%' %></a>
+          <% end %>
           </div>
         </div>
-          <div class="row no-gutters pt-4">
+        <div class="row no-gutters">
           <div class="col-4">
-            <%= image_tag @tour.agent_headshot_url, style: "width:150px; height: 150px; border-radius: 50%;margin-left: 30px" if @tour.agent_headshot_url.present? %>
-          </div>
-          <div class="col-5">
-            <span id="agent_name_modal_link" class="d-block text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.agent_name %> </span>
-            <% if @tour.prec == true %>
-              <span class="d-block <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">Personal Real Estate Corporation</span>
+          <% if @tour.third_image.nil? %>
+          <a href="javascript:void(0);" id="third_image_modal_link" class="text-decoration-underline modal-link"><img class="card-img-top" src="<%= asset_path('placeholder-image.png') %>"></a>
+          <% else %>
+            <a href="javascript:void(0);" id="third_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.third_image}", style: 'width: 100%' %></a>
             <% end %>
-            <span id="agent_phone_modal_link" class="d-block text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.agent_phone %></span>
-            <span id="agent_email_modal_link" class="d-block text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.agent_email %></span>
-            <span id="agent_url_modal_link" class="d-block text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.agent_url %></span>
           </div>
-          <div class="col-3">
-            <%= image_tag @tour.broker_logo, style: 'width: 100%;margin-top: 60px' %>
+          <div class="col-4">
+          <% p @tour.ninth_image %>
+          <% p 'image' %>
+          <% p @tour %>
+          <% p 'ss' %>
+          <% if @tour.fourth_image.nil? %>
+          <a href="javascript:void(0);" id="fourth_image_modal_link" class="text-decoration-underline modal-link"><img class="card-img-top" src="<%= asset_path('placeholder-image.png') %>"></a>
+          <% else %>
+            <a href="javascript:void(0);" id="fourth_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fourth_image}", style: 'width: 100%' %></a>
+            <% end %>
           </div>
+          <div class="col-4">
+          <% if @tour.fifth_image.nil? %>
+          <a href="javascript:void(0);" id="fifth_image_modal_link" class="text-decoration-underline modal-link"><img class="card-img-top" src="<%= asset_path('placeholder-image.png') %>"></a>
+          <% else %>
+            <a href="javascript:void(0);" id="fifth_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fifth_image}", style: 'width: 100%' %></a>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="col-6" style="padding-top: 200px">
+        <div class="row no-gutters">
+          <div class="col-12" >
+          <% if @tour.sixth_image.nil? %>
+          <a href="javascript:void(0);" id="sixth_image_modal_link" class="text-decoration-underline modal-link"><img class="card-img-top" src="<%= asset_path('placeholder-image.png') %>"></a>
+          <% else %>
+            <a href="javascript:void(0);" id="sixth_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.sixth_image}", style: 'width: 100%' %></a>
+            <% end %>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-4">
+          <% if @tour.seventh_image.nil? %>
+          <a href="javascript:void(0);" id="seventh_image_modal_link" class="text-decoration-underline modal-link"><img class="card-img-top" src="<%= asset_path('placeholder-image.png') %>"></a>
+          <% else %>
+            <a href="javascript:void(0);" id="seventh_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.seventh_image}", style: 'width: 100%; padding-top: 10px;padding-right: 7.5px' %></a>
+            <% end %>
+          </div>
+          <div class="col-4">
+          <% if @tour.eighth_image.nil? %>
+          <a href="javascript:void(0);" id="eighth_image_modal_link" class="text-decoration-underline modal-link"><img class="card-img-top" src="<%= asset_path('placeholder-image.png') %>"></a>
+          <% else %>
+            <a href="javascript:void(0);" id="eighth_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.eighth_image}", style: 'width: 100%; padding-top: 10px;padding-right: 7.5px' %></a>
+            <% end %>
+          </div>
+          <div class="col-4">
+          <% if @tour.ninth_image.nil? %>
+          <a href="javascript:void(0);" id="ninth_image_modal_link" class="text-decoration-underline modal-link"><img class="card-img-top" src="<%= asset_path('placeholder-image.png') %>"></a>
+          <% else %>
+            <a href="javascript:void(0);" id="ninth_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.ninth_image}", style: 'width: 100%; padding-top: 10px;padding-right: 7.5px' %></a>
+            <% end %>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-4">
+          <% if @tour.tenth_image.nil? %>
+          <a href="javascript:void(0);" id="tenth_image_modal_link" class="text-decoration-underline modal-link"><img class="card-img-top" src="<%= asset_path('placeholder-image.png') %>"></a>
+          <% else %>
+            <a href="javascript:void(0);" id="tenth_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.tenth_image}", style: 'width: 100%; padding-top: 10px;padding-right: 7.5px' %></a>
+            <% end %>
+          </div>
+          <div class="col-4">
+          <% if @tour.eleventh_image.nil? %>
+          <a href="javascript:void(0);" id="eleventh_image_modal_link" class="text-decoration-underline modal-link"><img class="card-img-top" src="<%= asset_path('placeholder-image.png') %>"></a>
+          <% else %>
+            <a href="javascript:void(0);" id="eleventh_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.eleventh_image}", style: 'width: 100%; padding-top: 10px;padding-right: 7.5px' %></a>
+            <% end %>
+          </div>
+          <div class="col-4">
+          <% if @tour.twelfth_image.nil? %>
+          <a href="javascript:void(0);" id="twelfth_image_modal_link" class="text-decoration-underline modal-link"><img class="card-img-top" src="<%= asset_path('placeholder-image.png') %>"></a>
+          <% else %>
+            <a href="javascript:void(0);" id="twelfth_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.twelfth_image}", style: 'width: 100%; padding-top: 10px;padding-right: 7.5px' %></a>
+            <% end %>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div class="col-4">
+          <% if @tour.thirteenth_image.nil? %>
+          <a href="javascript:void(0);" id="thirteenth_image_modal_link" class="text-decoration-underline modal-link"><img class="card-img-top" src="<%= asset_path('placeholder-image.png') %>"></a>
+          <% else %>
+            <a href="javascript:void(0);" id="thirteenth_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.thirteenth_image}", style: 'width: 100%; padding-top: 10px;padding-right: 7.5px' %></a>
+            <% end %>
+          </div>
+          <div class="col-4">
+          <% if @tour.fourteenth_image.nil? %>
+          <a href="javascript:void(0);" id="fourteenth_image_modal_link" class="text-decoration-underline modal-link"><img class="card-img-top" src="<%= asset_path('placeholder-image.png') %>"></a>
+          <% else %>
+            <a href="javascript:void(0);" id="fourteenth_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fourteenth_image}", style: 'width: 100%; padding-top: 10px;padding-right: 7.5px' %></a>
+            <% end %>
+          </div>
+          <div class="col-4">
+          <% if @tour.fifteenth_image.nil? %>
+          <a href="javascript:void(0);" id="fifteenth_image_modal_link" class="text-decoration-underline modal-link"><img class="card-img-top" src="<%= asset_path('placeholder-image.png') %>"></a>
+          <% else %>
+            <a href="javascript:void(0);" id="fifteenth_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fifteenth_image}", style: 'width: 100%; padding-top: 10px;padding-right: 7.5px' %></a>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
     <div class="row no-gutters text-center mt-5">
       <div class="col-6">
-        <%= link_to 'Next Step', wizard_path(:step4, :tour_id => @tour.id), class: 'btn btn-primary theme-step-button w-100',data: { turbolinks: false } %>
+        <%= link_to 'Next Step', wizard_path(:step4, :tour_id => @tour.id), class: 'btn btn-primary theme-step-button w-100' %>
       </div>
     </div>
   </div>
+</div>
 </section>
-<%= render 'tours/first_page/images_modal', tour: @tour %>
-<%= render 'tours/first_page/address_modal', tour: @tour %>
-<%= render 'tours/first_page/agent_email_modal', tour: @tour %>
-<%= render 'tours/first_page/agent_url_modal', tour: @tour %>
-<%= render 'tours/first_page/agent_phone_modal', tour: @tour %>
-<%= render 'tours/first_page/agent_name_modal', tour: @tour %>
+<%= render 'tours/second_page/description_modal', tour: @tour %>
+<%= render 'tours/second_page/price_modal', tour: @tour %>
+<%= render 'tours/second_page/lot_modal', tour: @tour %>
+<%= render 'tours/second_page/size_modal', tour: @tour %>
+<%= render 'tours/second_page/bedrooms_modal', tour: @tour %>
+<%= render 'tours/second_page/bathrooms_modal', tour: @tour %>
+<%= render 'tours/second_page/tax_modal', tour: @tour %>
 
-<%= render 'tours/third_step/image_modal', tour: @tour, image_id: "first_image" %>
 <%= render 'tours/third_step/image_modal', tour: @tour, image_id: "second_image" %>
+<%= render 'tours/third_step/image_modal', tour: @tour, image_id: "third_image" %>
+<%= render 'tours/third_step/image_modal', tour: @tour, image_id: "fourth_image" %>
+<%= render 'tours/third_step/image_modal', tour: @tour, image_id: "fifth_image" %>
+<%= render 'tours/third_step/image_modal', tour: @tour, image_id: "sixth_image" %>
+<%= render 'tours/third_step/image_modal', tour: @tour, image_id: "seventh_image" %>
+<%= render 'tours/third_step/image_modal', tour: @tour, image_id: "eighth_image" %>
+<%= render 'tours/third_step/image_modal', tour: @tour, image_id: "ninth_image" %>
+<%= render 'tours/third_step/image_modal', tour: @tour, image_id: "tenth_image" %>
+<%= render 'tours/third_step/image_modal', tour: @tour, image_id: "eleventh_image" %>
+<%= render 'tours/third_step/image_modal', tour: @tour, image_id: "twelfth_image" %>
+<%= render 'tours/third_step/image_modal', tour: @tour, image_id: "thirteenth_image" %>
+<%= render 'tours/third_step/image_modal', tour: @tour, image_id: "fourteenth_image" %>
+<%= render 'tours/third_step/image_modal', tour: @tour, image_id: "fifteenth_image" %>
 
 
 <script>
   document.addEventListener("turbolinks:load", function() {
     $('.modal-link').on("click", function() {
       const modalId = $(this)[0].id.replace('_link','');
+      console.log(modalId, 'modalId')
       $(`#${modalId}`).modal('show')
     })
     $('#images_modal_link').on("click", function() {
       $('#images_modal').modal('show')
     });
-    $('#address_modal_link').on("click", function() {
-      $('#address_modal').modal('show')
-    })
   })
 </script>
