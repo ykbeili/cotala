@@ -37,8 +37,6 @@ class ToursController < ApplicationController
     pdf = TourDocument.new(@tour)
     send_data pdf.render,
               filename: "#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf"
-    p a - Time.new()
-    p 'difference'
     # ftp = Net::FTP.new(FTP_LINK)
     # ftp.login('tam@cotala.com', 'B*22?Rpdlen+')
     # file_path = "#{Rails.root}/tmp/#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf"
