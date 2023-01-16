@@ -34,11 +34,12 @@ class ToursController < ApplicationController
   def create_pdf
     a = Time.new()
     @tour = Tour.find_by_id(params[:tour_id])
-    @pdf = TourDocument.new(@tour)
-    send_data @pdf.render,
-              filename: "#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf",
-              :disposition => 'inline',
-              :type => "application/pdf"
+    TourDocumentJob.perform_now(@tour)
+    # @pdf = TourDocument.new(@tour)
+    # send_data @pdf.render,
+    #           filename: "#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf",
+    #           :disposition => 'inline',
+    #           :type => "application/pdf"
     
     # ftp = Net::FTP.new(FTP_LINK)
     # ftp.login('tam@cotala.com', 'B*22?Rpdlen+')
@@ -46,7 +47,7 @@ class ToursController < ApplicationController
     # pdf.render_file file_path
     # version = @tour.version || 2
     # ftp.putbinaryfile(file_path, "#{@tour.print_job_id}/#{@tour.print_job_id}-#{version}-b.pdf")
-    # redirect_to @tour.hook_url if @tour.hook_url.present?
+    redirect_to @tour.hook_url if @tour.hook_url.present?
   end
 
   def create_preview_pdf
@@ -56,7 +57,8 @@ class ToursController < ApplicationController
     send_data pdf.render,
               filename: "#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf",
               :type => "application/pdf",
-              :disposition => 'inline'
+              :disposition => 'inline',
+              :target => '_blank'
   end
 
   def update

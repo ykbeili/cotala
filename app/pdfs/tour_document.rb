@@ -157,7 +157,7 @@ class TourDocument < Prawn::Document
     lot_or_main_value = @tour.lot_maint.to_s.sub(/\.?0+$/, '').to_i
     if @tour.lot_or_maint == true
       text_box 'LOT', at: [29.75, 528]
-      text_box "#{number_with_delimiter(lot_or_main_value, delimiter: ',')} SF", at: [69, 528]
+      text_box "#{number_with_delimiter(lot_or_main_value, delimiter: ',')}", at: [69, 528]
     else
       text_box 'MAINT', at: [29.75, 528]
       text_box "#{@tour.lot_maint}", at: [74, 528]
@@ -167,7 +167,7 @@ class TourDocument < Prawn::Document
     if @tour.size == 'see floorplan' || @tour.size == 'see plan' 
       text_box "#{@tour.size}", at: [210, 528]
     else
-      text_box "#{@tour.size} SF", at: [210, 528]
+      text_box "#{@tour.size}", at: [210, 528]
     end
     text_box '|', at: [275, 528]
     text_box @tour.bedrooms.to_s, at: [295, 528]

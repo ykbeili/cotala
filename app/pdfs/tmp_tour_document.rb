@@ -160,17 +160,17 @@ class TmpTourDocument < Prawn::Document
     lot_or_main_value = @tour.lot_maint.to_s.sub(/\.?0+$/, '').to_i
     if @tour.lot_or_maint == true
       text_box 'LOT', at: [29.75, 528]
-      text_box "#{number_with_delimiter(lot_or_main_value, delimiter: ',')} SF", at: [69, 528]
+      text_box "#{number_with_delimiter(lot_or_main_value, delimiter: ',')}", at: [69, 528]
     else
       text_box 'MAINT', at: [29.75, 528]
-      text_box "$#{@tour.lot_maint}", at: [74, 528]
+      text_box "#{@tour.lot_maint}", at: [74, 528]
     end
     text_box '|', at: [145, 528]
     text_box 'SIZE', at: [165, 528]
     if @tour.size == 'see floorplan' || @tour.size == 'see plan' 
       text_box "#{@tour.size}", at: [210, 528]
     else
-      text_box "#{@tour.size} SF", at: [210, 528]
+      text_box "#{@tour.size}", at: [210, 528]
     end
     text_box '|', at: [275, 528]
     text_box @tour.bedrooms.to_s, at: [295, 528]
@@ -180,7 +180,7 @@ class TmpTourDocument < Prawn::Document
     text_box 'BATH', at: [388, 528]
     text_box '|', at: [435, 528]
     text_box 'TAXES', at: [454, 528]
-    text_box "$#{@tour.tax.to_s}", at: [505, 528]
+    text_box "#{@tour.tax.to_s}", at: [505, 528]
     second_image = rename_image(@tour.second_image)
     third_image = rename_image(@tour.third_image)
     fourth_image = rename_image(@tour.fourth_image)
