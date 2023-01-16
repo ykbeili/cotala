@@ -9,7 +9,7 @@
     <div class="row no-gutters mt-5">
       <div class="col-3"></div>
       <div class="col-6 text-center">
-        <%= link_to "Send to Cotala for Printing", create_path(:tour_id => @tour.id), class:'btn btn-primary pdf-button', :data => {disable_with: "Generating PDF ..."} %>
+        <%= link_to "Approve for Printing", create_path(:tour_id => @tour.id), class:'btn btn-primary pdf-button', :data => {disable_with: "Generating PDF ..."} %>
       </div>
       <div class="col-3"></div>
     </div>

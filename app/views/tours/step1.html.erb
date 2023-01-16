@@ -3,7 +3,7 @@
   <div class="container p-0 m-0">
     <div class="row no-gutters <%= @tour.selected_theme == 'dark' ? 'bg-black' : ''%>">
       <h2 class="<%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">
-        Click on the different photos or text to customize
+        Use the layout below to modify photos and / or information by clicking on the different elements. You will be able to review the final output in the last step.
         <small class="text-muted <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">(note that the display is approximate)</small>
       </h2>
       <div class="col-6" style="padding-top: 200px">
@@ -20,7 +20,7 @@
             <span id="address_modal_link" class="text-decoration-underline <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.listing_address %></span>
           </div>
           <div class="col-6" style="text-align: right">
-            <%= image_tag @tour.agent_logo_url, style: "width:200px; height: 100px; margin-bottom: 20px" if @tour.agent_logo_url %>
+            <%= image_tag @tour.agent_logo_url, style: "width:200px; height: 100px; margin-bottom: 20px" if @tour.agent_logo_url.present? %>
           </div>
         </div>
         <div class="row no-gutters">

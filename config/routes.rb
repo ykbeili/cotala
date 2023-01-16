@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'tours#step1'
   match 'download_ofs', to: 'tours#download_ofs', as: 'download', via: :get
   match 'create_pdf', to: 'tours#create_pdf', as: 'create', via: :get
+  match 'preview_pdf', to: 'tours#create_preview_pdf', as: 'preview', via: :get
   resources :tours
   resources :tour_details, only: [:update]
 end

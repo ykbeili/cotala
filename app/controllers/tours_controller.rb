@@ -34,9 +34,12 @@ class ToursController < ApplicationController
   def create_pdf
     a = Time.new()
     @tour = Tour.find_by_id(params[:tour_id])
-    pdf = TourDocument.new(@tour)
-    send_data pdf.render,
-              filename: "#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf"
+    @pdf = TourDocument.new(@tour)
+    send_data @pdf.render,
+              filename: "#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf",
+              :disposition => 'inline',
+              :type => "application/pdf"
+    
     # ftp = Net::FTP.new(FTP_LINK)
     # ftp.login('tam@cotala.com', 'B*22?Rpdlen+')
     # file_path = "#{Rails.root}/tmp/#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf"
@@ -44,6 +47,16 @@ class ToursController < ApplicationController
     # version = @tour.version || 2
     # ftp.putbinaryfile(file_path, "#{@tour.print_job_id}/#{@tour.print_job_id}-#{version}-b.pdf")
     # redirect_to @tour.hook_url if @tour.hook_url.present?
+  end
+
+  def create_preview_pdf
+    a = Time.new()
+    @tour = Tour.find_by_id(params[:tour_id])
+    pdf = TmpTourDocument.new(@tour)
+    send_data pdf.render,
+              filename: "#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf",
+              :type => "application/pdf",
+              :disposition => 'inline'
   end
 
   def update
@@ -67,10 +80,14 @@ class ToursController < ApplicationController
     #   @tour.fourteenth_image = tp['selected_images'][13]
     #   @tour.fifteenth_image = tp['selected_images'][14]
     #   @tour.update(tp)
+    when :step2
+      p 'step2'
     when :step3
+      p 'step3'
       tp = tour_params
       @tour.update(tp)
     when :step4
+      p 'step3'
       tp = tour_params
       @tour.update(tp)
     end

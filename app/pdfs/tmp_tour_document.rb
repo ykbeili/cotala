@@ -1,4 +1,4 @@
-class TourDocument < Prawn::Document
+class TmpTourDocument < Prawn::Document
   require 'open-uri'
   require 'rqrcode'
   PDF_SIZE = [1300, 870].freeze
@@ -49,7 +49,10 @@ class TourDocument < Prawn::Document
         end
       end
     end
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}"),
+    first_image = rename_image(@tour.first_image)
+    p first_image
+    p 'first_image'
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{first_image}"),
           width: 550, height: 500, at: [642, 660]
     if agent_headshot_url
       bounding_box([679, 132], width: 400, height: 450) do
@@ -160,7 +163,7 @@ class TourDocument < Prawn::Document
       text_box "#{number_with_delimiter(lot_or_main_value, delimiter: ',')} SF", at: [69, 528]
     else
       text_box 'MAINT', at: [29.75, 528]
-      text_box "#{@tour.lot_maint}", at: [74, 528]
+      text_box "$#{@tour.lot_maint}", at: [74, 528]
     end
     text_box '|', at: [145, 528]
     text_box 'SIZE', at: [165, 528]
@@ -177,16 +180,30 @@ class TourDocument < Prawn::Document
     text_box 'BATH', at: [388, 528]
     text_box '|', at: [435, 528]
     text_box 'TAXES', at: [454, 528]
-    text_box "#{@tour.tax.to_s}", at: [505, 528]
-    main_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.second_image}"
+    text_box "$#{@tour.tax.to_s}", at: [505, 528]
+    second_image = rename_image(@tour.second_image)
+    third_image = rename_image(@tour.third_image)
+    fourth_image = rename_image(@tour.fourth_image)
+    fifth_image = rename_image(@tour.fifth_image)
+    sixth_image = rename_image(@tour.sixth_image)
+    seventh_image = rename_image(@tour.seventh_image)
+    eighth_image = rename_image(@tour.eighth_image)
+    ninth_image = rename_image(@tour.ninth_image)
+    tenth_image = rename_image(@tour.tenth_image)
+    eleventh_image = rename_image(@tour.eleventh_image)
+    twelfth_image = rename_image(@tour.twelfth_image)
+    thirteenth_image = rename_image(@tour.thirteenth_image)
+    fourteenth_image = rename_image(@tour.fourteenth_image)
+    fifteenth_image = rename_image(@tour.fifteenth_image)
+    main_image = "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{second_image}"
     image open(main_image), width: 550, height: 340, at: [30.75, 498]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.third_image}"),
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{third_image}"),
           width: 180, height: 110, at: [30.75, 153]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fourth_image}"),
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{fourth_image}"),
           width: 180, height: 110, at: [215, 153]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fifth_image}"),
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{fifth_image}"),
           width: 180, height: 110, at: [400, 153]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.sixth_image}"),
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{sixth_image}"),
           width: 550, height: 370, at: [645, 758]
     image open("/tmp/#{@tour.cotala_tour_id}.png"),width: 65, height: 65, at: [1139, 766]
     font_size 6
@@ -195,24 +212,30 @@ class TourDocument < Prawn::Document
     fill { rectangle [1139, 701], 61, 10 }
     fill_color '6c6d70'
     text_box "cotala.com/#{@tour.cotala_tour_id}", at: [1147, 700]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.seventh_image}"),
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{seventh_image}"),
           width: 180, height: 110, at: [645, 383]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.eighth_image}"),
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{eighth_image}"),
           width: 180, height: 110, at: [830, 383]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.ninth_image}"),
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{ninth_image}"),
           width: 180, height: 110, at: [1015, 383]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.tenth_image}"),
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{tenth_image}"),
           width: 180, height: 110, at: [645, 268]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.eleventh_image}"),
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{eleventh_image}"),
           width: 180, height: 110, at: [830, 268]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.twelfth_image}"),
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{twelfth_image}"),
           width: 180, height: 110, at: [1015, 268]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.thirteenth_image}"),
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{thirteenth_image}"),
           width: 180, height: 110, at: [645, 153]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fourteenth_image}"),
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{fourteenth_image}"),
           width: 180, height: 110, at: [830, 153]
-    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.fifteenth_image}"),
+    image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{fifteenth_image}"),
           width: 180, height: 110, at: [1015, 153]
+  end
+
+  def rename_image(image_name)
+    new_image_name = image_name.split(".")
+    new_image_name[0] = new_image_name[0] + "_thm"
+    return new_image_name.join(".")
   end
 
   def add_crop_marks
