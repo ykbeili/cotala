@@ -39,7 +39,7 @@ class TmpTourDocument < Prawn::Document
     font_size 20
     text_box @tour.listing_address.upcase.to_s, at: [675, 720]
     if floor_plan.include? "FullPublic"
-      image open(floor_plan), fit: [750, 750], at: [26.75, 775]
+      image open("https://www.cotala.com/tours/67805/Floorplan_Branded.jpg"), fit: [750, 750], at: [26.75, 775]
     else
       if @tour.floorplan_orientation == 'vertical'
         image open(floor_plan), fit: [750, 750], at: [26.75, 775]
