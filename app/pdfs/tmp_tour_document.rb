@@ -64,7 +64,7 @@ class TmpTourDocument < Prawn::Document
             fill_color 0, 0, 0, 0
             fill_circle [45, 405], 45
           end
-          image open(agent_headshot_url), at: [bounds.left, bounds.top], width: image_width, height: image_height
+          image open(agent_headshot_url), at: [bounds.left, bounds.top], width: image_width, height: image_height if Faraday.head(agent_headshot_url).status == 200
         end
       end
       stroke_color 'b0b0b0'

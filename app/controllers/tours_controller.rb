@@ -57,8 +57,7 @@ class ToursController < ApplicationController
     send_data pdf.render,
               filename: "#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf",
               :type => "application/pdf",
-              :disposition => 'inline',
-              :target => '_blank'
+              :disposition => 'inline'
   end
 
   def update
@@ -83,13 +82,10 @@ class ToursController < ApplicationController
     #   @tour.fifteenth_image = tp['selected_images'][14]
     #   @tour.update(tp)
     when :step2
-      p 'step2'
     when :step3
-      p 'step3'
       tp = tour_params
       @tour.update(tp)
     when :step4
-      p 'step3'
       tp = tour_params
       @tour.update(tp)
     end
@@ -103,8 +99,6 @@ class ToursController < ApplicationController
   end
 
   def get_cotala_tour_id
-    p params.require(:print_job_id) 
-    p 'params.require(:print_job_id) '
     @cotala_tour_id = params.require(:print_job_id) if params[:print_job_id].present?
   end
 

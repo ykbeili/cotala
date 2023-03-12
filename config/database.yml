@@ -87,6 +87,7 @@ test:
 #
 production:
   <<: *default
-  database: cotala_brochure_production
-  username: myapp
-  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>
+  database: d2vrplap2frfd
+  username: gkmnlxvvvuwhnp
+  host: ec2-52-73-155-171.compute-1.amazonaws.com
+  password: 3e80467d71ca36008517e91f559f1a5cca13f53da41b545b82834c255ec9bbfa
