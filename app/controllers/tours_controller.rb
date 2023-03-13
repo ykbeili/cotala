@@ -34,7 +34,7 @@ class ToursController < ApplicationController
   def create_pdf
     a = Time.new()
     @tour = Tour.find_by_id(params[:tour_id])
-    TourDocumentJob.perform_async(@tour)
+    TourDocumentJob.perform_async(@tour.id)
     # @pdf = TourDocument.new(@tour)
     # send_data @pdf.render,
     #           filename: "#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf",
