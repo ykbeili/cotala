@@ -1,11 +1,12 @@
-class TourDocumentJob
-  include Sidekiq::Job
+class TourDocumentJob < ApplicationJob
+  queue_as :default
   FTP_LINK = 'ftp.cotala.com'.freeze
   require 'net/ftp'
 
   def perform(id)
-    # Do something
     @tour = Tour.find id
+    p @tour
+    p '@tour'
     @pdf = TourDocument.new(@tour)
     ftp = Net::FTP.new(FTP_LINK)
     ftp.login('tam@cotala.com', 'B*22?Rpdlen+')

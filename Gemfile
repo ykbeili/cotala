@@ -32,7 +32,10 @@ gem 'wicked'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 # Simple, efficient background processing for Ruby
-gem 'sidekiq'
+gem 'delayed_job'
+gem 'delayed_job_active_record'
+gem "daemons"
+# gem 'sidekiq'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 
