@@ -52,7 +52,7 @@
           <% if @tour.second_image.nil? || @tour.second_image == '' %>
             <a href="javascript:void(0);" id="second_image_modal_link" class="text-decoration-underline modal-link"><img class="card-img-top mt-1 mb-3" src="<%= asset_path('placeholder-image.png') %>"></a>
           <% else %>
-            <a href="javascript:void(0);" id="second_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.second_image}", style: 'width: 100%' %></a>
+            <a href="javascript:void(0);" id="second_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.second_image}", class:'mb-3',style: 'width: 100%' %></a>
           <% end %>
           </div>
         </div>
@@ -83,6 +83,12 @@
       <div class="col-6" style="padding-top: 0px">
         <div class="row no-gutters">
           <div class="col-12" >
+          <% p @tour.sixth_image %>
+          <% p '@tour.sixth_image'%>
+          <% p @tour.sixth_image == '' %>
+          <% p 'what?'%>
+          <% p @tour.sixth_image.nil? || @tour.sixth_image == ''  %>
+          <% p '@tour.sixth_image.nil? || @tour.sixth_image == '' ' %>
           <% if @tour.sixth_image.nil? || @tour.sixth_image == '' %>
           <a href="javascript:void(0);" id="sixth_image_modal_link" class="text-decoration-underline modal-link"><img class="card-img-top mb-3 mt-4" src="<%= asset_path('placeholder-image.png') %>"></a>
           <% else %>

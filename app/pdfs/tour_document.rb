@@ -36,7 +36,7 @@ class TourDocument < Prawn::Document
     font_size 14 
     font "Muli"
     text_box 'Listing Features', at: [675, 745], style: :normal
-    font_size 20
+    font_size 16
     text_box @tour.listing_address.upcase.to_s, at: [675, 720]
     if floor_plan.include? "FullPublic"
       image open(floor_plan), fit: [750, 750], at: [26.75, 775]
@@ -129,7 +129,7 @@ class TourDocument < Prawn::Document
     if tour_description.length > 700
       font_size 9
       text_box tour_description.to_s, at: [32.75, 660], width: 550, height: 135, leading: 6, style: :normal
-      font_size 20
+      font_size 16
       text_box @tour.listing_address.upcase.to_s, at: [32.75, 765]
       font_size 6
       text_box 'LISTED', at: [37.75, 710], style: :normal
@@ -141,7 +141,7 @@ class TourDocument < Prawn::Document
       text_box tour_description.to_s, at: [32.75, 653], width: 550, height: 120, leading: 5, style: :normal
       # stroke_line [30.75, 533], [580.75, 533]
       # stroke_line [30.75, 505], [580.75, 505]
-      font_size 20
+      font_size 16
       text_box @tour.listing_address.upcase.to_s, at: [32.75, 758]
       font_size 6
       text_box 'LISTED', at: [37.75, 705], style: :normal
