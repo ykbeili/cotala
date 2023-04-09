@@ -33,7 +33,7 @@ class Tour < ApplicationRecord
     @tour.broker_logo = response['BrokerLogo']
     @tour.listing_address = response['ListingAddress']
     @tour.show_price = response['ShowPrice']
-    @tour.price = response['Price'].tap { |s| s.delete!(',') }.to_i
+    @tour.price = response['Price'].tap { |s| s.delete!(',') }.to_i if response['Price'].present?
     @tour.mls = response['MLS']
     @tour.tax = response['Tax']
     @tour.built = response['Built']
@@ -41,10 +41,12 @@ class Tour < ApplicationRecord
     @tour.bathrooms = response['Bathrooms']
     @tour.size = response['Size']
     @tour.lot_or_maint = response['Lot_or_Maint'] == 'Lot'
-    if response['LotMaint'].include?(',')
-      @tour.lot_maint = response['LotMaint'].tap { |s| s.delete!(',') }.to_i
-    else
-      @tour.lot_maint = response['LotMaint'].gsub("$", "").to_f
+    if response['LotMaint'].present?
+      if response['LotMaint'].include?(',')
+        @tour.lot_maint = response['LotMaint'].tap { |s| s.delete!(',') }.to_i
+      else
+        @tour.lot_maint = response['LotMaint'].gsub("$", "").to_f
+      end
     end
     @tour.description = response['Description']
     @tour.style = response['Style']

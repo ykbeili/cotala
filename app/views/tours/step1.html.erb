@@ -46,7 +46,7 @@
             <span id="agent_url_modal_link" class="d-block text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>"><%= @tour.agent_url %></span>
           </div>
           <div class="col-3">
-            <%= image_tag @tour.broker_logo, style: 'width: 100%;margin-top: 60px' %>
+            <%= image_tag @tour.broker_logo.present? ? @tour.broker_logo : '', style: 'width: 100%;margin-top: 60px' %>
           </div>
           </div>
         </div>
