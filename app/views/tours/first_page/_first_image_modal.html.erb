@@ -17,7 +17,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary save">Save changes</button>
+        <button type="submit" class="btn btn-primary save-image">Save changes</button>
         <% end %>
       </div>
     </div>
@@ -29,7 +29,7 @@
     $('.close').on("click", function() {
       $('#first_image_modal').modal('hide')
     })
-    $('.save').on("click", function() {
+    $('.save-image').on("click", function() {
       if($('.selected-image').length === 0){
         alert(`Please select at least 1 image`);
         $('#first_image_modal').modal('show')

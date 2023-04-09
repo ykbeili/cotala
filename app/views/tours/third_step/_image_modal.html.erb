@@ -17,8 +17,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary close" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary save">Set Image</button>
+        <button type="button" class="btn btn-secondary close d-none" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary save-images d-none">Set Image</button>
         <% end %>
       </div>
     </div>
@@ -30,11 +30,12 @@
     $('.close').on("click", function() {
       $('#<%= image_id %>_modal').modal('hide')
     })
-    $('.save').on("click", function() {
+    $('.save-images').on("click", function() {
       if($('.selected-image').length === 0){
         alert(`Please select at least 1 image`);
         $('#<%= image_id %>_modal').modal('show')
       } else {
+        console.log($('#<%= image_id %>_modal'), 'modal')
         $('#<%= image_id %>_modal').modal('hide')
       }
     })
@@ -50,6 +51,7 @@
           $(this).addClass("selected-image");
         }
         $("#tour_<%= image_id %>").val($(".selected-image").data("image-id"));
+        $('.save-images').click();
     });
   })
 </script>

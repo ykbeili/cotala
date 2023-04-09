@@ -2,10 +2,11 @@
 <section class="section mb-5" data-turbolinks="false">
   <div class="container p-0 m-0">
     <div class="row no-gutters mt-5">
-      <div class="col-3 text-center">
+      <div class="col-6 text-left border-right mb-3 pb-3">
+        <h1></h1>
         <%= link_to "Preview", preview_path(:tour_id => @tour.id), class:'btn btn-primary pdf-button', :data => {disable_with: "Previewing PDF ..."} %>
       </div>
-      <div class="col-6 text-center">
+      <div class="col-6 text-left mt-3">
         <%= link_to "Approve for Printing", create_path(:tour_id => @tour.id), class:'btn btn-primary pdf-button', :data => {disable_with: "Generating PDF ..."} %>
       </div>
       <div class="col-3"></div>
