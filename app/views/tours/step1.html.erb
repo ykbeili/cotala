@@ -25,7 +25,7 @@
         </div>
         <div class="row no-gutters">
           <div class="col-12">
-          <% if @tour.first_image.nil? %>
+          <% if @tour.first_image.nil? || @tour.first_image == '' %>
             <a id="first_image_modal_link" class="text-decoration-underline modal-link"><img class="card-img-top" src="<%= asset_path('placeholder-image.png') %>" alt="Card image cap"></a>
           <% else %>
             <a id="first_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}", style: 'width: 100%' %></a>

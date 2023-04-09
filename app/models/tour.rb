@@ -44,7 +44,7 @@ class Tour < ApplicationRecord
     if response['LotMaint'].include?(',')
       @tour.lot_maint = response['LotMaint'].tap { |s| s.delete!(',') }.to_i
     else
-      @tour.lot_maint = response['LotMaint']
+      @tour.lot_maint = response['LotMaint'].gsub("$", "").to_f
     end
     @tour.description = response['Description']
     @tour.style = response['Style']
@@ -57,8 +57,6 @@ class Tour < ApplicationRecord
     @tour.agent_headshot = response['AgentHeadshot']
     @tour.agent_headshot_url = response['AgentHeadshotURL']
     @tour.floorplan_orientation = response['FloorplanOrientation']
-    p response
-    p 'response'
     @tour.prec = response['PREC'] == "yes" ? true : false
     @tour.version = response['Version']
     @tour.hook_url = response['Hook']
