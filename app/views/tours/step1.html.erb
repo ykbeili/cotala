@@ -26,9 +26,9 @@
         <div class="row no-gutters">
           <div class="col-12">
           <% if @tour.first_image.nil? || @tour.first_image == '' %>
-            <a id="first_image_modal_link" class="text-decoration-underline modal-link"><img class="card-img-top" src="<%= asset_path('placeholder-image.png') %>" alt="Card image cap"></a>
+            <a id="first_image_modal_link" class="text-decoration-underline modal-link first-image"><img class="card-img-top" src="<%= asset_path('placeholder-image.png') %>" alt="Card image cap"></a>
           <% else %>
-            <a id="first_image_modal_link" class="text-decoration-underline modal-link"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}", style: 'width: 100%' %></a>
+            <a id="first_image_modal_link" class="text-decoration-underline modal-link first-image"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}", style: 'width: 100%' %></a>
           <% end %>
           </div>
         </div>
@@ -54,7 +54,7 @@
     </div>
     <div class="row no-gutters text-center mt-5">
       <div class="col-6">
-        <%= link_to 'Next Step', wizard_path(:step2, :tour_id => @tour.id), class: 'btn btn-primary theme-step-button w-100',data: { turbolinks: false } %>
+        <%= link_to 'Next Step', wizard_path(:step2, :tour_id => @tour.id), class: 'btn btn-primary theme-step-button step-one w-100',data: { turbolinks: false } %>
       </div>
     </div>
   </div>
@@ -79,6 +79,14 @@
     });
     $('#address_modal_link').on("click", function() {
       $('#address_modal').modal('show')
+    })
+    $('.theme-step-button.step-one').on("click", function(e) {
+      const allImages = $('.first-image').find('img');
+      const lengthOfUnselectedImages = allImages.filter((key, value) => !value.src.includes('cotala')).length
+      if(lengthOfUnselectedImages > 0) {
+        e.preventDefault();
+        alert('You must select the main image');
+      };
     })
   })
 </script>

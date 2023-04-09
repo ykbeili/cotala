@@ -203,11 +203,18 @@
   document.addEventListener("turbolinks:load", function() {
     $('.modal-link').on("click", function() {
       const modalId = $(this)[0].id.replace('_link','');
-      console.log(modalId, 'modalId')
       $(`#${modalId}`).modal('show')
     })
     $('#images_modal_link').on("click", function() {
       $('#images_modal').modal('show')
     });
+    $('.theme-step-button').on("click", function(e) {
+      const allImages = $('.modal-link').find('img');
+      const lengthOfUnselectedImages = allImages.filter((key, value) => !value.src.includes('cotala')).length
+      if(lengthOfUnselectedImages > 0) {
+        e.preventDefault();
+        alert('You must select all images');
+      };
+    })
   })
 </script>
