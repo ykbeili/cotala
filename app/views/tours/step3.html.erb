@@ -22,3 +22,23 @@
     </div>
   </div>
 </section>
+<script>
+  selectedImages = <%= raw [@tour.second_image,@tour.first_image.present? ? @tour.first_image : '', @tour.third_image, @tour.fourth_image,
+                            @tour.fifth_image,@tour.sixth_image,@tour.seventh_image, @tour.eighth_image, @tour.ninth_image, 
+                            @tour.tenth_image, @tour.eleventh_image, @tour.twelfth_image, @tour.thirteenth_image,
+                            @tour.fourteenth_image, @tour.fifteenth_image] %>;
+  document.addEventListener("turbolinks:load", function() {
+    $('.btn-primary').on("click", function(e) {
+      const lengthOfUnselectedImages = selectedImages.filter((image) => image === '').length
+      if(lengthOfUnselectedImages > 0) {
+        e.preventDefault();
+        alert('You must select all images from step2 and step1');
+        $(this)[0].removeAttribute('data-disable-with');
+      } else {
+        if(!$(this)[0].hasAttribute('data-disable-with')) {
+          $(this)[0].addAttribute('data-disable-with');
+        }
+      }
+    })
+  })
+</script>
