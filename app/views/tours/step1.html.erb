@@ -6,9 +6,14 @@
         Use the layout below to modify photos and / or information by clicking on the different elements. You will be able to review the final output in the last step.
         <small class="text-muted <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">(note that the display is approximate)</small>
       </h5>
+      <div class="row py-5" style="border: 1px solid gray">
       <div class="col-6" style="padding-top: 50px">
       <% if Faraday.head("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/Floorplan_Branded.jpg").status == 200 %>
-        <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/Floorplan_Branded.jpg", style: 'width: 100%; padding-right: 20px' %>
+        <% if @tour.floorplan_orientation == 'vertical' %>
+          <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/Floorplan_Branded.jpg", style: 'width: 100%; padding-right: 20px' %>
+        <% else %>
+          <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/Floorplan_Branded.jpg", style: 'width: 100%; padding-right: 20px; transform: rotate(90deg); margin-top: 60px' %>
+        <% end %>
       <% else %>
         <%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/FullPublic.jpg", style: 'width: 100%; padding-right: 20px' %>
       <% end %>
@@ -26,9 +31,9 @@
         <div class="row no-gutters">
           <div class="col-12">
           <% if @tour.first_image.nil? || @tour.first_image == '' %>
-            <a id="first_image_modal_link" class="text-decoration-underline modal-link first-image"><img class="card-img-top" src="<%= asset_path('placeholder-image.png') %>" alt="Card image cap"></a>
+            <a id="first_image_modal_link" class="text-decoration-underline modal-link first-image"><img class="card-img-top" style="width: 537.938px; height: 358.625px" src="<%= asset_path('placeholder-image.png') %>" alt="Card image cap"></a>
           <% else %>
-            <a id="first_image_modal_link" class="text-decoration-underline modal-link first-image"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}", style: 'width: 100%' %></a>
+            <a id="first_image_modal_link" class="text-decoration-underline modal-link first-image"><%= image_tag "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}", style: 'width: 537.938px; height: 358.625px' %></a>
           <% end %>
           </div>
         </div>
@@ -50,6 +55,7 @@
           </div>
           </div>
         </div>
+      </div>
       </div>
     </div>
     <div class="row no-gutters text-center mt-5">

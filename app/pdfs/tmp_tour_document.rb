@@ -39,7 +39,7 @@ class TmpTourDocument < Prawn::Document
     font_size 16
     text_box @tour.listing_address.upcase.to_s, at: [675, 720]
     if floor_plan.include? "FullPublic"
-      image open("https://www.cotala.com/tours/67805/Floorplan_Branded.jpg"), fit: [750, 750], at: [26.75, 775]
+      image open(floor_plan), fit: [750, 750], at: [26.75, 775]
     else
       if @tour.floorplan_orientation == 'vertical'
         image open(floor_plan), fit: [750, 750], at: [26.75, 775]
@@ -50,8 +50,6 @@ class TmpTourDocument < Prawn::Document
       end
     end
     first_image = rename_image(@tour.first_image)
-    p first_image
-    p 'first_image'
     image open("https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{first_image}"),
           width: 550, height: 500, at: [642, 660]
     if agent_headshot_url

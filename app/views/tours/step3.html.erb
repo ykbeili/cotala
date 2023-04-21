@@ -2,23 +2,27 @@
 <section class="section mb-5" data-turbolinks="false">
   <div class="container p-0 m-0">
     <div class="row gx-4">
-      <div class="card col-5 px-0" >
-        <img src="<%= @tour.first_image.present? ? "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}" : '' %>" class="card-img-top" alt="...">
+    <div class="col-2"></div>
+      <div class="card col-8 px-0" >
+        <div class="row justify-content-center">
+        <img class="card-img-top ml-5" style="width:50%" src="<%= asset_path('pdf.png') %>"/>
+        </div>
         <div class="card-body">
-          <h5 class="card-title">Preview PDF</h5>
-          <p class="card-text">Take a sneak peek of your brochure before you approve it for printing.</p>
-          <%= link_to "Preview", preview_path(:tour_id => @tour.id), class:'btn btn-primary w-100', :data => {disable_with: "Previewing PDF ..."} %>
+          <h5 class="card-title">PROOF REVIEW AND APPROVAL</h5>
+          <p class="card-text">Please be sure to preview your proof before giving your approval. We cannot be held responsible for printed issues once approved.</p>
+          <div class="row">
+            <div class="col-6">
+              <%= link_to "PREVIEW", preview_path(:tour_id => @tour.id), class:'btn btn-primary w-100', :data => {disable_with: "Previewing PDF ..."} %>
+            </div>
+            <div class="col-6">
+              <%= link_to "NEXT STEP", create_path(:tour_id => @tour.id), class:'btn btn-primary w-100', :data => {disable_with: "Generating PDF ..."} %>
+            </div>
+          </div>
+
         </div>
       </div>
-      <div class="col-2"></div>
-      <div class="card col-5 px-0" >
-        <img src="<%= @tour.first_image.present? ? "https://www.cotala.com/tours/#{@tour.cotala_tour_id}/#{@tour.cotala_tour_id}_#{@tour.first_image}" : '' %>" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Approve PDF</h5>
-          <p class="card-text">Now that you're satisfied with the design and content, it's time to give your final approval for printing.</p>
-        <%= link_to "Approve for Printing", create_path(:tour_id => @tour.id), class:'btn btn-primary w-100', :data => {disable_with: "Generating PDF ..."} %>
-        </div>
-      </div>
+          <div class="col-2"></div>
+
     </div>
   </div>
 </section>
