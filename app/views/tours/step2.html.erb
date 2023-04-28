@@ -20,7 +20,7 @@
           <div class="col-3 px-0">
             <span id="lot_modal_link" style="font-size: 12px"class="text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">
               <% if @tour.lot_or_maint == true%>
-              LOT <%= @tour.lot_maint %> SF
+              LOT <%= @tour.lot_maint %>
               <% else %>
               MAINT $<%= @tour.lot_maint %>
               <% end %>
@@ -28,7 +28,7 @@
           </div>
           <div class="col-3 px-0">
             <span id="size_modal_link" style="font-size: 12px"class="text-decoration-underline modal-link <%= @tour.selected_theme == 'dark' ? 'text-white' : ''%>">
-              SIZE <strong class="ms-3"><%= @tour.size %> SF</strong>
+              SIZE <strong class="ms-3"><%= @tour.size %></strong>
             </span>
           </div>
           <div class="col-2 px-0 text-center">

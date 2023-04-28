@@ -5,8 +5,6 @@ class TourDocumentJob < ApplicationJob
 
   def perform(id)
     @tour = Tour.find id
-    p @tour
-    p '@tour'
     @pdf = TourDocument.new(@tour)
     ftp = Net::FTP.new(FTP_LINK)
     ftp.login('tam@cotala.com', 'B*22?Rpdlen+')
