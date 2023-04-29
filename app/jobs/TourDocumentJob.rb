@@ -11,6 +11,7 @@ class TourDocumentJob < ApplicationJob
     file_path = "#{Rails.root}/tmp/#{@tour.agent_name}-#{@tour.cotala_tour_id}.pdf"
     @pdf.render_file file_path
     version = @tour.version || 2
-    ftp.putbinaryfile(file_path, "#{@tour.print_job_id}/#{@tour.print_job_id}-#{version}-b.pdf")
+    ftp.putbinaryfile(file_path, "#{@tour.print_job_id}-test/#{@tour.print_job_id}-#{version}-b.pdf")
+    ftp.close
   end
 end
