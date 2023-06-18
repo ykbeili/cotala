@@ -3,6 +3,12 @@ class TourDetailsController < ApplicationController
 
   def update
     # case params[:type]
+    if tour_params[:price].present?
+      new_price = tour_params[:price].to_s.gsub(',', '').to_i
+      @tour.update(price: new_price)
+      render params[:type]
+      return
+    end
     @tour.update(tour_params)
     render params[:type]
   end

@@ -1,2 +1,2 @@
 $('#price_modal').modal('hide');
-$("#price_modal_link").html("<%= @tour.price %>");
+$("#price_modal_link").html("LISTED FOR <%= number_with_delimiter(@tour.price) %>");

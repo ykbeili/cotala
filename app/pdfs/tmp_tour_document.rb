@@ -12,14 +12,14 @@ class TmpTourDocument < Prawn::Document
       :black => Rails.root.join("app/assets/fonts/Mulish-Black.ttf").to_s
     })
     @tour = tour
-    bounding_box([35, 835], width: 140, height: 30) do
-      fill_color '981c1e'
-      fill_rectangle [0, 30], 140, 30
-      text "<link href='/tours/step3?tour_id=#{@tour.id}'
-            >BACK TO STEP 3</link>",
-            inline_format: true, size: 12, color: 'FFFFFF',
-            valign: :center, align: :center
-    end
+    # bounding_box([35, 835], width: 140, height: 30) do
+    #   fill_color '981c1e'
+    #   fill_rectangle [0, 30], 140, 30
+    #   text "<link href='/tours/step3?tour_id=#{@tour.id}'
+    #         >BACK TO STEP 3</link>",
+    #         inline_format: true, size: 12, color: 'FFFFFF',
+    #         valign: :center, align: :center
+    # end
     first_page
     start_new_page
     second_page
